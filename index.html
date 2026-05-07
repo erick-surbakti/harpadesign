@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liquid Flow Portfolio</title>
+    <style>
+        /* CSS STYLES */
+        :root {
+            --bg-color: #0a0b0d;
+            --accent-blue: #3a86ff;
+            --soft-gray: #a0a0a0;
+            --glass-white: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: white;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            overflow: hidden; /* Prevent scrolling */
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        /* Content layer */
+        .content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            pointer-events: none; /* Allow mouse events to pass to canvas */
+            max-width: 800px;
+            padding: 2rem;
+            background: radial-gradient(circle, rgba(10, 11, 13, 0.4) 0%, transparent 80%);
+            backdrop-filter: blur(2px);
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 200;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+            color: #ffffff;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: var(--soft-gray);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Background Grain Overlay */
+        .overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://grainy-gradients.vercel.app/noise.svg');
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 5;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="canvas-container">
+        <canvas id="liquidCanvas"></canvas>
+    </div>
+
+    <div class="overlay"></div>
+
+    <main class="content">
+        <h1>FLUIDITY</h1>
+        <p>Premium Interactive Experience</p>
+    </main>
+
+    <script>
+        /** 
+         * JAVASCRIPT LIQUID ENGINE
+         */
+        const canvas = document.getElementById('liquidCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let width, height;
+        let points = [];
+        const pointer = { x: 0, y: 0, active: false, velocityX: 0, velocityY: 0 };
+        const totalPoints = 25; // Length of the water trail
+        
+        // Configuration
+        const config = {
+            trailColor: 'rgba(58, 134, 255, 0.4)', // Blue glow
+            trailWidth: 15,
+            friction: 0.5,
+            spring: 0.15,
+            gravity: 0.05,
+            ambientParticles: 40
+        };
+
+        class Point {
+            constructor(index) {
+                this.x = pointer.x;
+                this.y = pointer.y;
+                this.vx = 0;
+                this.vy = 0;
+            }
+
+            update(targetX, targetY) {
+                // Spring physics for smooth liquid following
+                this.vx += (targetX - this.x) * config.spring;
+                this.vy += (targetY - this.y) * config.spring;
+                
+                this.vx *= config.friction;
+                this.vy *= config.friction;
+                
+                this.x += this.vx;
+                this.y += this.vy;
+            }
+        }
+
+        class Particle {
+            constructor(isAmbient = false) {
+                this.reset(isAmbient);
+            }
+
+            reset(isAmbient) {
+                this.x = isAmbient ? Math.random() * width : pointer.x;
+                this.y = isAmbient ? Math.random() * height : pointer.y;
+                this.vx = (Math.random() - 0.5) * (isAmbient ? 0.5 : 5);
+                this.vy = (Math.random() - 0.5) * (isAmbient ? 0.5 : 5);
+                this.life = isAmbient ? 1 : Math.random() * 0.5 + 0.5;
+                this.size = Math.random() * (isAmbient ? 1.5 : 3);
+                this.isAmbient = isAmbient;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(160, 160, 160, ${this.life * 0.3})`;
+                ctx.fill();
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                if (!this.isAmbient) {
+                    this.life -= 0.01;
+                } else {
+                    // Wrap ambient particles
+                    if (this.x < 0) this.x = width;
+                    if (this.x > width) this.x = 0;
+                    if (this.y < 0) this.y = height;
+                    if (this.y > height) this.y = 0;
+                }
+
+                if (this.life <= 0) this.reset(false);
+            }
+        }
+
+        const ambientParticles = [];
+        const droplets = [];
+
+        function init() {
+            resize();
+            
+            // Create points for the trail
+            points = [];
+            for (let i = 0; i < totalPoints; i++) {
+                points.push(new Point(i));
+            }
+
+            // Create ambient background particles
+            for (let i = 0; i < config.ambientParticles; i++) {
+                ambientParticles.push(new Particle(true));
+            }
+
+            // Listeners
+            window.addEventListener('resize', resize);
+            window.addEventListener('mousemove', (e) => {
+                pointer.velocityX = e.clientX - pointer.x;
+                pointer.velocityY = e.clientY - pointer.y;
+                pointer.x = e.clientX;
+                pointer.y = e.clientY;
+                pointer.active = true;
+
+                // Burst particles on fast move
+                if (Math.abs(pointer.velocityX) > 15 || Math.abs(pointer.velocityY) > 15) {
+                    spawnDroplets(2);
+                }
+            });
+
+            animate();
+        }
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        function spawnDroplets(count) {
+            for(let i = 0; i < count; i++) {
+                if(droplets.length < 100) droplets.push(new Particle(false));
+            }
+        }
+
+        function drawTrail() {
+            let liveX = pointer.x;
+            let liveY = pointer.y;
+
+            // Update physics points
+            points.forEach((p, index) => {
+                p.update(liveX, liveY);
+                liveX = p.x;
+                liveY = p.y;
+            });
+
+            // Draw Liquid Trail
+            ctx.beginPath();
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+
+            // Shadow/Glow effect
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = config.trailColor;
+
+            for (let i = 1; i < points.length; i++) {
+                const p1 = points[i - 1];
+                const p2 = points[i];
+                
+                // Calculate size based on velocity and position (stretching)
+                const dist = Math.hypot(p1.vx, p1.vy);
+                const size = Math.max(2, config.trailWidth - (i * 0.5) + (dist * 0.2));
+                
+                // Use Gradient for trail
+                const grad = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
+                const alpha = 1 - (i / totalPoints);
+                grad.addColorStop(0, `rgba(58, 134, 255, ${alpha * 0.6})`);
+                grad.addColorStop(1, `rgba(120, 120, 130, ${alpha * 0.2})`);
+
+                ctx.strokeStyle = grad;
+                ctx.lineWidth = size;
+
+                ctx.beginPath();
+                ctx.moveTo(p1.x, p1.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.stroke();
+            }
+            
+            ctx.shadowBlur = 0; // Reset for performance
+        }
+
+        function animate() {
+            // Slight trails with clearRect alpha to create "smoke/fade"
+            ctx.fillStyle = 'rgba(10, 11, 13, 0.15)';
+            ctx.fillRect(0, 0, width, height);
+
+            // Draw Ambient Particles
+            ambientParticles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            // Draw Droplets
+            for (let i = droplets.length - 1; i >= 0; i--) {
+                droplets[i].update();
+                droplets[i].draw();
+                if (droplets[i].life <= 0) droplets.splice(i, 1);
+            }
+
+            drawTrail();
+
+            requestAnimationFrame(animate);
+        }
+
+        init();
+    </script>
+</body>
+</html>
