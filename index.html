@@ -3,176 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AETHER | Liquid Motion</title>
+    <title>Liquid Glass | Premium Experience</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;800&display=swap');
+
         :root {
-            --bg: #050505;
-            --text: #ffffff;
-            --accent-1: #ffcf00; /* Yellow */
-            --accent-2: #ff3e3e; /* Red */
+            --bg: #030303;
+            --accent-yellow: #ffcc00;
+            --accent-red: #ff3300;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Inter', -apple-system, sans-serif;
+            color: white;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             overflow: hidden;
             height: 100vh;
         }
 
-        /* UI Layer */
-        .interface {
-            position: relative;
-            z-index: 10;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            pointer-events: none;
-            text-align: center;
-        }
-
-        .logo {
-            position: absolute;
-            top: 40px;
-            font-weight: 900;
-            letter-spacing: 10px;
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        h1 {
-            font-size: clamp(4rem, 15vw, 10rem);
-            font-weight: 800;
-            letter-spacing: -2px;
-            margin: 0;
-            line-height: 0.8;
-            mix-blend-mode: difference; /* Makes text react to the water color */
-        }
-
-        .tagline {
-            margin-top: 20px;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            color: var(--accent-1);
-        }
-
-        /* Canvas Setup */
-        #canvas-container {
+        /* The Liquid Canvas */
+        #canvas-wrapper {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             z-index: 1;
-            background: radial-gradient(circle at center, #111 0%, #050505 100%);
+            /* Creates the "watery" blending of colors */
+            filter: blur(40px) contrast(150%);
         }
 
-        canvas {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
+        canvas { display: block; width: 100%; height: 100%; }
 
-        /* Visual Noise for Premium Feel */
-        .grain {
+        /* --- GLASSMORPHISM UI --- */
+        .glass-overlay {
             position: fixed;
             inset: 0;
             z-index: 5;
-            opacity: 0.05;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 100%);
             pointer-events: none;
-            background: url('https://grainy-gradients.vercel.app/noise.svg');
+        }
+
+        main {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            padding: 60px 80px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            max-width: 600px;
+            /* Interaction: moves slightly with mouse (via JS) */
+            transition: transform 0.1s ease-out;
+        }
+
+        .category {
+            font-size: 0.7rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--accent-yellow);
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 200;
+            letter-spacing: -2px;
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+
+        h1 b { font-weight: 800; }
+
+        p {
+            color: rgba(255,255,255,0.5);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 30px;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .btn:hover {
+            background: white;
+            color: black;
+        }
+
+        /* Subtle Grain */
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+            opacity: 0.05;
+            z-index: 20;
+            pointer-events: none;
         }
     </style>
 </head>
 <body>
 
-    <div class="grain"></div>
-
-    <div class="interface">
-        <div class="logo">AETHER ARTIFACTS</div>
-        <h1>FLOW</h1>
-        <div class="tagline">Interactive Fluid Dynamics</div>
+    <div id="canvas-wrapper">
+        <canvas id="liquidCanvas"></canvas>
     </div>
 
-    <div id="canvas-container">
-        <canvas id="waterCanvas"></canvas>
-    </div>
+    <div class="glass-overlay"></div>
+
+    <main>
+        <div class="glass-card" id="card">
+            <div class="category">Interactive Design</div>
+            <h1>LIQUID <b>GOLD</b></h1>
+            <p>A cinematic interactive experience built with vanilla JavaScript. Move your cursor to disturb the molten flow beneath the surface.</p>
+            <a href="#" class="btn">EXPLORE WORK</a>
+        </div>
+    </main>
 
     <script>
-        /**
-         * LIQUID WATER DISPLACEMENT ENGINE
-         */
-        const canvas = document.getElementById('waterCanvas');
-        const ctx = canvas.getContext('2d', { alpha: false });
+        const canvas = document.getElementById('liquidCanvas');
+        const ctx = canvas.getContext('2d');
+        const card = document.getElementById('card');
 
         let width, height;
-        let ripples = [];
-        const maxRipples = 100;
-        
-        // Mouse State
-        const mouse = { x: 0, y: 0, vX: 0, vY: 0, oldX: 0, oldY: 0 };
-
-        class Ripple {
-            constructor(x, y, v) {
-                this.x = x;
-                this.y = y;
-                this.v = v; // Velocity/Strength
-                this.r = 2; // Radius
-                this.alpha = 1;
-                this.life = 1.0;
-            }
-
-            update() {
-                this.r += 4; // Expansion speed
-                this.life *= 0.96; // Fade speed
-                this.alpha = this.life;
-            }
-
-            draw() {
-                // We draw the "pressure" into the canvas
-                const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r);
-                
-                // Colors: Yellow core, Red outer ripple
-                const r = 255;
-                const g = Math.floor(62 + (this.life * 150)); // Fade from yellow to red
-                const b = 62;
-
-                gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${this.alpha * 0.4})`);
-                gradient.addColorStop(1, `rgba(${r}, 62, 62, 0)`);
-
-                ctx.beginPath();
-                ctx.fillStyle = gradient;
-                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
+        let points = [];
+        const mouse = { x: 0, y: 0, active: false, vX: 0, vY: 0 };
+        const pointCount = 35; // Trail length
 
         function init() {
             resize();
-            window.addEventListener('resize', resize);
+            for (let i = 0; i < pointCount; i++) {
+                points.push({ x: width/2, y: height/2, vX: 0, vY: 0 });
+            }
             
+            window.addEventListener('resize', resize);
             window.addEventListener('mousemove', (e) => {
+                mouse.vX = e.clientX - mouse.x;
+                mouse.vY = e.clientY - mouse.y;
                 mouse.x = e.clientX;
                 mouse.y = e.clientY;
-                
-                // Calculate velocity for "splash" intensity
-                mouse.vX = Math.abs(mouse.x - mouse.oldX);
-                mouse.vY = Math.abs(mouse.y - mouse.oldY);
-                const speed = Math.sqrt(mouse.vX**2 + mouse.vY**2);
+                mouse.active = true;
 
-                if (speed > 2) {
-                    ripples.push(new Ripple(mouse.x, mouse.y, speed));
-                }
-
-                if (ripples.length > maxRipples) ripples.shift();
-                
-                mouse.oldX = mouse.x;
-                mouse.oldY = mouse.y;
+                // Subtle card tilt for premium feel
+                const xTilt = (window.innerWidth / 2 - e.clientX) / 50;
+                const yTilt = (window.innerHeight / 2 - e.clientY) / 50;
+                card.style.transform = `rotateY(${xTilt}deg) rotateX(${yTilt}deg)`;
             });
 
             animate();
@@ -184,42 +181,41 @@
         }
 
         function animate() {
-            // 1. Create the "trailing" water effect by not fully clearing the frame
-            // This creates the liquid "smear"
-            ctx.fillStyle = 'rgba(5, 5, 5, 0.1)'; 
+            // We don't clear fully to create the "viscous smear"
+            ctx.fillStyle = 'rgba(3, 3, 3, 0.08)';
             ctx.fillRect(0, 0, width, height);
 
-            // 2. Add subtle wave distortion logic (Blur simulation)
-            ctx.globalCompositeOperation = 'screen'; 
+            let leaderX = mouse.x;
+            let leaderY = mouse.y;
 
-            for (let i = ripples.length - 1; i >= 0; i--) {
-                const r = ripples[i];
-                r.update();
-                r.draw();
-                
-                if (r.life < 0.01) {
-                    ripples.splice(i, 1);
+            points.forEach((p, i) => {
+                // Physics: Each point follows the one before it with easing
+                const easing = 0.25 - (i * 0.005);
+                p.x += (leaderX - p.x) * easing;
+                p.y += (leaderY - p.y) * easing;
+
+                // Draw the "liquid" segment
+                const size = 100 - (i * 2.5);
+                if (size > 0) {
+                    const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, size);
+                    
+                    // The "Yellow/Red" Molten mix
+                    const opacity = (1 - i / pointCount) * 0.8;
+                    gradient.addColorStop(0, `rgba(255, 204, 0, ${opacity})`); // Gold
+                    gradient.addColorStop(0.5, `rgba(255, 51, 0, ${opacity * 0.5})`); // Fire Red
+                    gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+                    ctx.beginPath();
+                    ctx.fillStyle = gradient;
+                    ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
+                    ctx.fill();
                 }
-            }
 
-            // 3. Ambient floating "mist"
-            ctx.globalCompositeOperation = 'source-over';
-            drawAmbient();
+                leaderX = p.x;
+                leaderY = p.y;
+            });
 
             requestAnimationFrame(animate);
-        }
-
-        function drawAmbient() {
-            // Very subtle ambient light
-            const time = Date.now() * 0.001;
-            const grad = ctx.createRadialGradient(
-                width/2 + Math.sin(time)*100, height/2 + Math.cos(time)*100, 0,
-                width/2, height/2, width
-            );
-            grad.addColorStop(0, 'rgba(255, 62, 62, 0.03)');
-            grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-            ctx.fillStyle = grad;
-            ctx.fillRect(0, 0, width, height);
         }
 
         init();
