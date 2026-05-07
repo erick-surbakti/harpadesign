@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liquid Flow Portfolio</title>
+    <title>AETHER | Premium Creative Studio</title>
     <style>
-        /* CSS STYLES */
+        /* --- DESIGN SYSTEM --- */
         :root {
-            --bg-color: #0a0b0d;
-            --accent-blue: #3a86ff;
-            --soft-gray: #a0a0a0;
-            --glass-white: rgba(255, 255, 255, 0.05);
+            --bg-color: #080808;
+            --primary-yellow: #ffcf00;
+            --primary-red: #ff3e3e;
+            --text-main: #ffffff;
+            --text-dim: rgba(255, 255, 255, 0.6);
+            --font-sans: 'Inter', -apple-system, sans-serif;
         }
 
         * {
@@ -21,193 +23,212 @@
 
         body {
             background-color: var(--bg-color);
-            color: white;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            overflow: hidden; /* Prevent scrolling */
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            overflow: hidden; /* Lock scroll for the experience */
             height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
-        #canvas-container {
+        /* --- CANVAS & LIQUID FILTER --- */
+        #canvas-wrapper {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 1;
+            /* The "Magic" Liquid Filter: Blurs everything together then sharpens alpha */
+            filter: url("#gooey"); 
         }
 
         canvas {
             display: block;
         }
 
-        /* Content layer */
-        .content {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            pointer-events: none; /* Allow mouse events to pass to canvas */
-            max-width: 800px;
-            padding: 2rem;
-            background: radial-gradient(circle, rgba(10, 11, 13, 0.4) 0%, transparent 80%);
-            backdrop-filter: blur(2px);
+        /* --- UI LAYER --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 40px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
         }
 
-        h1 {
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            font-weight: 200;
-            letter-spacing: -1px;
-            margin-bottom: 1rem;
-            color: #ffffff;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        p {
-            font-size: 1.1rem;
-            color: var(--soft-gray);
-            letter-spacing: 2px;
+        .logo {
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: 4px;
             text-transform: uppercase;
         }
 
-        /* Background Grain Overlay */
-        .overlay {
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 500;
+        }
+
+        .nav-links span {
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links span:hover {
+            color: var(--primary-yellow);
+        }
+
+        main {
+            position: relative;
+            z-index: 10;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none; /* Let mouse through to canvas */
+        }
+
+        .hero-content {
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(3rem, 12vw, 9rem);
+            font-weight: 900;
+            line-height: 0.9;
+            margin-bottom: 20px;
+            background: linear-gradient(to bottom, #fff 40%, rgba(255,255,255,0.2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            font-size: 1rem;
+            color: var(--text-dim);
+            letter-spacing: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .footer-info {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://grainy-gradients.vercel.app/noise.svg');
-            opacity: 0.03;
-            pointer-events: none;
+            bottom: 40px;
+            width: 100%;
+            padding: 0 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            z-index: 100;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+        }
+
+        .noise-overlay {
+            position: fixed;
+            inset: 0;
             z-index: 5;
+            opacity: 0.04;
+            pointer-events: none;
+            background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+        }
+
+        /* --- SVG FILTER DEFINITION (Hidden) --- */
+        svg {
+            position: absolute;
+            width: 0;
+            height: 0;
         }
     </style>
 </head>
 <body>
 
-    <div id="canvas-container">
+    <!-- SVG Gooey Filter for Liquid Effect -->
+    <svg>
+        <defs>
+            <filter id="gooey">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="15" result="blur" />
+                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 25 -10" result="goo" />
+                <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+            </filter>
+        </defs>
+    </svg>
+
+    <div class="noise-overlay"></div>
+
+    <nav>
+        <div class="logo">AETHER</div>
+        <div class="nav-links">
+            <span>Work</span>
+            <span>About</span>
+            <span>Contact</span>
+        </div>
+    </nav>
+
+    <div id="canvas-wrapper">
         <canvas id="liquidCanvas"></canvas>
     </div>
 
-    <div class="overlay"></div>
-
-    <main class="content">
-        <h1>FLUIDITY</h1>
-        <p>Premium Interactive Experience</p>
+    <main>
+        <div class="hero-content">
+            <p>Digital Artifacts</p>
+            <h1>MOLTEN</h1>
+        </div>
     </main>
 
+    <div class="footer-info">
+        <div>© 2026 CREATIVE ARTIFACTS<br>ALL RIGHTS RESERVED</div>
+        <div>STAY FLUID // STAY BOLD</div>
+    </div>
+
     <script>
-        /** 
-         * JAVASCRIPT LIQUID ENGINE
-         */
         const canvas = document.getElementById('liquidCanvas');
         const ctx = canvas.getContext('2d');
 
         let width, height;
         let points = [];
-        const pointer = { x: 0, y: 0, active: false, velocityX: 0, velocityY: 0 };
-        const totalPoints = 25; // Length of the water trail
-        
-        // Configuration
-        const config = {
-            trailColor: 'rgba(58, 134, 255, 0.4)', // Blue glow
-            trailWidth: 15,
-            friction: 0.5,
-            spring: 0.15,
-            gravity: 0.05,
-            ambientParticles: 40
+        const mouse = { x: 0, y: 0, active: false };
+        const history = []; // Stores recent mouse positions for the trail
+        const limit = 40;   // Length of the trail
+
+        // Liquid Dynamics Settings
+        const settings = {
+            friction: 0.8,
+            spring: 0.2,
+            gravity: 0.1,
+            size: 45
         };
 
         class Point {
             constructor(index) {
-                this.x = pointer.x;
-                this.y = pointer.y;
+                this.x = 0;
+                this.y = 0;
                 this.vx = 0;
                 this.vy = 0;
             }
-
-            update(targetX, targetY) {
-                // Spring physics for smooth liquid following
-                this.vx += (targetX - this.x) * config.spring;
-                this.vy += (targetY - this.y) * config.spring;
-                
-                this.vx *= config.friction;
-                this.vy *= config.friction;
-                
-                this.x += this.vx;
-                this.y += this.vy;
-            }
         }
-
-        class Particle {
-            constructor(isAmbient = false) {
-                this.reset(isAmbient);
-            }
-
-            reset(isAmbient) {
-                this.x = isAmbient ? Math.random() * width : pointer.x;
-                this.y = isAmbient ? Math.random() * height : pointer.y;
-                this.vx = (Math.random() - 0.5) * (isAmbient ? 0.5 : 5);
-                this.vy = (Math.random() - 0.5) * (isAmbient ? 0.5 : 5);
-                this.life = isAmbient ? 1 : Math.random() * 0.5 + 0.5;
-                this.size = Math.random() * (isAmbient ? 1.5 : 3);
-                this.isAmbient = isAmbient;
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(160, 160, 160, ${this.life * 0.3})`;
-                ctx.fill();
-            }
-
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                
-                if (!this.isAmbient) {
-                    this.life -= 0.01;
-                } else {
-                    // Wrap ambient particles
-                    if (this.x < 0) this.x = width;
-                    if (this.x > width) this.x = 0;
-                    if (this.y < 0) this.y = height;
-                    if (this.y > height) this.y = 0;
-                }
-
-                if (this.life <= 0) this.reset(false);
-            }
-        }
-
-        const ambientParticles = [];
-        const droplets = [];
 
         function init() {
             resize();
-            
-            // Create points for the trail
-            points = [];
-            for (let i = 0; i < totalPoints; i++) {
+            for (let i = 0; i < limit; i++) {
                 points.push(new Point(i));
             }
-
-            // Create ambient background particles
-            for (let i = 0; i < config.ambientParticles; i++) {
-                ambientParticles.push(new Particle(true));
-            }
-
-            // Listeners
+            
             window.addEventListener('resize', resize);
             window.addEventListener('mousemove', (e) => {
-                pointer.velocityX = e.clientX - pointer.x;
-                pointer.velocityY = e.clientY - pointer.y;
-                pointer.x = e.clientX;
-                pointer.y = e.clientY;
-                pointer.active = true;
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+                mouse.active = true;
+            });
 
-                // Burst particles on fast move
-                if (Math.abs(pointer.velocityX) > 15 || Math.abs(pointer.velocityY) > 15) {
-                    spawnDroplets(2);
-                }
+            // Touch support
+            window.addEventListener('touchmove', (e) => {
+                mouse.x = e.touches[0].clientX;
+                mouse.y = e.touches[0].clientY;
+                mouse.active = true;
             });
 
             animate();
@@ -218,77 +239,44 @@
             height = canvas.height = window.innerHeight;
         }
 
-        function spawnDroplets(count) {
-            for(let i = 0; i < count; i++) {
-                if(droplets.length < 100) droplets.push(new Particle(false));
-            }
-        }
-
-        function drawTrail() {
-            let liveX = pointer.x;
-            let liveY = pointer.y;
-
-            // Update physics points
-            points.forEach((p, index) => {
-                p.update(liveX, liveY);
-                liveX = p.x;
-                liveY = p.y;
-            });
-
-            // Draw Liquid Trail
-            ctx.beginPath();
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
-
-            // Shadow/Glow effect
-            ctx.shadowBlur = 15;
-            ctx.shadowColor = config.trailColor;
-
-            for (let i = 1; i < points.length; i++) {
-                const p1 = points[i - 1];
-                const p2 = points[i];
-                
-                // Calculate size based on velocity and position (stretching)
-                const dist = Math.hypot(p1.vx, p1.vy);
-                const size = Math.max(2, config.trailWidth - (i * 0.5) + (dist * 0.2));
-                
-                // Use Gradient for trail
-                const grad = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
-                const alpha = 1 - (i / totalPoints);
-                grad.addColorStop(0, `rgba(58, 134, 255, ${alpha * 0.6})`);
-                grad.addColorStop(1, `rgba(120, 120, 130, ${alpha * 0.2})`);
-
-                ctx.strokeStyle = grad;
-                ctx.lineWidth = size;
-
-                ctx.beginPath();
-                ctx.moveTo(p1.x, p1.y);
-                ctx.lineTo(p2.x, p2.y);
-                ctx.stroke();
-            }
-            
-            ctx.shadowBlur = 0; // Reset for performance
-        }
-
         function animate() {
-            // Slight trails with clearRect alpha to create "smoke/fade"
-            ctx.fillStyle = 'rgba(10, 11, 13, 0.15)';
-            ctx.fillRect(0, 0, width, height);
+            // Clear with slight fade for trail dissipation
+            ctx.clearRect(0, 0, width, height);
 
-            // Draw Ambient Particles
-            ambientParticles.forEach(p => {
-                p.update();
-                p.draw();
+            let targetX = mouse.x;
+            let targetY = mouse.y;
+
+            // Update each point to follow the one before it
+            points.forEach((p, i) => {
+                p.vx += (targetX - p.x) * settings.spring;
+                p.vy += (targetY - p.y) * settings.spring;
+                p.vx *= settings.friction;
+                p.vy *= settings.friction;
+
+                p.x += p.vx;
+                p.y += p.vy;
+
+                // The next point follows this one
+                targetX = p.x;
+                targetY = p.y;
+
+                // Draw liquid circles
+                // Size tapers off at the end of the trail
+                const size = Math.max(0, settings.size - (i * 1.1));
+                
+                if (size > 0) {
+                    // Modern Yellow to Red Gradient
+                    const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, size);
+                    gradient.addColorStop(0, '#ffcf00'); // Yellow
+                    gradient.addColorStop(0.6, '#ff3e3e'); // Red
+                    gradient.addColorStop(1, 'rgba(255, 62, 62, 0)'); // Fade
+
+                    ctx.beginPath();
+                    ctx.fillStyle = gradient;
+                    ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
             });
-
-            // Draw Droplets
-            for (let i = droplets.length - 1; i >= 0; i--) {
-                droplets[i].update();
-                droplets[i].draw();
-                if (droplets[i].life <= 0) droplets.splice(i, 1);
-            }
-
-            drawTrail();
 
             requestAnimationFrame(animate);
         }
