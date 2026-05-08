@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
@@ -12,6 +12,7 @@ import {
   SheetClose,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const NAV_ITEMS = [
   { name: "Story", href: "/story" },
@@ -54,10 +55,6 @@ export function Navigation() {
               ))}
             </div>
           </div>
-          <div className="flex items-center gap-4 text-foreground/20 text-[9px] font-bold uppercase tracking-widest">
-            <Globe className="w-3 h-3 text-accent" />
-            <span>Depok, IDN</span>
-          </div>
         </div>
       </nav>
 
@@ -72,37 +69,39 @@ export function Navigation() {
           <SheetTrigger asChild>
             <button 
               suppressHydrationWarning
-              className="w-14 h-14 rounded-2xl bg-black/50 border border-white/10 flex items-center justify-center backdrop-blur-xl shadow-2xl"
+              className="w-12 h-12 rounded-2xl bg-black/50 border border-white/10 flex items-center justify-center backdrop-blur-xl shadow-2xl"
             >
-              <Menu className="w-6 h-6 text-primary" />
+              <Menu className="w-5 h-5 text-primary" />
             </button>
           </SheetTrigger>
           <SheetContent side="right" className="bg-background/95 backdrop-blur-3xl border-l border-white/5 w-full p-0 flex flex-col">
-            <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+            <SheetTitle className="sr-only">Studio Menu</SheetTitle>
             
-            <div className="p-10 flex justify-end">
+            <div className="p-8 flex justify-end">
               <SheetClose asChild>
                 <button suppressHydrationWarning className="p-2 hover:text-primary transition-colors">
-                  <X className="w-8 h-8 text-foreground/40" />
+                  <X className="w-8 h-8 text-foreground/20" />
                 </button>
               </SheetClose>
             </div>
             
-            <div className="flex-1 overflow-y-auto px-10 pb-20 flex flex-col gap-8 hide-scrollbar">
-              {NAV_ITEMS.map((item) => (
-                <SheetClose asChild key={item.name}>
-                  <Link
-                    href={item.href}
-                    className={cn(
-                      "text-6xl font-headline italic transition-all block",
-                      pathname.startsWith(item.href) ? "text-primary" : "text-foreground/20 hover:text-foreground"
-                    )}
-                  >
-                    {item.name}
-                  </Link>
-                </SheetClose>
-              ))}
-            </div>
+            <ScrollArea className="flex-1 px-10 pb-20">
+              <div className="flex flex-col gap-6">
+                {NAV_ITEMS.map((item) => (
+                  <SheetClose asChild key={item.name}>
+                    <Link
+                      href={item.href}
+                      className={cn(
+                        "text-5xl font-headline italic transition-all block py-2",
+                        pathname.startsWith(item.href) ? "text-primary" : "text-foreground/20 hover:text-foreground"
+                      )}
+                    >
+                      {item.name}
+                    </Link>
+                  </SheetClose>
+                ))}
+              </div>
+            </ScrollArea>
           </SheetContent>
         </Sheet>
       </nav>
