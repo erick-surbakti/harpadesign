@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { ChatInterface } from '@/components/ChatInterface';
-import { Clock, Terminal, Globe, ArrowRight } from 'lucide-react';
+import { Clock, Terminal, Globe, ArrowRight, MessageSquare } from 'lucide-react';
 
 export default function InquiriesPage() {
   const handleOpenChat = () => {
@@ -20,13 +20,13 @@ export default function InquiriesPage() {
         <header className="max-w-7xl mx-auto mb-20">
           <h1 className="text-7xl md:text-9xl font-headline italic mb-8">Inquiries.</h1>
           <p className="text-foreground/40 text-xl max-w-2xl leading-relaxed">
-            Let's build something visionary. Reach out for commissions, collaborations, or studio briefings from our hub in Depok, Indonesia.
+            Let's build something visionary. Reach out for commissions, collaborations, or studio briefings from Harry Prambudy's hub in Depok, Indonesia.
           </p>
         </header>
 
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-16 max-w-7xl mx-auto mb-32">
           {/* Formal Briefing Section */}
-          <div className="space-y-8">
+          <div className="space-y-12">
             <div className="bg-card rounded-[2.5rem] p-10 border border-white/5 relative overflow-hidden group">
               <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-[80px] -mr-32 -mt-32 rounded-full" />
               <h3 className="text-2xl font-headline italic mb-8 relative z-10">Studio Briefing</h3>
@@ -55,19 +55,19 @@ export default function InquiriesPage() {
               </form>
             </div>
 
-            <div className="grid grid-cols-2 gap-8 px-8 py-4">
-              <div className="flex gap-3 items-start">
-                <div className="p-2 rounded-lg bg-white/5"><Clock className="w-3.5 h-3.5 text-accent" /></div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 px-4">
+              <div className="flex gap-4 items-start p-6 bg-card/50 rounded-[2rem] border border-white/5">
+                <div className="p-3 rounded-xl bg-white/5"><Clock className="w-4 h-4 text-accent" /></div>
                 <div>
-                  <h4 className="text-[9px] uppercase tracking-widest font-bold text-accent mb-1">Availability</h4>
-                  <p className="text-foreground/40 text-xs">Booking Q4 2026</p>
+                  <h4 className="text-[10px] uppercase tracking-widest font-bold text-accent mb-1">Availability</h4>
+                  <p className="text-foreground/40 text-sm italic">Booking Q4 2026</p>
                 </div>
               </div>
-              <div className="flex gap-3 items-start">
-                <div className="p-2 rounded-lg bg-white/5"><Globe className="w-3.5 h-3.5 text-accent" /></div>
+              <div className="flex gap-4 items-start p-6 bg-card/50 rounded-[2rem] border border-white/5">
+                <div className="p-3 rounded-xl bg-white/5"><Globe className="w-4 h-4 text-accent" /></div>
                 <div>
-                  <h4 className="text-[9px] uppercase tracking-widest font-bold text-accent mb-1">Node</h4>
-                  <p className="text-foreground/40 text-xs">Depok, Indonesia</p>
+                  <h4 className="text-[10px] uppercase tracking-widest font-bold text-accent mb-1">Node</h4>
+                  <p className="text-foreground/40 text-sm italic">Depok, Indonesia</p>
                 </div>
               </div>
             </div>
@@ -75,35 +75,41 @@ export default function InquiriesPage() {
 
           {/* Compact Neural Interface */}
           <div className="flex flex-col gap-8">
-            <div className="bg-secondary/20 rounded-[2.5rem] border border-white/5 flex flex-col overflow-hidden h-[500px] group transition-all duration-1000 hover:border-primary/30">
+            <div className="bg-secondary/20 rounded-[2.5rem] border border-white/5 flex flex-col overflow-hidden h-[520px] group transition-all duration-1000 hover:border-primary/30">
               <div className="px-8 py-6 border-b border-white/5 bg-white/[0.02]">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-1.5">
                     <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
-                    <span className="text-[8px] text-accent uppercase tracking-[0.4em] font-bold">Node Activated</span>
+                    <span className="text-[8px] text-accent uppercase tracking-[0.4em] font-bold">Neural Protocol Active</span>
                   </div>
                   <Terminal className="w-3.5 h-3.5 text-primary/40" />
                 </div>
-                <h3 className="text-2xl font-headline italic">Concierge AI.</h3>
-                <p className="text-[8px] uppercase tracking-[0.2em] text-foreground/20 font-bold mt-1">Direct Neural Interface</p>
+                <h3 className="text-2xl font-headline italic">Direct Neural Interface.</h3>
+                <p className="text-[8px] uppercase tracking-[0.2em] text-foreground/20 font-bold mt-1">Studio Concierge v1.0 — Powered by Art</p>
               </div>
               <div className="flex-1 overflow-hidden">
                 <ChatInterface isEmbedded />
               </div>
             </div>
             
-            <div className="bg-card rounded-[2.5rem] p-10 border border-white/5 flex flex-col justify-between relative h-[180px] group cursor-pointer overflow-hidden" onClick={handleOpenChat}>
+            <a 
+              href="https://wa.me/6281318432288" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="bg-card rounded-[2.5rem] p-10 border border-white/5 flex flex-col justify-between relative h-[180px] group overflow-hidden transition-all duration-700 hover:border-primary/50"
+            >
               <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               <div className="relative z-10 flex justify-between items-start">
                 <div>
-                  <h4 className="text-[9px] uppercase tracking-[0.4em] font-bold text-primary/40 mb-4">Neural Protocol</h4>
-                  <p className="text-2xl font-headline italic leading-tight">Need assistance? <br/>Open studio node.</p>
+                  <h4 className="text-[9px] uppercase tracking-[0.4em] font-bold text-primary/40 mb-4">Manual Override</h4>
+                  <p className="text-2xl font-headline italic leading-tight">Direct Terminal <br/>to Harry Prambudy.</p>
                 </div>
-                <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-primary group-hover:bg-primary group-hover:text-background transition-all">
-                  <ArrowRight className="w-4 h-4" />
+                <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:border-primary group-hover:bg-primary group-hover:text-background transition-all duration-500">
+                  <MessageSquare className="w-5 h-5" />
                 </div>
               </div>
-            </div>
+              <p className="text-[9px] uppercase tracking-widest text-foreground/20 font-bold relative z-10">Redirection via WA/ME</p>
+            </a>
           </div>
         </section>
       </div>
