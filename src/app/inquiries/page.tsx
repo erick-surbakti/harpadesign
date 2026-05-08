@@ -71,7 +71,7 @@ export default function InquiriesPage() {
 
           {/* AI Neural Interface Embedded */}
           <div className="flex flex-col gap-12">
-            <div className="bg-secondary/20 rounded-[3rem] border border-white/5 flex flex-col overflow-hidden h-[750px] group transition-all duration-1000 hover:border-primary/30">
+            <div className="bg-secondary/20 rounded-[3rem] border border-white/5 flex flex-col overflow-hidden h-[650px] group transition-all duration-1000 hover:border-primary/30">
               <div className="px-10 pt-10 pb-6 border-b border-white/5 bg-white/[0.02]">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">

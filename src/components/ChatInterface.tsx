@@ -54,28 +54,28 @@ export function ChatInterface({ className, isEmbedded = false }: ChatInterfacePr
   return (
     <div className={cn("flex flex-col h-full", className)}>
       {/* Neural Data Stream */}
-      <ScrollArea className="flex-1 px-6 py-6 md:px-10 md:py-10 hide-scrollbar">
-        <div className="space-y-12">
+      <ScrollArea className="flex-1 px-6 py-6 md:px-8 md:py-8 hide-scrollbar">
+        <div className="space-y-6">
           {messages.map((msg, i) => (
             <div
               key={i}
               className={cn(
-                "flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-1000",
+                "flex flex-col animate-in fade-in slide-in-from-bottom-2 duration-700",
                 msg.role === 'user' ? "items-end" : "items-start"
               )}
             >
-              <div className="max-w-[90%] md:max-w-[85%]">
+              <div className="max-w-[92%] md:max-w-[85%]">
                 {msg.role === 'assistant' && (
-                  <div className="flex items-center gap-2 mb-4">
-                    <Terminal className="w-3 h-3 text-primary/40" />
-                    <span className="text-[8px] uppercase tracking-[0.3em] font-bold text-primary/30">Harpa Intelligence</span>
+                  <div className="flex items-center gap-2 mb-2">
+                    <Terminal className="w-2.5 h-2.5 text-primary/40" />
+                    <span className="text-[7px] uppercase tracking-[0.4em] font-bold text-primary/30">Harpa Intel</span>
                   </div>
                 )}
                 <div
                   className={cn(
-                    "text-lg leading-relaxed tracking-tight font-light",
+                    "text-sm leading-relaxed tracking-tight font-light",
                     msg.role === 'user'
-                      ? "bg-primary/10 border border-white/10 text-primary px-6 py-4 rounded-[1.5rem] rounded-tr-none italic shadow-xl"
+                      ? "bg-primary/10 border border-white/5 text-primary px-4 py-3 rounded-2xl rounded-tr-none italic"
                       : "text-foreground/70"
                   )}
                 >
@@ -85,12 +85,12 @@ export function ChatInterface({ className, isEmbedded = false }: ChatInterfacePr
             </div>
           ))}
           {isLoading && (
-            <div className="flex flex-col gap-4 animate-pulse">
-              <div className="flex items-center gap-3">
-                <Sparkles className="w-4 h-4 text-accent" />
-                <span className="text-[9px] uppercase tracking-[0.4em] font-bold text-accent">Synthesizing...</span>
+            <div className="flex flex-col gap-2 animate-pulse">
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-3 h-3 text-accent" />
+                <span className="text-[7px] uppercase tracking-[0.5em] font-bold text-accent">Synthesizing...</span>
               </div>
-              <div className="w-32 h-[1px] bg-accent/20" />
+              <div className="w-16 h-[1px] bg-accent/20" />
             </div>
           )}
           <div ref={scrollRef} />
@@ -98,14 +98,14 @@ export function ChatInterface({ className, isEmbedded = false }: ChatInterfacePr
       </ScrollArea>
 
       {/* Transmission Input Area */}
-      <div className={cn("p-6 md:p-10 border-t border-white/5", isEmbedded ? "bg-white/[0.01]" : "bg-black/30")}>
+      <div className={cn("p-6 md:p-8 border-t border-white/5", isEmbedded ? "bg-white/[0.01]" : "bg-black/30")}>
         <form onSubmit={handleSubmit} className="relative flex items-center">
           <Input
             suppressHydrationWarning
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Transmit briefing..."
-            className="bg-transparent border-0 border-b border-white/10 rounded-none h-14 pl-0 pr-14 focus-visible:ring-0 focus:border-primary transition-all text-xl font-headline italic placeholder:text-foreground/10"
+            className="bg-transparent border-0 border-b border-white/10 rounded-none h-10 pl-0 pr-10 focus-visible:ring-0 focus:border-primary transition-all text-base font-headline italic placeholder:text-foreground/10"
           />
           <Button
             suppressHydrationWarning
@@ -113,16 +113,16 @@ export function ChatInterface({ className, isEmbedded = false }: ChatInterfacePr
             variant="ghost"
             disabled={!input.trim() || isLoading}
             className={cn(
-              "absolute right-0 w-12 h-12 rounded-full transition-all duration-700",
+              "absolute right-0 w-8 h-8 rounded-full transition-all duration-700",
               input.trim() ? "text-primary opacity-100 scale-100" : "opacity-0 scale-50"
             )}
           >
-            <Send className="w-5 h-5" />
+            <Send className="w-4 h-4" />
           </Button>
         </form>
-        <div className="flex justify-between items-center mt-8 opacity-20">
-          <p className="text-[8px] uppercase tracking-[0.4em] font-bold">Neural Interface</p>
-          <p className="text-[8px] uppercase tracking-[0.4em] font-bold italic">Depok Node // v2.6</p>
+        <div className="flex justify-between items-center mt-6 opacity-20">
+          <p className="text-[7px] uppercase tracking-[0.4em] font-bold">Neural Protocol</p>
+          <p className="text-[7px] uppercase tracking-[0.4em] font-bold italic">Depok Node // v2.6</p>
         </div>
       </div>
     </div>

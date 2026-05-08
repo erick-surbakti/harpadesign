@@ -38,18 +38,18 @@ export function Chatbot() {
 
       {/* Neural Interface Panel */}
       {isOpen && (
-        <div className="absolute bottom-24 right-0 w-[calc(100vw-5rem)] sm:w-[450px] h-[700px] max-h-[85vh] bg-card/95 border border-white/10 rounded-[3rem] shadow-[0_50px_120px_rgba(0,0,0,0.9)] flex flex-col overflow-hidden animate-in slide-in-from-bottom-12 fade-in duration-700 backdrop-blur-3xl">
+        <div className="absolute bottom-24 right-0 w-[calc(100vw-5rem)] sm:w-[400px] h-[600px] max-h-[80vh] bg-card/95 border border-white/10 rounded-[2.5rem] shadow-[0_50px_120px_rgba(0,0,0,0.9)] flex flex-col overflow-hidden animate-in slide-in-from-bottom-8 fade-in duration-500 backdrop-blur-3xl">
           {/* Header */}
-          <div className="px-10 py-10 border-b border-white/5 bg-white/[0.01]">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 bg-accent rounded-full animate-ping" />
-                <span className="text-[9px] text-accent uppercase tracking-[0.5em] font-bold">Active Protocol</span>
+          <div className="px-8 py-8 border-b border-white/5 bg-white/[0.01]">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 bg-accent rounded-full animate-ping" />
+                <span className="text-[8px] text-accent uppercase tracking-[0.5em] font-bold">Active Protocol</span>
               </div>
-              <span className="text-[8px] uppercase tracking-widest text-foreground/20 font-bold italic">Depok Node // v2.6.archive</span>
+              <span className="text-[7px] uppercase tracking-widest text-foreground/20 font-bold italic">v2.6.archive</span>
             </div>
-            <h3 className="font-headline italic text-4xl text-foreground mb-2">Neural Concierge.</h3>
-            <p className="text-[10px] uppercase tracking-[0.2em] text-foreground/30 font-bold">Human Intuition x Neural Logic</p>
+            <h3 className="font-headline italic text-3xl text-foreground mb-1">Neural Concierge.</h3>
+            <p className="text-[9px] uppercase tracking-[0.2em] text-foreground/30 font-bold">Studio Interface</p>
           </div>
 
           <ChatInterface />
