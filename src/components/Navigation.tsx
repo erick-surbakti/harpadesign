@@ -77,45 +77,31 @@ export function Navigation() {
               <Menu className="w-6 h-6 text-primary" />
             </button>
           </SheetTrigger>
-          <SheetContent side="right" className="bg-background/95 backdrop-blur-2xl border-l border-white/5 w-full p-0 flex flex-col">
-            <SheetTitle className="sr-only">Harpa Studio Navigation Menu</SheetTitle>
-            <div className="p-10 flex justify-between items-center border-b border-white/5">
-              <span className="text-primary font-headline italic text-3xl">Menu.</span>
+          <SheetContent side="right" className="bg-background/95 backdrop-blur-3xl border-l border-white/5 w-full p-0 flex flex-col">
+            <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+            
+            <div className="p-10 flex justify-end">
               <SheetClose asChild>
                 <button suppressHydrationWarning className="p-2 hover:text-primary transition-colors">
-                  <X className="w-8 h-8" />
+                  <X className="w-8 h-8 text-foreground/40" />
                 </button>
               </SheetClose>
             </div>
             
-            <div className="flex-1 overflow-y-auto px-10 py-12 flex flex-col gap-10">
+            <div className="flex-1 overflow-y-auto px-10 pb-20 flex flex-col gap-8 hide-scrollbar">
               {NAV_ITEMS.map((item) => (
                 <SheetClose asChild key={item.name}>
                   <Link
                     href={item.href}
                     className={cn(
-                      "text-5xl font-headline italic transition-all block",
-                      pathname.startsWith(item.href) ? "text-primary translate-x-4" : "text-foreground/30 hover:text-foreground hover:translate-x-2"
+                      "text-6xl font-headline italic transition-all block",
+                      pathname.startsWith(item.href) ? "text-primary" : "text-foreground/20 hover:text-foreground"
                     )}
                   >
                     {item.name}
                   </Link>
                 </SheetClose>
               ))}
-            </div>
-
-            <div className="p-10 border-t border-white/5 bg-white/[0.02]">
-              <div className="flex flex-col gap-6">
-                <div className="space-y-2">
-                  <span className="text-[9px] uppercase tracking-[0.4em] text-foreground/20 font-bold">Node Location</span>
-                  <p className="text-foreground/60 text-sm flex items-center gap-2">
-                    <Globe className="w-3 h-3 text-accent" />
-                    Depok, Indonesia
-                  </p>
-                </div>
-                <div className="w-full h-[1px] bg-white/5" />
-                <p className="text-[8px] uppercase tracking-[0.4em] text-foreground/20 font-bold">© 2026 Harpa Studio — Digital Archive</p>
-              </div>
             </div>
           </SheetContent>
         </Sheet>
