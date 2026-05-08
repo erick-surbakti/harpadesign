@@ -4,90 +4,32 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Harpa — Editorial Design Studio</title>
-<meta name="description" content="Editorial design, printed matter, art direction. Lisbon & New York."/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg-light:#f9f7f2;
-  --bg-dark:#0d0d0b;
-  --text-dark:#1a1815;
-  --text-light:#f9f7f2;
-  --accent-rust:#a23e3e;
-  --accent-gold:#b8860b;
-  --line-color:#e8e3d8;
-  --mute:#7a7570;
+  --bg:#f5f3f0;
+  --text:#1a1815;
+  --accent:#a23e3e;
+  --line:#ddd8d0;
+  --mute:#8a8580;
 }
 
 html,body{
-  background:var(--bg-light);
-  color:var(--text-dark);
+  background:var(--bg);
+  color:var(--text);
   font-family:'Lora',serif;
   line-height:1.6;
   -webkit-font-smoothing:antialiased;
-  overflow-x:hidden
+  overflow-x:hidden;
 }
+
 html{scroll-behavior:smooth}
 a{color:inherit;text-decoration:none}
 
-/* SCROLLBAR STYLING */
-::-webkit-scrollbar{width:8px}
-::-webkit-scrollbar-track{background:var(--bg-light)}
-::-webkit-scrollbar-thumb{background:var(--accent-rust);border-radius:4px}
-
-/* === PHASE 1: FULLSCREEN BLACK FRAME === */
-.hero-frame{
-  position:fixed;
-  top:0;left:0;right:0;bottom:0;
-  background:#000;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:1000;
-  overflow:hidden;
-}
-
-.hero-content{
-  position:relative;
-  width:90vw;
-  height:90vh;
-  border:3px solid #fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transform-origin:center;
-  will-change:transform,width,height;
-}
-
-.hero-text{
-  text-align:center;
-  color:#fff;
-  font-family:'Playfair Display',serif;
-  font-size:clamp(2rem,12vw,8rem);
-  font-weight:700;
-  letter-spacing:-2px;
-  line-height:1.1;
-  will-change:transform,font-size;
-}
-
-.hero-text span{
-  display:block;
-  font-weight:800;
-}
-
-.hero-text .subtitle{
-  font-size:0.3em;
-  font-family:'IBM Plex Mono',monospace;
-  letter-spacing:3px;
-  margin-top:0.5em;
-  font-weight:400;
-  text-transform:uppercase;
-  opacity:0.7;
-}
-
-/* === NAVIGATION === */
+/* NAV */
 nav{
   position:fixed;
   top:0;left:0;right:0;
@@ -95,9 +37,9 @@ nav{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:24px 32px;
+  padding:24px 40px;
   background:transparent;
-  transition:all 0.4s;
+  transition:all 0.3s;
   opacity:0;
   pointer-events:none;
 }
@@ -105,9 +47,9 @@ nav{
 nav.visible{
   opacity:1;
   pointer-events:auto;
-  background:rgba(249,247,242,0.95);
+  background:rgba(245,243,240,0.96);
   backdrop-filter:blur(8px);
-  border-bottom:1px solid var(--line-color);
+  border-bottom:1px solid var(--line);
 }
 
 .nav-brand{
@@ -117,8 +59,8 @@ nav.visible{
   letter-spacing:0.5px;
 }
 
-.nav-brand .rust{
-  color:var(--accent-rust);
+.nav-brand .accent{
+  color:var(--accent);
 }
 
 nav ul{
@@ -131,133 +73,152 @@ nav ul{
   text-transform:uppercase;
 }
 
-nav ul a{
-  cursor:pointer;
-  transition:color 0.3s;
-}
-
 nav ul a:hover{
-  color:var(--accent-rust);
+  color:var(--accent);
 }
 
-.cta-button{
-  padding:11px 22px;
-  border:1.5px solid var(--text-dark);
-  background:transparent;
-  color:var(--text-dark);
+/* PHASE 1: BLACK FRAME */
+.hero-frame{
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  background:#000;
+  z-index:1000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:opacity 0.3s;
+  will-change:opacity;
+}
+
+.hero-frame.hidden{
+  opacity:0;
+  pointer-events:none;
+}
+
+.hero-content{
+  width:85vw;
+  height:85vh;
+  border:4px solid #fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  will-change:transform;
+}
+
+.hero-text{
+  text-align:center;
+  color:#fff;
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3rem,15vw,9rem);
+  font-weight:800;
+  letter-spacing:-2px;
+  line-height:1.05;
+}
+
+.hero-text .subtitle{
+  display:block;
+  font-size:0.2em;
   font-family:'IBM Plex Mono',monospace;
-  font-size:10px;
-  letter-spacing:1px;
+  letter-spacing:4px;
+  margin-top:1em;
+  font-weight:400;
   text-transform:uppercase;
-  cursor:pointer;
-  transition:all 0.3s;
-  font-weight:500;
+  opacity:0.6;
 }
 
-.cta-button:hover{
-  background:var(--text-dark);
-  color:var(--bg-light);
-}
-
-/* === PHASE 2-4: LAPTOP STAGE === */
-.stage{
+/* PHASE 2-4: LAPTOP CONTAINER */
+.scroll-stage{
   position:relative;
   height:600vh;
-  background:var(--bg-light);
+  background:var(--bg);
 }
 
-.sticky-container{
+.sticky-section{
   position:sticky;
   top:0;
   height:100vh;
   overflow:hidden;
-  background:var(--bg-light);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.laptop-wrapper{
-  position:relative;
-  width:100%;
-  height:100%;
+  background:var(--bg);
   display:flex;
   align-items:center;
   justify-content:center;
   perspective:1200px;
-  will-change:transform;
 }
 
-.laptop{
+.laptop-container{
   position:relative;
-  width:min(1000px,85vw);
+  width:min(1100px,90vw);
   aspect-ratio:16/10;
   transform-style:preserve-3d;
   will-change:transform;
 }
 
-.laptop-lid{
-  position:relative;
-  width:100%;
-  height:100%;
-  background:linear-gradient(135deg,#1a1a18 0%,#0d0d0b 100%);
-  border-radius:20px 20px 8px 8px;
+/* MACBOOK DESIGN */
+.macbook-lid{
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background:linear-gradient(180deg,#2a2a28 0%,#1a1a18 100%);
+  border-radius:24px 24px 8px 8px;
   overflow:hidden;
-  box-shadow:0 80px 200px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.08);
+  box-shadow:0 100px 250px rgba(0,0,0,0.7),0 0 0 1px rgba(255,255,255,0.1);
   transform-style:preserve-3d;
-  transform-origin:50% 100%;
+  transform-origin:bottom center;
   will-change:transform;
 }
 
-.laptop-screen{
+.macbook-notch{
   position:absolute;
-  inset:18px;
-  background:var(--bg-light);
-  border-radius:12px;
-  overflow:hidden;
-  box-shadow:inset 0 0 0 1px rgba(0,0,0,0.1);
-}
-
-.laptop-notch{
-  position:absolute;
-  top:0;left:50%;
+  top:18px;
+  left:50%;
   transform:translateX(-50%);
-  width:140px;
-  height:20px;
+  width:160px;
+  height:24px;
   background:#0d0d0b;
-  border-radius:0 0 14px 14px;
-  z-index:10;
-  opacity:1;
+  border-radius:0 0 16px 16px;
+  z-index:20;
   will-change:opacity;
 }
 
-.laptop-notch::before{
+.macbook-notch::after{
   content:'';
   position:absolute;
-  top:6px;left:50%;
+  top:8px;
+  left:50%;
   transform:translateX(-50%);
-  width:8px;height:8px;
+  width:10px;
+  height:10px;
   background:#1a1a18;
   border-radius:50%;
 }
 
-.screen-content{
+.macbook-bezel{
+  position:absolute;
+  inset:20px;
+  background:var(--bg);
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,0.1);
+}
+
+.screen{
   position:absolute;
   inset:0;
-  padding:40px 48px;
   display:flex;
   flex-direction:column;
-  background:var(--bg-light);
-  overflow:hidden;
+  padding:36px 48px;
+  background:var(--bg);
 }
 
 .screen-header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  border-bottom:1px solid var(--line-color);
-  padding-bottom:24px;
-  margin-bottom:32px;
+  padding-bottom:28px;
+  border-bottom:2px solid var(--line);
+  margin-bottom:40px;
 }
 
 .screen-logo{
@@ -267,104 +228,93 @@ nav ul a:hover{
   letter-spacing:0.5px;
 }
 
-.screen-logo .rust{
-  color:var(--accent-rust);
+.screen-logo .accent{
+  color:var(--accent);
 }
 
-.screen-header-links{
+.screen-nav{
   display:flex;
-  gap:32px;
+  gap:40px;
   font-size:10px;
   font-family:'IBM Plex Mono',monospace;
-  letter-spacing:1px;
+  letter-spacing:1.5px;
   text-transform:uppercase;
+  color:var(--mute);
 }
 
 .screen-hero{
   flex:1;
   display:grid;
-  grid-template-columns:1.2fr 0.8fr;
-  gap:48px;
+  grid-template-columns:1.3fr 0.7fr;
+  gap:60px;
   align-items:center;
 }
 
-.screen-hero-text h1{
+.hero-left h1{
   font-family:'Playfair Display',serif;
-  font-size:clamp(2rem,6vw,3.5rem);
+  font-size:clamp(2rem,5vw,3.2rem);
   font-weight:800;
-  line-height:1.15;
+  line-height:1.2;
   letter-spacing:-1px;
   margin-bottom:20px;
 }
 
-.screen-hero-text h1 .rust{
-  color:var(--accent-rust);
+.hero-left h1 .accent{
+  color:var(--accent);
 }
 
-.screen-hero-text p{
+.hero-left p{
   font-size:11px;
   color:var(--mute);
   line-height:1.7;
   font-family:'IBM Plex Mono',monospace;
   letter-spacing:0.5px;
+  max-width:320px;
 }
 
-.screen-hero-visual{
-  position:relative;
-  height:100%;
-  display:flex;
-  align-items:flex-end;
-}
-
-.work-preview{
-  position:absolute;
-  width:100%;
-  height:100%;
+.hero-right{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:12px;
+  height:100%;
   grid-auto-rows:1fr;
 }
 
-.work-item{
-  background:linear-gradient(135deg,#d4a5a5,#8b6f6f);
-  border-radius:4px;
-  border:1px solid rgba(0,0,0,0.1);
-  position:relative;
+.work-box{
+  background:linear-gradient(135deg,#a23e3e,#6b2a2a);
+  border-radius:2px;
   overflow:hidden;
+  display:flex;
+  align-items:flex-end;
+  padding:14px;
   font-size:9px;
   color:#fff;
   font-family:'IBM Plex Mono',monospace;
-  padding:12px;
-  display:flex;
-  align-items:flex-end;
-  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+  font-weight:500;
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
+  text-transform:uppercase;
+  letter-spacing:0.5px;
 }
 
-.work-item:nth-child(1){
-  grid-column:1;
-  grid-row:1/3;
-  background:linear-gradient(135deg,#a23e3e,#6b2a2a);
+.work-box:nth-child(1){
+  grid-row:span 2;
+  background:linear-gradient(135deg,#a23e3e,#5b1a1a);
 }
 
-.work-item:nth-child(2){
-  grid-column:2;
-  grid-row:1;
-  background:linear-gradient(135deg,#8b860b,#5d5d08);
+.work-box:nth-child(2){
+  background:linear-gradient(135deg,#d4af37,#8b7500);
 }
 
-.work-item:nth-child(3){
-  grid-column:2;
-  grid-row:2;
-  background:linear-gradient(135deg,#3d3d3b,#1a1a18);
+.work-box:nth-child(3){
+  background:linear-gradient(135deg,#2a2a28,#0d0d0b);
 }
 
 .screen-footer{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding-top:16px;
-  border-top:1px solid var(--line-color);
+  padding-top:24px;
+  border-top:2px solid var(--line);
   font-size:8px;
   font-family:'IBM Plex Mono',monospace;
   letter-spacing:1px;
@@ -372,42 +322,44 @@ nav ul a:hover{
   color:var(--mute);
 }
 
-.laptop-base{
+/* LAPTOP BASE */
+.macbook-base{
   position:absolute;
-  bottom:-20px;
-  left:0;right:0;
-  height:24px;
+  bottom:-24px;
+  left:0;
+  right:0;
+  height:28px;
   background:linear-gradient(180deg,#2a2a28,#0d0d0b);
-  border-radius:0 0 24px 24px;
-  box-shadow:0 40px 100px rgba(0,0,0,0.4);
+  border-radius:0 0 28px 28px;
+  box-shadow:0 40px 120px rgba(0,0,0,0.5);
   will-change:opacity;
 }
 
 .laptop-shadow{
   position:absolute;
-  bottom:-50px;
-  left:10%;
-  right:10%;
-  height:50px;
-  background:radial-gradient(50% 100% at 50% 0%,rgba(0,0,0,0.5),transparent);
-  filter:blur(12px);
+  bottom:-70px;
+  left:5%;
+  right:5%;
+  height:60px;
+  background:radial-gradient(50% 100% at 50% 0%,rgba(0,0,0,0.6),transparent);
+  filter:blur(16px);
   will-change:opacity;
 }
 
-/* === MAIN CONTENT AREA === */
+/* MAIN CONTENT */
 .main-content{
   position:relative;
   z-index:10;
-  background:var(--bg-light);
+  background:var(--bg);
+  padding-top:200px;
 }
 
 .section{
-  position:relative;
   padding:120px 60px;
-  border-top:1px solid var(--line-color);
+  border-top:1px solid var(--line);
   opacity:0;
   transform:translateY(60px);
-  transition:opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
+  transition:opacity 0.8s ease, transform 0.8s ease;
 }
 
 .section.visible{
@@ -420,9 +372,9 @@ nav ul a:hover{
   font-size:10px;
   letter-spacing:2px;
   text-transform:uppercase;
-  color:var(--accent-rust);
+  color:var(--accent);
   margin-bottom:16px;
-  font-weight:500;
+  font-weight:600;
 }
 
 .section h2{
@@ -435,8 +387,8 @@ nav ul a:hover{
   max-width:900px;
 }
 
-.section h2 .rust{
-  color:var(--accent-rust);
+.section h2 .accent{
+  color:var(--accent);
 }
 
 .projects-grid{
@@ -450,14 +402,14 @@ nav ul a:hover{
   .projects-grid{grid-template-columns:1fr}
 }
 
-.project-card{
-  border-top:2px solid var(--line-color);
+.project{
+  border-top:2px solid var(--line);
   padding-top:40px;
 }
 
-.project-card h3{
+.project h3{
   font-family:'Playfair Display',serif;
-  font-size:28px;
+  font-size:26px;
   font-weight:700;
   margin-bottom:12px;
   letter-spacing:-0.5px;
@@ -474,43 +426,43 @@ nav ul a:hover{
   margin-bottom:20px;
 }
 
-.project-description{
+.project p{
   font-size:14px;
   color:var(--mute);
   line-height:1.8;
   margin-bottom:28px;
-  max-width:500px;
+  max-width:520px;
 }
 
 .project-specs{
   display:grid;
   grid-template-columns:auto 1fr;
-  gap:16px 32px;
+  gap:12px 32px;
   font-family:'IBM Plex Mono',monospace;
-  font-size:8.5px;
+  font-size:8px;
   margin-top:24px;
   padding-top:24px;
-  border-top:1px solid var(--line-color);
+  border-top:1px solid var(--line);
 }
 
 .spec-label{
   color:var(--mute);
   text-transform:uppercase;
   letter-spacing:0.5px;
-  font-weight:500;
+  font-weight:600;
   opacity:0.7;
 }
 
 .spec-value{
-  color:var(--text-dark);
+  color:var(--text);
   font-weight:500;
 }
 
 footer{
   padding:140px 60px 60px;
-  border-top:2px solid var(--line-color);
+  border-top:2px solid var(--line);
   text-align:center;
-  background:var(--bg-light);
+  background:var(--bg);
   opacity:0;
   transform:translateY(60px);
   transition:opacity 0.8s ease, transform 0.8s ease;
@@ -530,8 +482,8 @@ footer h2{
   letter-spacing:-1px;
 }
 
-footer h2 .rust{
-  color:var(--accent-rust);
+footer h2 .accent{
+  color:var(--accent);
 }
 
 .contact-info{
@@ -542,8 +494,8 @@ footer h2 .rust{
 }
 
 .contact-info a{
-  color:var(--text-dark);
-  border-bottom:1.5px solid var(--accent-rust);
+  color:var(--text);
+  border-bottom:2px solid var(--accent);
   transition:opacity 0.3s;
 }
 
@@ -563,88 +515,81 @@ footer h2 .rust{
   margin-top:60px;
 }
 
-@media(max-width:780px){
-  .footer-links{flex-direction:column;gap:16px}
-  nav ul{display:none}
-  .projects-grid{gap:40px}
-  .section{padding:80px 24px}
+@media(max-width:980px){
+  nav ul{gap:20px}
+  .screen-hero{grid-template-columns:1fr}
+  .hero-right{grid-template-columns:1fr 1fr;height:auto;min-height:200px}
+  .work-box:nth-child(1){grid-row:span 1}
 }
 
-@media(max-width:600px){
-  .screen-hero{grid-template-columns:1fr}
-  .work-preview{grid-template-columns:1fr;grid-auto-rows:auto}
-  .work-item{min-height:120px}
-  .work-item:nth-child(1){grid-column:1;grid-row:auto}
-  .work-item:nth-child(2){grid-column:1;grid-row:auto}
-  .work-item:nth-child(3){grid-column:1;grid-row:auto}
+@media(max-width:780px){
+  nav ul{display:none}
+  .section{padding:80px 24px}
+  .projects-grid{gap:40px}
+  .screen{padding:24px 28px}
+  .screen-header{padding-bottom:16px;margin-bottom:24px;flex-direction:column;align-items:flex-start;gap:12px}
+  .screen-nav{gap:16px}
+  .footer-links{flex-direction:column;gap:16px}
 }
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-brand"><span class="rust">H</span>arpa<span style="opacity:0.4">.studio</span></div>
+<nav id="nav">
+  <div class="nav-brand"><span class="accent">H</span>arpa</div>
   <ul>
     <li><a href="#work">Work</a></li>
-    <li><a href="#services">Services</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <button class="cta-button">Start project</button>
 </nav>
 
 <div class="hero-frame" id="heroFrame">
   <div class="hero-content" id="heroContent">
     <div class="hero-text" id="heroText">
-      <span>Editorial</span>
-      <span>Design</span>
-      <div class="subtitle" id="heroSubtitle">Harpa Studio</div>
+      Editorial Design
+      <div class="subtitle">Harpa Studio</div>
     </div>
   </div>
 </div>
 
-<div class="stage" id="stage">
-  <div class="sticky-container" id="stickyContainer">
-    <div class="laptop-wrapper" id="laptopWrapper">
-      <div class="laptop" id="laptop">
-        <div class="laptop-lid" id="laptopLid">
-          <div class="laptop-notch" id="laptopNotch"></div>
-          <div class="laptop-screen">
-            <div class="screen-content">
-              <div class="screen-header">
-                <div class="screen-logo"><span class="rust">H</span>arpa<span style="opacity:0.4">.studio</span></div>
-                <div class="screen-header-links">
-                  <span>Work</span>
-                  <span>Journal</span>
-                  <span>Contact</span>
-                </div>
+<div class="scroll-stage" id="scrollStage">
+  <div class="sticky-section" id="stickySection">
+    <div class="laptop-container" id="laptopContainer">
+      <div class="macbook-lid" id="macbookLid">
+        <div class="macbook-notch" id="macbookNotch"></div>
+        <div class="macbook-bezel">
+          <div class="screen">
+            <div class="screen-header">
+              <div class="screen-logo"><span class="accent">H</span>arpa</div>
+              <div class="screen-nav">
+                <span>Work</span>
+                <span>Journal</span>
+                <span>Contact</span>
               </div>
-              
-              <div class="screen-hero">
-                <div class="screen-hero-text">
-                  <h1>Form, Light<br/>&amp; <span class="rust">Motion</span></h1>
-                  <p>Posters · Books · Identity Systems · Art Direction</p>
-                </div>
-                <div class="screen-hero-visual">
-                  <div class="work-preview">
-                    <div class="work-item">Fundação Siza</div>
-                    <div class="work-item">LUST Records</div>
-                    <div class="work-item">Musée Cardin</div>
-                  </div>
-                </div>
+            </div>
+            
+            <div class="screen-hero">
+              <div class="hero-left">
+                <h1>Form, Light<br/>&amp; <span class="accent">Motion</span></h1>
+                <p>Editorial design · Posters · Identity systems · Art direction for cultural institutions</p>
               </div>
+              <div class="hero-right">
+                <div class="work-box">Fundação Siza</div>
+                <div class="work-box">LUST Records</div>
+                <div class="work-box">Musée Cardin</div>
+              </div>
+            </div>
 
-              <div class="screen-footer">
-                <span>Selected work 2023 — 2025</span>
-                <span class="rust">● Lisbon · New York</span>
-                <span>Editorial + Art Direction</span>
-              </div>
+            <div class="screen-footer">
+              <span>● Selected 2023—2025</span>
+              <span class="accent">Lisbon · New York</span>
             </div>
           </div>
         </div>
-        <div class="laptop-base" id="laptopBase"></div>
-        <div class="laptop-shadow" id="laptopShadow"></div>
       </div>
+      <div class="macbook-base" id="macbookBase"></div>
+      <div class="laptop-shadow" id="laptopShadow"></div>
     </div>
   </div>
 </div>
@@ -652,33 +597,25 @@ footer h2 .rust{
 <div class="main-content">
   <section class="section" id="work">
     <div class="section-label">Selected Work</div>
-    <h2>Typography, <span class="rust">constraint,</span> intention.</h2>
+    <h2>Typography, <span class="accent">constraint,</span> intention.</h2>
     
     <div class="projects-grid">
-      <div class="project-card">
+      <div class="project">
         <h3>Fundação Siza</h3>
-        <div class="project-meta">
-          <span>Identity</span>
-          <span>Posters</span>
-          <span>2023</span>
-        </div>
-        <p class="project-description">Complete visual identity for Portuguese architecture foundation. Monographic campaign exploring three custom reds across different paper stocks with letterpress details.</p>
+        <div class="project-meta"><span>Identity</span><span>Posters</span><span>2023</span></div>
+        <p>Complete visual identity for Portuguese architecture foundation. Monographic campaign exploring three custom reds across different paper stocks with letterpress details.</p>
         <div class="project-specs">
           <span class="spec-label">Format</span><span class="spec-value">420 × 594 mm + variations</span>
           <span class="spec-label">Print</span><span class="spec-value">Offset on Munken Lynx + woodblock</span>
-          <span class="spec-label">Type</span><span class="spec-value">Bodoni Moda variable + custom monospace</span>
+          <span class="spec-label">Type</span><span class="spec-value">Bodoni Moda variable + custom mono</span>
           <span class="spec-label">Award</span><span class="spec-value">Design Week Europe — Best Institutional</span>
         </div>
       </div>
 
-      <div class="project-card">
+      <div class="project">
         <h3>LUST Records</h3>
-        <div class="project-meta">
-          <span>Art Direction</span>
-          <span>Catalog Design</span>
-          <span>2024</span>
-        </div>
-        <p class="project-description">Annual catalog redesign for independent label. Grid-based system with intentional breaks. Each album cover demonstrates consistency through constraint—same grid, different color and weight treatments.</p>
+        <div class="project-meta"><span>Art Direction</span><span>Catalog</span><span>2024</span></div>
+        <p>Annual catalog redesign for independent label. Grid-based system with intentional breaks. Each album cover demonstrates consistency through constraint.</p>
         <div class="project-specs">
           <span class="spec-label">Format</span><span class="spec-value">210 × 210 mm (CD) · 297 × 420 mm (Catalog)</span>
           <span class="spec-label">Print</span><span class="spec-value">Digital CMYK on Reflex + metallic accent</span>
@@ -687,14 +624,10 @@ footer h2 .rust{
         </div>
       </div>
 
-      <div class="project-card">
+      <div class="project">
         <h3>Musée Cardin</h3>
-        <div class="project-meta">
-          <span>Wayfinding</span>
-          <span>Exhibition</span>
-          <span>2023</span>
-        </div>
-        <p class="project-description">Complete wayfinding system for Paris exhibition space. Gallery identity defined through material choices—French paper stocks, specific ink values, 1mm hairline rules throughout.</p>
+        <div class="project-meta"><span>Wayfinding</span><span>Exhibition</span><span>2023</span></div>
+        <p>Complete wayfinding system for Paris exhibition space. Gallery identity defined through material choices—French paper stocks, specific ink values, 1mm hairline rules.</p>
         <div class="project-specs">
           <span class="spec-label">Scope</span><span class="spec-value">Signage · Catalogs · Tickets · Invitations</span>
           <span class="spec-label">Colors</span><span class="spec-value">Pantone 19-1664 · 18-1546 · Process</span>
@@ -703,14 +636,10 @@ footer h2 .rust{
         </div>
       </div>
 
-      <div class="project-card">
+      <div class="project">
         <h3>Atelier Sølve</h3>
-        <div class="project-meta">
-          <span>Fashion</span>
-          <span>Campaign</span>
-          <span>2024</span>
-        </div>
-        <p class="project-description">Seasonal campaign for Copenhagen fashion collective. Raw photography paired with severe typography. Printed lookbook, newsletter design, Instagram-to-print strategy across channels.</p>
+        <div class="project-meta"><span>Fashion</span><span>Campaign</span><span>2024</span></div>
+        <p>Seasonal campaign for Copenhagen fashion collective. Raw photography paired with severe typography. Printed lookbook, newsletter, and Instagram-to-print strategy.</p>
         <div class="project-specs">
           <span class="spec-label">Format</span><span class="spec-value">210 × 297 mm + digital</span>
           <span class="spec-label">Print</span><span class="spec-value">Risograph on Neenah Classic Crest</span>
@@ -721,14 +650,14 @@ footer h2 .rust{
     </div>
   </section>
 
-  <section class="section" id="services">
-    <div class="section-label">Capabilities</div>
-    <h2>What we do & <span class="rust">how we work.</span></h2>
-    <p style="font-size:15px;color:var(--mute);max-width:700px;line-height:1.8;margin-top:40px;">We're a small editorial practice between Lisbon and New York. We work with cultural institutions, independent publishers, and forward-thinking brands—clients who believe design is a material practice. Each year we take 12–16 projects maximum. We believe in knowing your printer, understanding paper, respecting ink. These aren't afterthoughts—they're creative decisions.</p>
+  <section class="section" id="about">
+    <div class="section-label">About</div>
+    <h2>Craft, collaboration,<br/><span class="accent">production detail.</span></h2>
+    <p style="font-size:15px;color:var(--mute);max-width:720px;line-height:1.9;margin-top:40px;">Harpa is a small editorial practice between Lisbon and New York. We work with cultural institutions, independent publishers, and forward-thinking brands—clients who believe design is a material practice. Each year we take 12–16 projects maximum. We believe in knowing your printer, understanding paper, respecting ink. These aren't afterthoughts—they're creative decisions.</p>
   </section>
 
   <footer id="contact">
-    <h2>Let's <span class="rust">talk.</span></h2>
+    <h2>Let's <span class="accent">talk.</span></h2>
     <div class="contact-info">
       Email: <a href="mailto:hello@harpa.studio">hello@harpa.studio</a><br/>
       Available for new projects. Lead time: 8–12 weeks.
@@ -742,124 +671,113 @@ footer h2 .rust{
 </div>
 
 <script>
-// ============================================
-// PHASE DEFINITIONS (p = scroll progress 0-1)
-// ============================================
-// PHASE 1 (0.00-0.25): Frame shrinks & text scales down → becomes laptop screen
-// PHASE 2 (0.25-0.50): Laptop lid closes (fully closed)
-// PHASE 3 (0.50-0.75): Laptop rotates flat (lay down)
-// PHASE 4 (0.75-1.00): Laptop opens again & zooms in to fullscreen
-// ============================================
-
 const heroFrame = document.getElementById('heroFrame');
 const heroContent = document.getElementById('heroContent');
 const heroText = document.getElementById('heroText');
-const heroSubtitle = document.getElementById('heroSubtitle');
-const stage = document.getElementById('stage');
-const laptop = document.getElementById('laptop');
-const laptopLid = document.getElementById('laptopLid');
-const laptopNotch = document.getElementById('laptopNotch');
-const laptopBase = document.getElementById('laptopBase');
+const scrollStage = document.getElementById('scrollStage');
+const laptopContainer = document.getElementById('laptopContainer');
+const macbookLid = document.getElementById('macbookLid');
+const macbookNotch = document.getElementById('macbookNotch');
+const macbookBase = document.getElementById('macbookBase');
 const laptopShadow = document.getElementById('laptopShadow');
-const nav = document.querySelector('nav');
-const stickyContainer = document.getElementById('stickyContainer');
+const stickySection = document.getElementById('stickySection');
+const nav = document.getElementById('nav');
 
 let scrollProgress = 0;
 
 window.addEventListener('scroll', () => {
-  // Calculate progress through stage
-  const rect = stage.getBoundingClientRect();
-  const stageHeight = rect.height;
+  const rect = scrollStage.getBoundingClientRect();
+  const stageHeight = scrollStage.offsetHeight;
   const viewportHeight = window.innerHeight;
-  const totalScroll = stageHeight - viewportHeight;
+  const totalDistance = stageHeight - viewportHeight;
   const scrolled = -rect.top;
-  scrollProgress = Math.min(Math.max(scrolled / totalScroll, 0), 1);
-
+  
+  scrollProgress = Math.min(Math.max(scrolled / totalDistance, 0), 1);
   updateAnimations();
 });
 
 function updateAnimations() {
   const p = scrollProgress;
 
-  // === PHASE 1: Frame shrinks (0.00-0.25) ===
-  if (p < 0.25) {
-    const phase1 = p / 0.25;
+  // === PHASE 1: Frame shrinks (0.00—0.30) ===
+  if (p <= 0.30) {
+    const phase1 = p / 0.30;
     const eased = easeInOutCubic(phase1);
     
-    // Frame transforms
-    heroFrame.style.opacity = 1 - eased;
-    heroFrame.style.pointerEvents = eased > 0.9 ? 'none' : 'auto';
+    heroFrame.classList.remove('hidden');
+    nav.classList.remove('visible');
     
-    // Scale frame down from fullscreen to laptop size
-    const scale = 1 - eased * 0.55;
+    // Shrink frame
+    const scale = 1 - (eased * 0.55);
     heroContent.style.transform = `scale(${scale})`;
-    heroContent.style.borderWidth = `${3 - eased * 2}px`;
+    heroContent.style.borderWidth = `${4 - eased * 2.5}px`;
     
-    // Text scales with frame
-    heroText.style.opacity = 1 - eased * 0.3;
-    
-    // Update nav visibility
-    nav.classList.toggle('visible', eased > 0.3);
+    // Fade text
+    heroText.style.opacity = Math.max(0.2, 1 - eased * 0.8);
   } else {
-    heroFrame.style.opacity = 0;
-    heroFrame.style.pointerEvents = 'none';
+    heroFrame.classList.add('hidden');
+    if (p > 0.35) nav.classList.add('visible');
   }
 
-  // === PHASE 2: Lid closes (0.25-0.50) ===
-  const closeProgress = Math.max(0, (p - 0.25) / 0.25);
-  const lidAngle = -90 * easeInOutCubic(closeProgress);
-  laptopLid.style.transform = `rotateX(${lidAngle}deg)`;
-  laptopNotch.style.opacity = 1 - closeProgress * 0.3;
+  // === PHASE 2: Lid closes (0.30—0.55) ===
+  const closeP = Math.max(0, Math.min((p - 0.30) / 0.25, 1));
+  const closedEased = easeInOutCubic(closeP);
+  const lidAngle = -90 * closedEased;
+  macbookLid.style.transform = `rotateX(${lidAngle}deg)`;
+  macbookNotch.style.opacity = 1 - closedEased * 0.4;
 
-  // === PHASE 3: Laptop goes flat (0.50-0.75) ===
-  const flatProgress = Math.max(0, (p - 0.50) / 0.25);
-  const rotateX = -45 * easeInOutCubic(flatProgress);
-  const yOffset = 100 * easeInOutCubic(flatProgress);
+  // === PHASE 3: Laptop lays flat (0.55—0.80) ===
+  const flatP = Math.max(0, Math.min((p - 0.55) / 0.25, 1));
+  const flatEased = easeInOutCubic(flatP);
+  const rotX = -90 + (flatEased * 45);
+  const translateY = flatEased * 80;
   
-  if (flatProgress > 0) {
-    laptop.style.transform = `rotateX(${rotateX}deg) translateY(${yOffset}px)`;
+  if (flatP > 0) {
+    laptopContainer.style.transform = `rotateX(${rotX}deg) translateY(${translateY}px)`;
   }
 
-  // === PHASE 4: Zoom in to fullscreen (0.75-1.00) ===
-  const zoomProgress = Math.max(0, (p - 0.75) / 0.25);
-  const finalLidAngle = -90 + (90 * easeInOutCubic(zoomProgress));
-  laptopLid.style.transform = `rotateX(${finalLidAngle}deg)`;
+  // === PHASE 4: Opens & zooms (0.80—1.00) ===
+  const zoomP = Math.max(0, Math.min((p - 0.80) / 0.20, 1));
+  const zoomEased = easeInOutCubic(zoomP);
   
-  const scale = 1 + (1.8 * easeInOutCubic(zoomProgress));
-  const finalOpacity = 1 - zoomProgress * 0.5;
-  stickyContainer.style.transform = `scale(${scale})`;
-  stickyContainer.style.opacity = finalOpacity;
-  
-  laptopNotch.style.opacity = 1 - zoomProgress * 0.8;
-  laptopBase.style.opacity = 1 - zoomProgress * 0.8;
-  laptopShadow.style.opacity = 1 - zoomProgress * 0.8;
+  if (zoomP > 0) {
+    // Open lid
+    const openAngle = -90 + (zoomEased * 90);
+    macbookLid.style.transform = `rotateX(${openAngle}deg)`;
+    
+    // Zoom in
+    const zoomScale = 1 + (zoomEased * 1.5);
+    stickySection.style.transform = `scale(${zoomScale})`;
+    stickySection.style.opacity = 1 - zoomEased * 0.3;
+  }
+
+  // Hardware visibility
+  const hardwareVis = Math.max(0, 1 - Math.max(0, (p - 0.65) / 0.15));
+  macbookNotch.style.opacity = Math.min(1, hardwareVis);
+  macbookBase.style.opacity = Math.min(1, hardwareVis);
+  laptopShadow.style.opacity = Math.min(1, hardwareVis);
 }
 
 function easeInOutCubic(t) {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 }
 
-// === SECTION REVEAL ANIMATION ===
-const sectionObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
+// Section reveals
+const sectionObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
   });
 }, { threshold: 0.15 });
 
-document.querySelectorAll('.section').forEach(el => sectionObserver.observe(el));
+document.querySelectorAll('.section').forEach(el => sectionObs.observe(el));
 
-const footerObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
+const footerObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
   });
 }, { threshold: 0.1 });
 
-const footer = document.getElementById('contact');
-if (footer) footerObserver.observe(footer);
+footerObs.observe(document.querySelector('footer'));
 </script>
 </body>
 </html>
