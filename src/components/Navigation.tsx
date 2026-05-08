@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState } from 'react';
@@ -11,6 +10,7 @@ import {
   SheetContent,
   SheetTrigger,
   SheetClose,
+  SheetTitle,
 } from "@/components/ui/sheet";
 
 const NAV_ITEMS = [
@@ -78,6 +78,7 @@ export function Navigation() {
             </button>
           </SheetTrigger>
           <SheetContent side="right" className="bg-background/95 backdrop-blur-2xl border-l border-white/5 w-full p-0 flex flex-col">
+            <SheetTitle className="sr-only">Harpa Studio Navigation Menu</SheetTitle>
             <div className="p-10 flex justify-between items-center border-b border-white/5">
               <span className="text-primary font-headline italic text-3xl">Menu.</span>
               <SheetClose asChild>

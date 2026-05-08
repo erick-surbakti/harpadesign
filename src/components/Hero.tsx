@@ -1,12 +1,10 @@
-
 "use client";
 
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export function Hero() {
-  const heroVideo = PlaceHolderImages.find(img => img.id === 'hero-video');
+  const heroVideoUrl = "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_170732_8a9ccda6-5cff-4628-b164-059c500a2b41.mp4";
 
   return (
     <section className="h-screen w-full p-4 md:p-6 relative">
@@ -14,7 +12,7 @@ export function Hero() {
         {/* Background Video */}
         <video
           className="absolute inset-0 w-full h-full object-cover opacity-70"
-          src={heroVideo?.imageUrl}
+          src={heroVideoUrl}
           autoPlay
           loop
           muted
