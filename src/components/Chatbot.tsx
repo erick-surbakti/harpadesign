@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -15,13 +16,13 @@ export function Chatbot() {
   }, []);
 
   return (
-    <div className="fixed bottom-10 right-10 z-[300]">
+    <div className="fixed bottom-8 right-8 z-[300]">
       {/* Persisted Trigger Button */}
       <button
         suppressHydrationWarning
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-700 shadow-[0_25px_60px_rgba(0,0,0,0.8)] group overflow-hidden border border-white/10 backdrop-blur-2xl relative",
+          "w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-700 shadow-2xl group overflow-hidden border border-white/10 backdrop-blur-3xl relative",
           isOpen ? "bg-primary border-primary -rotate-90 scale-90" : "bg-card/40 hover:border-primary/50"
         )}
       >
@@ -38,18 +39,16 @@ export function Chatbot() {
 
       {/* Neural Interface Panel */}
       {isOpen && (
-        <div className="absolute bottom-20 right-0 w-[calc(100vw-5rem)] sm:w-[350px] h-[500px] max-h-[70vh] bg-card/95 border border-white/10 rounded-[2rem] shadow-[0_50px_120px_rgba(0,0,0,0.9)] flex flex-col overflow-hidden animate-in slide-in-from-bottom-8 fade-in duration-500 backdrop-blur-3xl">
-          {/* Compact Header */}
-          <div className="px-6 py-5 border-b border-white/5 bg-white/[0.01]">
-            <div className="flex items-center justify-between mb-2">
+        <div className="absolute bottom-20 right-0 w-[320px] h-[450px] max-h-[70vh] bg-card/95 border border-white/10 rounded-[2rem] shadow-[0_50px_120px_rgba(0,0,0,0.9)] flex flex-col overflow-hidden animate-in slide-in-from-bottom-8 fade-in duration-500 backdrop-blur-3xl">
+          {/* Extremely Compact Header */}
+          <div className="px-5 py-4 border-b border-white/5 bg-white/[0.01]">
+            <div className="flex items-center justify-between mb-1">
               <div className="flex items-center gap-1.5">
-                <div className="w-1 h-1 bg-accent rounded-full animate-ping" />
-                <span className="text-[7px] text-accent uppercase tracking-[0.5em] font-bold">Protocol Active</span>
+                <div className="w-1 h-1 bg-accent rounded-full animate-pulse" />
+                <span className="text-[6px] text-accent uppercase tracking-[0.5em] font-bold">Node Active</span>
               </div>
-              <span className="text-[6px] uppercase tracking-widest text-foreground/20 font-bold italic">v2.6</span>
             </div>
-            <h3 className="font-headline italic text-xl text-foreground">Concierge.</h3>
-            <p className="text-[7px] uppercase tracking-[0.2em] text-foreground/30 font-bold">Studio Node Interface</p>
+            <h3 className="font-headline italic text-base text-foreground">Concierge.</h3>
           </div>
 
           <ChatInterface />

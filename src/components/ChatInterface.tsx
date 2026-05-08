@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -21,7 +22,7 @@ interface ChatInterfaceProps {
 export function ChatInterface({ className, isEmbedded = false }: ChatInterfaceProps) {
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: 'Protocol initiated. Harpa Neural Node active. Brief me on your creative narrative.' }
+    { role: 'assistant', content: 'Protocol initiated. Brief me.' }
   ]);
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -45,7 +46,7 @@ export function ChatInterface({ className, isEmbedded = false }: ChatInterfacePr
       const response = await aiCreativeAssistantChatbot({ query: userMsg });
       setMessages(prev => [...prev, { role: 'assistant', content: response.response }]);
     } catch (error) {
-      setMessages(prev => [...prev, { role: 'assistant', content: "Transmission failure. Please re-brief." }]);
+      setMessages(prev => [...prev, { role: 'assistant', content: "Transmission failure." }]);
     } finally {
       setIsLoading(false);
     }
@@ -53,8 +54,8 @@ export function ChatInterface({ className, isEmbedded = false }: ChatInterfacePr
 
   return (
     <div className={cn("flex flex-col h-full", className)}>
-      <ScrollArea className="flex-1 px-5 py-5 hide-scrollbar">
-        <div className="space-y-4">
+      <ScrollArea className="flex-1 px-4 py-4 hide-scrollbar">
+        <div className="space-y-3">
           {messages.map((msg, i) => (
             <div
               key={i}
@@ -63,18 +64,12 @@ export function ChatInterface({ className, isEmbedded = false }: ChatInterfacePr
                 msg.role === 'user' ? "items-end" : "items-start"
               )}
             >
-              <div className="max-w-[95%]">
-                {msg.role === 'assistant' && (
-                  <div className="flex items-center gap-1.5 mb-1">
-                    <Terminal className="w-2 h-2 text-primary/40" />
-                    <span className="text-[6px] uppercase tracking-[0.4em] font-bold text-primary/30">Harpa Intel</span>
-                  </div>
-                )}
+              <div className="max-w-[90%]">
                 <div
                   className={cn(
-                    "text-[13px] leading-relaxed tracking-tight font-light",
+                    "text-[12px] leading-snug tracking-tight font-light",
                     msg.role === 'user'
-                      ? "bg-primary/10 border border-white/5 text-primary px-3 py-2 rounded-xl rounded-tr-none italic"
+                      ? "bg-primary/10 border border-white/5 text-primary px-3 py-1.5 rounded-xl rounded-tr-none italic"
                       : "text-foreground/70 px-1"
                   )}
                 >
@@ -84,25 +79,22 @@ export function ChatInterface({ className, isEmbedded = false }: ChatInterfacePr
             </div>
           ))}
           {isLoading && (
-            <div className="flex flex-col gap-1.5 animate-pulse pl-1">
-              <div className="flex items-center gap-1.5">
-                <Sparkles className="w-2.5 h-2.5 text-accent" />
-                <span className="text-[6px] uppercase tracking-[0.5em] font-bold text-accent">Synthesizing...</span>
-              </div>
+            <div className="flex flex-col gap-1 animate-pulse pl-1">
+              <span className="text-[6px] uppercase tracking-[0.5em] font-bold text-accent">Synthesizing...</span>
             </div>
           )}
           <div ref={scrollRef} />
         </div>
       </ScrollArea>
 
-      <div className={cn("px-5 py-4 border-t border-white/5", isEmbedded ? "bg-white/[0.01]" : "bg-black/20")}>
+      <div className={cn("px-4 py-3 border-t border-white/5", isEmbedded ? "bg-white/[0.01]" : "bg-black/20")}>
         <form onSubmit={handleSubmit} className="relative flex items-center">
           <Input
             suppressHydrationWarning
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Transmit briefing..."
-            className="bg-transparent border-0 border-b border-white/10 rounded-none h-8 pl-0 pr-8 focus-visible:ring-0 focus:border-primary transition-all text-xs font-headline italic placeholder:text-foreground/10"
+            placeholder="Transmit..."
+            className="bg-transparent border-0 border-b border-white/10 rounded-none h-7 pl-0 pr-8 focus-visible:ring-0 focus:border-primary transition-all text-xs font-headline italic placeholder:text-foreground/10"
           />
           <Button
             suppressHydrationWarning
@@ -118,10 +110,6 @@ export function ChatInterface({ className, isEmbedded = false }: ChatInterfacePr
             <Send className="w-3 h-3" />
           </Button>
         </form>
-        <div className="flex justify-between items-center mt-4 opacity-10">
-          <p className="text-[6px] uppercase tracking-[0.4em] font-bold">Depok Node</p>
-          <p className="text-[6px] uppercase tracking-[0.4em] font-bold italic">v2.6</p>
-        </div>
       </div>
     </div>
   );
