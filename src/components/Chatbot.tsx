@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import { MessageSquare, X, Send, Sparkles, Loader2, Minimize2 } from 'lucide-react';
+import { X, Send, Sparkles, Minimize2, Terminal } from 'lucide-react';
 import { aiCreativeAssistantChatbot } from '@/ai/flows/ai-creative-assistant-chatbot';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -18,7 +18,7 @@ export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: 'Welcome to Harpa Studio. I am the Creative Assistant. How can I facilitate your vision today?' }
+    { role: 'assistant', content: 'Welcome to Harpa Studio. I am your Creative Concierge. How shall we refine your vision today?' }
   ]);
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -29,7 +29,6 @@ export function Chatbot() {
     }
   }, [messages, isOpen]);
 
-  // Listen for custom events to open chat from other components
   useEffect(() => {
     const handleOpenChat = () => setIsOpen(true);
     window.addEventListener('open-harpa-chat', handleOpenChat);
@@ -49,7 +48,7 @@ export function Chatbot() {
       const response = await aiCreativeAssistantChatbot({ query: userMsg });
       setMessages(prev => [...prev, { role: 'assistant', content: response.response }]);
     } catch (error) {
-      setMessages(prev => [...prev, { role: 'assistant', content: "Connection interrupted. Our studio systems are currently optimizing. Please try again in a moment." }]);
+      setMessages(prev => [...prev, { role: 'assistant', content: "Our systems are currently recalibrating for optimal output. Please initiate dialogue again in a moment." }]);
     } finally {
       setIsLoading(false);
     }
@@ -57,80 +56,77 @@ export function Chatbot() {
 
   return (
     <div className="fixed bottom-8 right-8 z-[300]">
-      {/* Trigger Button - More minimal and studio-like */}
+      {/* Trigger Button - More like a high-end studio seal */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-700 shadow-[0_20px_50px_rgba(0,0,0,0.5)] group overflow-hidden border border-white/10",
-          isOpen ? "bg-accent border-accent/20 rotate-180" : "bg-card hover:bg-secondary"
+          "w-16 h-16 rounded-full flex items-center justify-center transition-all duration-1000 shadow-[0_20px_60px_rgba(0,0,0,0.6)] group overflow-hidden border border-white/5",
+          isOpen ? "bg-primary border-primary rotate-90" : "bg-card hover:border-primary/30"
         )}
       >
         {isOpen ? (
-          <Minimize2 className="w-6 h-6 text-white" />
+          <X className="w-6 h-6 text-background" />
         ) : (
           <div className="relative flex items-center justify-center">
-            <Sparkles className="w-6 h-6 text-primary group-hover:text-accent transition-colors" />
-            <div className="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+            <span className="font-headline italic text-2xl text-primary group-hover:scale-110 transition-transform">H*</span>
+            <div className="absolute inset-0 bg-primary/10 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
           </div>
         )}
       </button>
 
-      {/* Chat Panel - Redesigned to be less "AI coded" and more "Harpa Studio" */}
+      {/* Chat Panel - Redesigned to be "The Concierge" */}
       {isOpen && (
-        <div className="absolute bottom-20 right-0 w-[calc(100vw-4rem)] sm:w-[420px] h-[650px] max-h-[80vh] bg-card border border-white/10 rounded-[2.5rem] shadow-[0_30px_100px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden animate-in slide-in-from-bottom-8 fade-in duration-500 backdrop-blur-3xl">
+        <div className="absolute bottom-24 right-0 w-[calc(100vw-4rem)] sm:w-[450px] h-[700px] max-h-[85vh] bg-card/95 border border-white/10 rounded-[3rem] shadow-[0_40px_120px_rgba(0,0,0,0.9)] flex flex-col overflow-hidden animate-in slide-in-from-bottom-12 fade-in duration-700 backdrop-blur-3xl">
           {/* Header */}
-          <div className="p-8 border-b border-white/5 flex items-center justify-between">
-            <div className="flex items-center gap-5">
-              <div className="relative">
-                <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center border border-primary/20">
-                  <span className="font-headline italic text-2xl text-primary">H*</span>
-                </div>
-                <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-accent rounded-full border-2 border-card" />
+          <div className="px-10 py-10 border-b border-white/5 bg-secondary/20">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-3">
+                <Terminal className="w-4 h-4 text-accent" />
+                <span className="text-[9px] text-accent uppercase tracking-[0.5em] font-bold">Harpa Neural Node</span>
               </div>
-              <div>
-                <h3 className="font-headline italic text-2xl tracking-tight text-foreground">Creative Assistant</h3>
-                <p className="text-[9px] text-primary uppercase tracking-[0.3em] font-bold opacity-50">Experimental AI Node</p>
+              <div className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
+                <span className="text-[8px] uppercase tracking-widest text-foreground/30 font-bold">Online</span>
               </div>
             </div>
-            <button onClick={() => setIsOpen(false)} className="text-foreground/20 hover:text-primary transition-colors">
-              <X className="w-5 h-5" />
-            </button>
+            <h3 className="font-headline italic text-4xl text-foreground mb-1">Creative Concierge.</h3>
+            <p className="text-[10px] text-foreground/30 uppercase tracking-[0.2em]">Crafting Narratives via Depok Hub v2.0</p>
           </div>
 
           {/* Messages */}
-          <ScrollArea className="flex-1 px-8 py-6 hide-scrollbar">
-            <div className="space-y-8">
+          <ScrollArea className="flex-1 px-10 py-8 hide-scrollbar">
+            <div className="space-y-12">
               {messages.map((msg, i) => (
                 <div
                   key={i}
                   className={cn(
-                    "flex flex-col max-w-[90%] animate-in fade-in slide-in-from-bottom-2 duration-700",
-                    msg.role === 'user' ? "ml-auto items-end" : "items-start"
+                    "flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-1000",
+                    msg.role === 'user' ? "items-end" : "items-start"
                   )}
                 >
-                  <div
-                    className={cn(
-                      "text-sm leading-relaxed tracking-tight",
-                      msg.role === 'user'
-                        ? "bg-primary text-background px-5 py-3 rounded-2xl rounded-tr-none font-medium"
-                        : "text-foreground/70 pl-0 pr-6"
-                    )}
-                  >
+                  <div className="max-w-[85%]">
                     {msg.role === 'assistant' && (
-                      <span className="text-[10px] uppercase tracking-widest font-bold text-accent mb-2 block">Harpa System</span>
+                      <span className="text-[9px] uppercase tracking-[0.3em] font-bold text-primary mb-4 block">Concierge Response —</span>
                     )}
-                    {msg.content}
+                    <div
+                      className={cn(
+                        "text-lg leading-relaxed tracking-tight font-light",
+                        msg.role === 'user'
+                          ? "bg-primary/5 border border-white/10 text-primary px-6 py-4 rounded-3xl rounded-tr-none italic"
+                          : "text-foreground/70"
+                      )}
+                    >
+                      {msg.content}
+                    </div>
                   </div>
                 </div>
               ))}
               {isLoading && (
-                <div className="flex items-center gap-3 text-accent/60">
-                  <div className="flex gap-1">
-                    <div className="w-1 h-1 bg-accent rounded-full animate-bounce [animation-delay:-0.3s]" />
-                    <div className="w-1 h-1 bg-accent rounded-full animate-bounce [animation-delay:-0.15s]" />
-                    <div className="w-1 h-1 bg-accent rounded-full animate-bounce" />
+                <div className="flex flex-col gap-4 animate-pulse">
+                  <span className="text-[9px] uppercase tracking-[0.3em] font-bold text-accent">Synthesizing Vision...</span>
+                  <div className="w-full h-[1px] bg-white/5 overflow-hidden">
+                    <div className="w-full h-full bg-accent animate-[loading_2s_infinite]" />
                   </div>
-                  <span className="text-[10px] uppercase tracking-[0.3em] font-bold">Synthesizing vision...</span>
                 </div>
               )}
               <div ref={scrollRef} />
@@ -138,29 +134,34 @@ export function Chatbot() {
           </ScrollArea>
 
           {/* Input Area */}
-          <div className="p-8 bg-background/40 backdrop-blur-md border-t border-white/5">
+          <div className="p-10 bg-background/20 border-t border-white/5">
             <form onSubmit={handleSubmit} className="relative flex items-center group">
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Describe your project vision..."
-                className="bg-secondary/50 border-white/5 rounded-2xl h-14 pl-6 pr-14 focus:ring-accent focus:border-accent/50 transition-all text-sm placeholder:text-foreground/20"
+                placeholder="Brief the studio..."
+                className="bg-transparent border-0 border-b border-white/10 rounded-none h-16 pl-0 pr-14 focus-visible:ring-0 focus:border-primary transition-all text-xl font-headline italic placeholder:text-foreground/10"
               />
               <Button
                 type="submit"
-                size="icon"
+                variant="ghost"
                 disabled={!input.trim() || isLoading}
                 className={cn(
-                  "absolute right-2 w-10 h-10 rounded-xl transition-all duration-500",
-                  input.trim() ? "bg-accent hover:bg-accent/80 scale-100" : "bg-white/5 scale-90 opacity-20"
+                  "absolute right-0 w-12 h-12 rounded-full transition-all duration-700",
+                  input.trim() ? "text-primary opacity-100 scale-100" : "opacity-0 scale-50"
                 )}
               >
-                <Send className="w-4 h-4 text-white" />
+                <Send className="w-5 h-5" />
               </Button>
             </form>
-            <p className="text-[8px] text-center mt-4 uppercase tracking-[0.2em] text-foreground/20">
-              Harpa Studio AI Collective — Optimized for High-End Visual Narrative
-            </p>
+            <div className="flex justify-between items-center mt-6">
+              <p className="text-[8px] uppercase tracking-[0.3em] text-foreground/20 font-bold">
+                Harpa Intelligence Collective
+              </p>
+              <p className="text-[8px] uppercase tracking-[0.3em] text-foreground/20 font-bold">
+                2026 Studio Node
+              </p>
+            </div>
           </div>
         </div>
       )}
