@@ -1,1054 +1,388 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Harpa Design Studio — Harry Prambudy</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#faf8f5;
-  --text:#0d0c0a;
-  --accent:#b83a3a;
-  --accent-dark:#8b2a2a;
-  --line:#e8e3db;
-  --mute:#7a7570;
-}
-
-html,body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:'Lora',serif;
-  line-height:1.6;
-  -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
-}
-
-html{scroll-behavior:smooth}
-a{color:inherit;text-decoration:none}
-
-/* ===== NAV ===== */
-nav{
-  position:fixed;
-  top:0;left:0;right:0;
-  z-index:999;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:28px 48px;
-  background:transparent;
-  transition:all 0.35s ease;
-  opacity:0;
-  pointer-events:none;
-}
-
-nav.visible{
-  opacity:1;
-  pointer-events:auto;
-  background:rgba(250,248,245,0.95);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--line);
-}
-
-.nav-brand{
-  font-family:'Playfair Display',serif;
-  font-size:20px;
-  font-weight:700;
-  letter-spacing:0.6px;
-}
-
-.nav-brand .accent{
-  color:var(--accent);
-}
-
-nav ul{
-  display:flex;
-  gap:48px;
-  list-style:none;
-  font-size:10px;
-  font-family:'IBM Plex Mono',monospace;
-  letter-spacing:1.2px;
-  text-transform:uppercase;
-}
-
-nav ul a{
-  position:relative;
-  transition:color 0.3s ease;
-}
-
-nav ul a::after{
-  content:'';
-  position:absolute;
-  bottom:-6px;
-  left:0;
-  width:100%;
-  height:1px;
-  background:var(--accent);
-  transform:scaleX(0);
-  transform-origin:right;
-  transition:transform 0.3s ease;
-}
-
-nav ul a:hover{
-  color:var(--accent);
-}
-
-nav ul a:hover::after{
-  transform:scaleX(1);
-  transform-origin:left;
-}
-
-/* ===== HERO FRAME ===== */
-.hero-frame{
-  position:fixed;
-  top:0;left:0;right:0;bottom:0;
-  background:#000;
-  z-index:1000;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transition:opacity 0.35s ease;
-  will-change:opacity;
-}
-
-.hero-frame.hidden{
-  opacity:0;
-  pointer-events:none;
-}
-
-.hero-content{
-  width:85vw;
-  height:85vh;
-  border:4px solid #fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  will-change:transform;
-}
-
-.hero-text{
-  text-align:center;
-  color:#fff;
-  font-family:'Playfair Display',serif;
-  font-size:clamp(3rem,15vw,9rem);
-  font-weight:800;
-  letter-spacing:-2px;
-  line-height:1.05;
-}
-
-.hero-text .subtitle{
-  display:block;
-  font-size:0.2em;
-  font-family:'IBM Plex Mono',monospace;
-  letter-spacing:4px;
-  margin-top:1em;
-  font-weight:400;
-  text-transform:uppercase;
-  opacity:0.65;
-}
-
-.hero-text .designer{
-  display:block;
-  font-size:0.14em;
-  font-family:'Lora',serif;
-  letter-spacing:1px;
-  margin-top:0.6em;
-  font-weight:400;
-  opacity:0.5;
-}
-
-/* ===== SCROLL STAGE ===== */
-.scroll-stage{
-  position:relative;
-  height:600vh;
-  background:var(--bg);
-}
-
-.sticky-section{
-  position:sticky;
-  top:0;
-  height:100vh;
-  overflow:hidden;
-  background:var(--bg);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  perspective:1200px;
-}
-
-.laptop-container{
-  position:relative;
-  width:min(1100px,90vw);
-  aspect-ratio:16/10;
-  transform-style:preserve-3d;
-  will-change:transform;
-}
-
-/* ===== MACBOOK DESIGN ===== */
-.macbook-lid{
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  bottom:0;
-  background:linear-gradient(180deg,#2a2a28 0%,#1a1a18 100%);
-  border-radius:24px 24px 8px 8px;
-  overflow:hidden;
-  box-shadow:0 100px 250px rgba(0,0,0,0.7),0 0 0 1px rgba(255,255,255,0.1);
-  transform-style:preserve-3d;
-  transform-origin:bottom center;
-  will-change:transform;
-}
-
-.macbook-notch{
-  position:absolute;
-  top:18px;
-  left:50%;
-  transform:translateX(-50%);
-  width:160px;
-  height:24px;
-  background:#0d0d0b;
-  border-radius:0 0 16px 16px;
-  z-index:20;
-  will-change:opacity;
-}
-
-.macbook-notch::after{
-  content:'';
-  position:absolute;
-  top:8px;
-  left:50%;
-  transform:translateX(-50%);
-  width:10px;
-  height:10px;
-  background:#1a1a18;
-  border-radius:50%;
-}
-
-.macbook-bezel{
-  position:absolute;
-  inset:20px;
-  background:var(--bg);
-  border-radius:14px;
-  overflow:hidden;
-  box-shadow:inset 0 0 0 1px rgba(0,0,0,0.1);
-}
-
-.screen{
-  position:absolute;
-  inset:0;
-  display:flex;
-  flex-direction:column;
-  padding:36px 48px;
-  background:var(--bg);
-}
-
-.screen-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding-bottom:28px;
-  border-bottom:2px solid var(--line);
-  margin-bottom:40px;
-}
-
-.screen-logo{
-  font-family:'Playfair Display',serif;
-  font-size:16px;
-  font-weight:700;
-  letter-spacing:0.5px;
-}
-
-.screen-logo .accent{
-  color:var(--accent);
-}
-
-.screen-nav{
-  display:flex;
-  gap:40px;
-  font-size:10px;
-  font-family:'IBM Plex Mono',monospace;
-  letter-spacing:1.5px;
-  text-transform:uppercase;
-  color:var(--mute);
-}
-
-.screen-hero{
-  flex:1;
-  display:grid;
-  grid-template-columns:1.3fr 0.7fr;
-  gap:60px;
-  align-items:center;
-}
-
-.hero-left h1{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(2rem,5vw,3.2rem);
-  font-weight:800;
-  line-height:1.2;
-  letter-spacing:-1px;
-  margin-bottom:20px;
-}
-
-.hero-left h1 .accent{
-  color:var(--accent);
-}
-
-.hero-left p{
-  font-size:11px;
-  color:var(--mute);
-  line-height:1.7;
-  font-family:'IBM Plex Mono',monospace;
-  letter-spacing:0.5px;
-  max-width:320px;
-}
-
-.hero-right{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  height:100%;
-  grid-auto-rows:1fr;
-}
-
-.work-box{
-  background:linear-gradient(135deg,#b83a3a,#6b2020);
-  border-radius:2px;
-  overflow:hidden;
-  display:flex;
-  align-items:flex-end;
-  padding:14px;
-  font-size:9px;
-  color:#fff;
-  font-family:'IBM Plex Mono',monospace;
-  font-weight:500;
-  box-shadow:0 8px 20px rgba(0,0,0,0.15);
-  text-transform:uppercase;
-  letter-spacing:0.5px;
-  transition:transform 0.3s ease;
-}
-
-.work-box:hover{
-  transform:translateY(-2px);
-}
-
-.work-box:nth-child(1){
-  grid-row:span 2;
-  background:linear-gradient(135deg,#b83a3a,#5b1515);
-}
-
-.work-box:nth-child(2){
-  background:linear-gradient(135deg,#d4a574,#8b6b3a);
-}
-
-.work-box:nth-child(3){
-  background:linear-gradient(135deg,#2a2a28,#0d0d0b);
-}
-
-.screen-footer{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding-top:24px;
-  border-top:2px solid var(--line);
-  font-size:8px;
-  font-family:'IBM Plex Mono',monospace;
-  letter-spacing:1px;
-  text-transform:uppercase;
-  color:var(--mute);
-}
-
-/* ===== LAPTOP BASE ===== */
-.macbook-base{
-  position:absolute;
-  bottom:-24px;
-  left:0;
-  right:0;
-  height:28px;
-  background:linear-gradient(180deg,#2a2a28,#0d0d0b);
-  border-radius:0 0 28px 28px;
-  box-shadow:0 40px 120px rgba(0,0,0,0.5);
-  will-change:opacity;
-}
-
-.laptop-shadow{
-  position:absolute;
-  bottom:-70px;
-  left:5%;
-  right:5%;
-  height:60px;
-  background:radial-gradient(50% 100% at 50% 0%,rgba(0,0,0,0.6),transparent);
-  filter:blur(16px);
-  will-change:opacity;
-}
-
-/* ===== MAIN CONTENT ===== */
-.main-content{
-  position:relative;
-  z-index:10;
-  background:var(--bg);
-  padding-top:200px;
-}
-
-.section{
-  padding:120px 60px;
-  border-top:1px solid var(--line);
-  opacity:0;
-  transform:translateY(60px);
-  transition:opacity 0.8s ease, transform 0.8s ease;
-}
-
-.section.visible{
-  opacity:1;
-  transform:translateY(0);
-}
-
-.section-label{
-  font-family:'IBM Plex Mono',monospace;
-  font-size:10px;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  color:var(--accent);
-  margin-bottom:16px;
-  font-weight:600;
-}
-
-.section h2{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(2.5rem,8vw,4.5rem);
-  font-weight:800;
-  line-height:1.15;
-  letter-spacing:-1px;
-  margin-bottom:48px;
-  max-width:900px;
-}
-
-.section h2 .accent{
-  color:var(--accent);
-}
-
-/* ===== PORTFOLIO ===== */
-.projects-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:60px;
-  margin-top:80px;
-}
-
-@media(max-width:980px){
-  .projects-grid{grid-template-columns:1fr}
-}
-
-.project{
-  border-top:2px solid var(--line);
-  padding-top:40px;
-  transition:transform 0.3s ease;
-}
-
-.project:hover{
-  transform:translateY(-4px);
-}
-
-.project h3{
-  font-family:'Playfair Display',serif;
-  font-size:26px;
-  font-weight:700;
-  margin-bottom:12px;
-  letter-spacing:-0.5px;
-}
-
-.project-meta{
-  display:flex;
-  gap:20px;
-  font-size:9px;
-  font-family:'IBM Plex Mono',monospace;
-  letter-spacing:1px;
-  text-transform:uppercase;
-  color:var(--mute);
-  margin-bottom:20px;
-}
-
-.project p{
-  font-size:14px;
-  color:var(--mute);
-  line-height:1.8;
-  margin-bottom:28px;
-  max-width:520px;
-}
-
-.project-image{
-  width:100%;
-  aspect-ratio:4/3;
-  background:linear-gradient(135deg,#ebe8e2,#ddd6cd);
-  border-radius:2px;
-  margin-bottom:32px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--mute);
-  font-family:'IBM Plex Mono',monospace;
-  font-size:11px;
-  border:1px solid var(--line);
-  transition:all 0.3s ease;
-  overflow:hidden;
-}
-
-.project-image:hover{
-  background:linear-gradient(135deg,#ddd6cd,#ccc2b8);
-  border-color:var(--accent);
-}
-
-.project-image img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-.project-specs{
-  display:grid;
-  grid-template-columns:auto 1fr;
-  gap:12px 32px;
-  font-family:'IBM Plex Mono',monospace;
-  font-size:8px;
-  margin-top:24px;
-  padding-top:24px;
-  border-top:1px solid var(--line);
-}
-
-.spec-label{
-  color:var(--mute);
-  text-transform:uppercase;
-  letter-spacing:0.5px;
-  font-weight:600;
-  opacity:0.7;
-}
-
-.spec-value{
-  color:var(--text);
-  font-weight:500;
-}
-
-/* ===== ABOUT SECTION ===== */
-.about-container{
-  display:grid;
-  grid-template-columns:1.4fr 0.6fr;
-  gap:80px;
-  align-items:start;
-  margin-top:60px;
-}
-
-.about-text{
-  font-size:15px;
-  color:var(--mute);
-  line-height:1.9;
-  max-width:700px;
-}
-
-.about-text p{
-  margin-bottom:24px;
-}
-
-.designer-card{
-  background:rgba(184,58,58,0.05);
-  border:1px solid var(--line);
-  border-radius:3px;
-  padding:36px;
-  transition:all 0.3s ease;
-}
-
-.designer-card:hover{
-  background:rgba(184,58,58,0.08);
-  border-color:var(--accent);
-}
-
-.designer-photo{
-  width:100%;
-  aspect-ratio:3/4;
-  background:linear-gradient(135deg,#e8e3db,#ddd6cd);
-  border-radius:2px;
-  margin-bottom:24px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--mute);
-  font-size:12px;
-  border:1px solid var(--line);
-  overflow:hidden;
-}
-
-.designer-photo img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-.designer-name{
-  font-family:'Playfair Display',serif;
-  font-size:22px;
-  font-weight:700;
-  margin-bottom:6px;
-}
-
-.designer-title{
-  font-family:'IBM Plex Mono',monospace;
-  font-size:9px;
-  letter-spacing:1.5px;
-  text-transform:uppercase;
-  color:var(--accent);
-  margin-bottom:16px;
-  font-weight:600;
-}
-
-.designer-bio{
-  font-size:13px;
-  color:var(--mute);
-  line-height:1.7;
-  margin-bottom:20px;
-}
-
-.designer-stats{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:16px;
-  padding-top:20px;
-  border-top:1px solid var(--line);
-}
-
-.stat{
-  text-align:center;
-}
-
-.stat-value{
-  font-family:'Playfair Display',serif;
-  font-size:20px;
-  font-weight:700;
-  color:var(--accent);
-  margin-bottom:4px;
-}
-
-.stat-label{
-  font-family:'IBM Plex Mono',monospace;
-  font-size:8px;
-  text-transform:uppercase;
-  letter-spacing:0.8px;
-  color:var(--mute);
-  font-weight:600;
-}
-
-/* ===== FOOTER ===== */
-footer{
-  padding:140px 60px 60px;
-  border-top:2px solid var(--line);
-  text-align:center;
-  background:var(--bg);
-  opacity:0;
-  transform:translateY(60px);
-  transition:opacity 0.8s ease, transform 0.8s ease;
-}
-
-footer.visible{
-  opacity:1;
-  transform:translateY(0);
-}
-
-footer h2{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(3rem,10vw,5rem);
-  font-weight:800;
-  line-height:1.1;
-  margin-bottom:32px;
-  letter-spacing:-1px;
-}
-
-footer h2 .accent{
-  color:var(--accent);
-}
-
-.contact-info{
-  font-size:13px;
-  color:var(--mute);
-  margin-bottom:40px;
-  line-height:1.8;
-}
-
-.contact-info a{
-  color:var(--text);
-  border-bottom:2px solid var(--accent);
-  transition:opacity 0.3s;
-  font-weight:600;
-}
-
-.contact-info a:hover{
-  opacity:0.6;
-}
-
-.footer-links{
-  display:flex;
-  justify-content:center;
-  gap:40px;
-  font-size:10px;
-  font-family:'IBM Plex Mono',monospace;
-  letter-spacing:1px;
-  text-transform:uppercase;
-  color:var(--mute);
-  margin-top:60px;
-  flex-wrap:wrap;
-}
-
-.footer-links a{
-  transition:color 0.3s;
-}
-
-.footer-links a:hover{
-  color:var(--accent);
-}
-
-/* ===== RESPONSIVE ===== */
-@media(max-width:980px){
-  nav ul{gap:28px}
-  .screen-hero{grid-template-columns:1fr}
-  .hero-right{grid-template-columns:1fr 1fr;height:auto;min-height:200px}
-  .work-box:nth-child(1){grid-row:span 1}
-  .about-container{grid-template-columns:1fr;gap:60px}
-}
-
-@media(max-width:780px){
-  nav ul{display:none}
-  nav{padding:20px 28px}
-  .section{padding:80px 24px}
-  .projects-grid{gap:40px}
-  .screen{padding:24px 28px}
-  .screen-header{padding-bottom:16px;margin-bottom:24px;flex-direction:column;align-items:flex-start;gap:12px}
-  .screen-nav{gap:16px;font-size:9px}
-  .footer-links{flex-direction:column;gap:20px}
-  footer{padding:100px 24px 50px}
-  .designer-card{padding:24px}
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harpa | Prisma Creative Studio</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+    
+    <!-- Scripts: React, Tailwind, Framer Motion, Lucide -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#DEDBC8',
+                    },
+                    fontFamily: {
+                        sans: ['Almarai', 'sans-serif'],
+                        serif: ['"Instrument Serif"', 'serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * { font-family: 'Almarai', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif; }
+        
+        body { background-color: #000000; color: #E1E0CC; margin: 0; overflow-x: hidden; }
+
+        .noise-overlay {
+            position: absolute; inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .bg-noise {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
 </head>
 <body>
+    <div id="root"></div>
 
-<!-- ===== NAV ===== -->
-<nav id="nav">
-  <div class="nav-brand"><span class="accent">H</span>arpa</div>
-  <ul>
-    <li><a href="#work">Work</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
+    <script type="text/babel">
+        const { motion, useInView, useScroll, useTransform } = window.Motion;
+        const { useRef, useEffect, useState } = React;
 
-<!-- ===== HERO FRAME ===== -->
-<div class="hero-frame" id="heroFrame">
-  <div class="hero-content" id="heroContent">
-    <div class="hero-text" id="heroText">
-      Harpa Design Studio
-      <div class="subtitle">Creative Direction</div>
-      <div class="designer">By Harry Prambudy</div>
-    </div>
-  </div>
-</div>
+        // --- COMPONENTS ---
 
-<!-- ===== SCROLL STAGE ===== -->
-<div class="scroll-stage" id="scrollStage">
-  <div class="sticky-section" id="stickySection">
-    <div class="laptop-container" id="laptopContainer">
-      <div class="macbook-lid" id="macbookLid">
-        <div class="macbook-notch" id="macbookNotch"></div>
-        <div class="macbook-bezel">
-          <div class="screen">
-            <div class="screen-header">
-              <div class="screen-logo"><span class="accent">H</span>arpa</div>
-              <div class="screen-nav">
-                <span>Work</span>
-                <span>Studio</span>
-                <span>Contact</span>
-              </div>
-            </div>
+        const WordsPullUp = ({ text, className, showAsterisk = false }) => {
+            const ref = useRef(null);
+            const isInView = useInView(ref, { once: true, margin: "-100px" });
+            const words = text.split(" ");
+
+            return (
+                <div ref={ref} className={`flex flex-wrap overflow-hidden ${className}`}>
+                    {words.map((word, i) => (
+                        <motion.span
+                            key={i}
+                            initial={{ y: "100%" }}
+                            animate={isInView ? { y: 0 } : { y: "100%" }}
+                            transition={{ duration: 0.8, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                            className="relative inline-block mr-[0.2em]"
+                        >
+                            {word}
+                            {showAsterisk && i === words.length - 1 && (
+                                <span className="absolute top-[0.65em] -right-[0.3em] text-[0.31em]">*</span>
+                            )}
+                        </motion.span>
+                    ))}
+                </div>
+            );
+        };
+
+        const WordsPullUpMultiStyle = ({ segments, className }) => {
+            const ref = useRef(null);
+            const isInView = useInView(ref, { once: true, margin: "-100px" });
             
-            <div class="screen-hero">
-              <div class="hero-left">
-                <h1>Visual Strategy<br/>&amp; <span class="accent">Brand Design</span></h1>
-                <p>Strategic branding · Identity systems · Art direction · Design for impact</p>
-              </div>
-              <div class="hero-right">
-                <div class="work-box">Global Brands</div>
-                <div class="work-box">Design Systems</div>
-                <div class="work-box">Innovation</div>
-              </div>
-            </div>
+            let wordIndex = 0;
+            return (
+                <div ref={ref} className={`inline-flex flex-wrap justify-center overflow-hidden ${className}`}>
+                    {segments.map((segment, sIdx) => (
+                        segment.text.split(" ").map((word, wIdx) => {
+                            const currentIdx = wordIndex++;
+                            return (
+                                <motion.span
+                                    key={`${sIdx}-${wIdx}`}
+                                    initial={{ y: "120%" }}
+                                    animate={isInView ? { y: 0 } : { y: "120%" }}
+                                    transition={{ duration: 0.8, delay: currentIdx * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                                    className={`inline-block mr-[0.25em] ${segment.className}`}
+                                >
+                                    {word}
+                                </motion.span>
+                            );
+                        })
+                    ))}
+                </div>
+            );
+        };
 
-            <div class="screen-footer">
-              <span>● Since 2020</span>
-              <span class="accent">Jakarta, Indonesia</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="macbook-base" id="macbookBase"></div>
-      <div class="laptop-shadow" id="laptopShadow"></div>
-    </div>
-  </div>
-</div>
+        const AnimatedLetter = ({ char, progress, range }) => {
+            const opacity = useTransform(progress, range, [0.2, 1]);
+            return <motion.span style={{ opacity }}>{char}</motion.span>;
+        };
 
-<!-- ===== MAIN CONTENT ===== -->
-<div class="main-content">
+        const ScrollRevealText = ({ text }) => {
+            const ref = useRef(null);
+            const { scrollYProgress } = useScroll({
+                target: ref,
+                offset: ["start 0.8", "end 0.2"]
+            });
 
-  <!-- ===== PORTFOLIO ===== -->
-  <section class="section" id="work">
-    <div class="section-label">Featured Work</div>
-    <h2>Strategic design that <span class="accent">creates impact.</span></h2>
-    
-    <div class="projects-grid">
-      
-      <!-- PROJECT 1 -->
-      <div class="project">
-        <h3>BCA</h3>
-        <div class="project-meta"><span>Branding</span><span>Identity</span><span>2023</span></div>
-        <p>Comprehensive brand identity and visual system for Indonesia's leading financial institution. Strategic direction across digital and print applications.</p>
-        <div class="project-image">
-          <span>Project Image Placeholder</span>
-        </div>
-        <div class="project-specs">
-          <span class="spec-label">Scope</span><span class="spec-value">Complete Brand System</span>
-          <span class="spec-label">Type</span><span class="spec-value">Corporate Identity</span>
-          <span class="spec-label">Delivery</span><span class="spec-value">Full Brand Guidelines + Applications</span>
-        </div>
-      </div>
+            const characters = text.split("");
+            return (
+                <p ref={ref} className="text-[#DEDBC8] text-xs sm:text-sm md:text-base leading-relaxed">
+                    {characters.map((char, i) => {
+                        const step = 1 / characters.length;
+                        const start = i * step;
+                        const end = start + 0.1;
+                        return <AnimatedLetter key={i} char={char} progress={scrollYProgress} range={[start, end]} />;
+                    })}
+                </p>
+            );
+        };
 
-      <!-- PROJECT 2 -->
-      <div class="project">
-        <h3>Danamon</h3>
-        <div class="project-meta"><span>Campaign</span><span>Strategy</span><span>2024</span></div>
-        <p>Strategic visual campaign and brand communication system for insurance leader. Cohesive design language across all customer touchpoints and communications.</p>
-        <div class="project-image">
-          <span>Project Image Placeholder</span>
-        </div>
-        <div class="project-specs">
-          <span class="spec-label">Scope</span><span class="spec-value">Campaign Identity + Design System</span>
-          <span class="spec-label">Type</span><span class="spec-value">Integrated Campaign</span>
-          <span class="spec-label">Impact</span><span class="spec-value">Multi-channel Brand Communication</span>
-        </div>
-      </div>
+        // --- SECTIONS ---
 
-      <!-- PROJECT 3 -->
-      <div class="project">
-        <h3>Garuda Indonesia</h3>
-        <div class="project-meta"><span>Rebranding</span><span>Corporate</span><span>2023</span></div>
-        <p>National carrier visual identity modernization. Strategic design direction balancing heritage with contemporary standards across all operational touchpoints.</p>
-        <div class="project-image">
-          <span>Project Image Placeholder</span>
-        </div>
-        <div class="project-specs">
-          <span class="spec-label">Scope</span><span class="spec-value">Full Brand Transformation</span>
-          <span class="spec-label">Type</span><span class="spec-value">Corporate Rebranding</span>
-          <span class="spec-label">Scale</span><span class="spec-value">Global Implementation</span>
-        </div>
-      </div>
+        const Hero = () => {
+            return (
+                <section className="h-screen w-full p-4 md:p-6 relative">
+                    <div className="w-full h-full rounded-2xl md:rounded-[2rem] overflow-hidden relative bg-zinc-900">
+                        {/* Video Background */}
+                        <video 
+                            className="absolute inset-0 w-full h-full object-cover"
+                            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_170732_8a9ccda6-5cff-4628-b164-059c500a2b41.mp4"
+                            autoPlay loop muted playsInline
+                        />
+                        
+                        <div className="noise-overlay opacity-[0.7] mix-blend-overlay pointer-events-none"></div>
+                        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60 pointer-events-none"></div>
 
-      <!-- PROJECT 4 (READY FOR YOUR PROJECT) -->
-      <div class="project">
-        <h3>Your Project Here</h3>
-        <div class="project-meta"><span>Category</span><span>Type</span><span>Year</span></div>
-        <p>Add your project description here. Keep it focused and impactful. Highlight the strategic approach and key outcomes of your work.</p>
-        <div class="project-image">
-          <span>Project Image Placeholder</span>
-        </div>
-        <div class="project-specs">
-          <span class="spec-label">Scope</span><span class="spec-value">Your Scope Here</span>
-          <span class="spec-label">Type</span><span class="spec-value">Project Type</span>
-          <span class="spec-label">Result</span><span class="spec-value">Key Achievement</span>
-        </div>
-      </div>
+                        {/* Navbar */}
+                        <nav className="absolute top-0 left-1/2 -translate-x-1/2 z-50">
+                            <div className="bg-black rounded-b-2xl md:rounded-b-3xl px-4 py-3 md:px-10 flex items-center gap-3 sm:gap-6 md:gap-12 lg:gap-14 border-x border-b border-white/5">
+                                {["Our story", "Collective", "Workshops", "Programs", "Inquiries"].map((item) => (
+                                    <a key={item} href="#" className="text-[10px] sm:text-xs md:text-sm whitespace-nowrap transition-colors" 
+                                       style={{ color: 'rgba(225, 224, 204, 0.8)' }}
+                                       onMouseOver={e => e.target.style.color = '#E1E0CC'}
+                                       onMouseOut={e => e.target.style.color = 'rgba(225, 224, 204, 0.8)'}>
+                                        {item}
+                                    </a>
+                                ))}
+                            </div>
+                        </nav>
 
-    </div>
-  </section>
+                        {/* Hero Content */}
+                        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12">
+                            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+                                <div className="md:col-span-8">
+                                    <WordsPullUp 
+                                        text="Prisma" 
+                                        showAsterisk={true}
+                                        className="text-[26vw] sm:text-[24vw] md:text-[22vw] lg:text-[20vw] xl:text-[19vw] 2xl:text-[20vw] font-medium leading-[0.85] tracking-[-0.07em] text-[#E1E0CC]"
+                                    />
+                                </div>
+                                <div className="md:col-span-4 pb-4 md:pb-8 flex flex-col gap-6">
+                                    <motion.p 
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.5, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                                        className="text-primary/70 text-xs sm:text-sm md:text-base leading-[1.2] max-w-xs"
+                                    >
+                                        Prisma is a worldwide network of visual artists, filmmakers and storytellers bound not by place, status or labels but by passion and hunger to unlock potential.
+                                    </motion.p>
+                                    
+                                    <motion.button 
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.7, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                                        className="group flex items-center justify-between bg-primary w-fit pr-1 pl-5 py-1 rounded-full gap-2 transition-all hover:gap-4"
+                                    >
+                                        <span className="text-black font-medium text-sm sm:text-base">Join the lab</span>
+                                        <div className="bg-black rounded-full w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center transition-transform group-hover:scale-110">
+                                            <i data-lucide="arrow-right" className="text-white w-4 h-4"></i>
+                                        </div>
+                                    </motion.button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
 
-  <!-- ===== ABOUT ===== -->
-  <section class="section" id="about">
-    <div class="section-label">About</div>
-    <h2>Craft & <span class="accent">intention.</span></h2>
-    
-    <div class="about-container">
-      <div class="about-text">
-        <p>Harpa Design Studio is a creative practice focused on strategic branding and visual direction. We work with ambitious brands and institutions to create meaningful visual communication that drives impact.</p>
-        
-        <p>Our approach combines strategic thinking with meticulous craft. We specialize in brand identity systems, digital design, and comprehensive visual solutions that evolve with your growth.</p>
-        
-        <p>Based in Jakarta, we collaborate with leading companies across Southeast Asia and beyond. We believe in creating work that matters—designs that communicate clearly, inspire action, and build lasting connections.</p>
-      </div>
+        const About = () => {
+            return (
+                <section className="bg-black py-24 px-4 md:px-20">
+                    <div className="bg-[#101010] rounded-[2.5rem] p-8 md:p-24 text-center max-w-7xl mx-auto border border-white/5">
+                        <span className="text-primary text-[10px] sm:text-xs tracking-widest uppercase mb-8 block">Visual arts</span>
+                        
+                        <WordsPullUpMultiStyle 
+                            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl max-w-4xl mx-auto leading-[0.95] sm:leading-[0.9] text-[#E1E0CC] mb-12"
+                            segments={[
+                                { text: "I am Marcus Chen,", className: "font-normal" },
+                                { text: "a self-taught director.", className: "font-serif italic" },
+                                { text: "I have skills in color grading, visual effects, and narrative design.", className: "font-normal" }
+                            ]}
+                        />
 
-      <div class="designer-card">
-        <div class="designer-photo">
-          <!-- Image placeholder for Harry Prambudy -->
-          <span>Add Photo Here</span>
-        </div>
-        <div class="designer-name">Harry Prambudy</div>
-        <div class="designer-title">Creative Director</div>
-        <div class="designer-bio">Strategic designer passionate about brand identity, visual systems, and creating meaningful design solutions.</div>
-        
-        <div class="designer-stats">
-          <div class="stat">
-            <div class="stat-value">12+</div>
-            <div class="stat-label">Years</div>
-          </div>
-          <div class="stat">
-            <div class="stat-value">50+</div>
-            <div class="stat-label">Projects</div>
-          </div>
-          <div class="stat">
-            <div class="stat-value">8</div>
-            <div class="stat-label">Awards</div>
-          </div>
-          <div class="stat">
-            <div class="stat-value">100%</div>
-            <div class="stat-label">Satisfied</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+                        <div className="max-w-2xl mx-auto">
+                            <ScrollRevealText text="Over the last seven years, I have worked with Parallax, a Berlin-based production house that crafts cinema, series, and Noir Studio in Paris. Together, we have created work that has earned international acclaim at several major festivals." />
+                        </div>
+                    </div>
+                </section>
+            );
+        };
 
-  <!-- ===== FOOTER ===== -->
-  <footer id="contact">
-    <h2>Let's <span class="accent">work together.</span></h2>
-    <div class="contact-info">
-      Email: <a href="mailto:hello@harpastudio.com">hello@harpastudio.com</a><br/>
-      Based in Jakarta, Indonesia. Available for new projects.
-    </div>
-    <div class="footer-links">
-      <div><a href="#">Instagram</a></div>
-      <div>·</div>
-      <div><a href="#">LinkedIn</a></div>
-      <div>·</div>
-      <div><a href="#">Behance</a></div>
-      <div>·</div>
-      <div>© 2024–25 Harpa</div>
-    </div>
-  </footer>
+        const FeatureCard = ({ index, title, num, icon, items, video }) => {
+            const ref = useRef(null);
+            const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-</div>
+            return (
+                <motion.div 
+                    ref={ref}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                    transition={{ duration: 0.8, delay: index * 0.15, ease: [0.22, 1, 0.36, 1] }}
+                    className={`relative rounded-3xl overflow-hidden h-[480px] flex flex-col ${video ? '' : 'bg-[#212121] p-8 border border-white/5'}`}
+                >
+                    {video ? (
+                        <>
+                            <video className="absolute inset-0 w-full h-full object-cover" src={video} autoPlay loop muted playsInline />
+                            <div className="absolute inset-0 bg-black/20"></div>
+                            <div className="mt-auto relative z-10 p-8">
+                                <h3 className="text-2xl font-medium text-[#E1E0CC]">{title}</h3>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <div className="flex justify-between items-start mb-12">
+                                <img src={icon} className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl object-cover" alt="" />
+                                <span className="text-primary/30 font-mono text-sm">{num}</span>
+                            </div>
+                            <div>
+                                <h3 className="text-xl font-medium text-[#E1E0CC] mb-6">{title}</h3>
+                                <ul className="space-y-4 mb-auto">
+                                    {items.map((item, i) => (
+                                        <li key={i} className="flex gap-3 items-start">
+                                            <i data-lucide="check" className="text-primary w-4 h-4 mt-1 flex-shrink-0"></i>
+                                            <span className="text-gray-400 text-sm">{item}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                            <button className="mt-auto flex items-center gap-2 text-primary text-sm group">
+                                Learn more 
+                                <i data-lucide="arrow-right" className="w-4 h-4 -rotate-45 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"></i>
+                            </button>
+                        </>
+                    )}
+                </motion.div>
+            );
+        };
 
-<!-- ===== JAVASCRIPT ===== -->
-<script>
-const heroFrame = document.getElementById('heroFrame');
-const heroContent = document.getElementById('heroContent');
-const heroText = document.getElementById('heroText');
-const scrollStage = document.getElementById('scrollStage');
-const laptopContainer = document.getElementById('laptopContainer');
-const macbookLid = document.getElementById('macbookLid');
-const macbookNotch = document.getElementById('macbookNotch');
-const macbookBase = document.getElementById('macbookBase');
-const laptopShadow = document.getElementById('laptopShadow');
-const stickySection = document.getElementById('stickySection');
-const nav = document.getElementById('nav');
+        const Features = () => {
+            return (
+                <section className="min-h-screen bg-black relative py-24 px-4 md:px-8">
+                    <div className="bg-noise opacity-[0.15] absolute inset-0 pointer-events-none"></div>
+                    
+                    <div className="relative z-10 max-w-7xl mx-auto mb-20">
+                        <WordsPullUpMultiStyle 
+                            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal leading-tight"
+                            segments={[
+                                { text: "Studio-grade workflows for visionary creators.", className: "text-primary block w-full" },
+                                { text: "Built for pure vision. Powered by art.", className: "text-gray-500 block w-full mt-2" }
+                            ]}
+                        />
+                    </div>
 
-let scrollProgress = 0;
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl mx-auto">
+                        <FeatureCard 
+                            index={0}
+                            video="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260406_133058_0504132a-0cf3-4450-a370-8ea3b05c95d4.mp4"
+                            title="Your creative canvas."
+                        />
+                        <FeatureCard 
+                            index={1}
+                            num="01"
+                            icon="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260405_171918_4a5edc79-d78f-4637-ac8b-53c43c220606.png&w=1280&q=85"
+                            title="Project Storyboard."
+                            items={["Frame-by-frame planning", "Dynamic moodboards", "Shot list generation", "Sequence mapping"]}
+                        />
+                        <FeatureCard 
+                            index={2}
+                            num="02"
+                            icon="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260405_171741_ed9845ab-f5b2-4018-8ce7-07cc01823522.png&w=1280&q=85"
+                            title="Smart Critiques."
+                            items={["AI-driven visual analysis", "Contextual creative notes", "Adobe Suite integration"]}
+                        />
+                        <FeatureCard 
+                            index={3}
+                            num="03"
+                            icon="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260405_171809_f56666dc-c099-4778-ad82-9ad4f209567b.png&w=1280&q=85"
+                            title="Immersion Capsule."
+                            items={["Notification silencing", "Ambient soundscapes", "Focus schedule syncing"]}
+                        />
+                    </div>
+                </section>
+            );
+        };
 
-window.addEventListener('scroll', () => {
-  const rect = scrollStage.getBoundingClientRect();
-  const stageHeight = scrollStage.offsetHeight;
-  const viewportHeight = window.innerHeight;
-  const totalDistance = stageHeight - viewportHeight;
-  const scrolled = -rect.top;
-  
-  scrollProgress = Math.min(Math.max(scrolled / totalDistance, 0), 1);
-  updateAnimations();
-});
+        const Footer = () => {
+            return (
+                <footer className="bg-[#101010] pt-24 pb-12 px-6 md:px-20 border-t border-white/5">
+                    <div className="max-w-7xl mx-auto">
+                        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-12 mb-20">
+                            <div className="col-span-2">
+                                <h2 className="text-primary text-3xl font-medium mb-6">Harpa*</h2>
+                                <p className="text-gray-500 text-sm max-w-xs">
+                                    Crafting the future of visual narrative through technology and human intuition.
+                                </p>
+                            </div>
+                            <div>
+                                <h4 className="text-primary text-xs uppercase tracking-widest mb-6 font-bold">Studio</h4>
+                                <ul className="space-y-3 text-sm text-gray-400">
+                                    <li><a href="#" className="hover:text-primary transition-colors">Manifesto</a></li>
+                                    <li><a href="#" className="hover:text-primary transition-colors">Projects</a></li>
+                                    <li><a href="#" className="hover:text-primary transition-colors">Lab</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 className="text-primary text-xs uppercase tracking-widest mb-6 font-bold">Social</h4>
+                                <ul className="space-y-3 text-sm text-gray-400">
+                                    <li><a href="#" className="hover:text-primary transition-colors">Instagram</a></li>
+                                    <li><a href="#" className="hover:text-primary transition-colors">Vimeo</a></li>
+                                    <li><a href="#" className="hover:text-primary transition-colors">Twitter</a></li>
+                                </ul>
+                            </div>
+                            <div className="col-span-2">
+                                <h4 className="text-primary text-xs uppercase tracking-widest mb-6 font-bold">Newsletter</h4>
+                                <div className="flex border-b border-primary/20 py-2">
+                                    <input type="email" placeholder="email@address.com" className="bg-transparent border-none outline-none text-sm w-full text-primary placeholder:text-gray-600" />
+                                    <button className="text-primary text-sm hover:translate-x-1 transition-transform">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 gap-4">
+                            <p className="text-gray-600 text-[10px]">© 2026 HARPA DESIGN STUDIO. ALL RIGHTS RESERVED.</p>
+                            <p className="text-gray-600 text-[10px]">DESIGNED IN PARIS — BUILT GLOBALLY</p>
+                        </div>
+                    </div>
+                </footer>
+            );
+        };
 
-function updateAnimations() {
-  const p = scrollProgress;
+        const App = () => {
+            useEffect(() => {
+                lucide.createIcons();
+            }, []);
 
-  // PHASE 1: Frame shrinks (0.00—0.30)
-  if (p <= 0.30) {
-    const phase1 = p / 0.30;
-    const eased = easeInOutCubic(phase1);
-    
-    heroFrame.classList.remove('hidden');
-    nav.classList.remove('visible');
-    
-    const scale = 1 - (eased * 0.55);
-    heroContent.style.transform = `scale(${scale})`;
-    heroContent.style.borderWidth = `${4 - eased * 2.5}px`;
-    
-    heroText.style.opacity = Math.max(0.2, 1 - eased * 0.8);
-  } else {
-    heroFrame.classList.add('hidden');
-    if (p > 0.35) nav.classList.add('visible');
-  }
+            return (
+                <main className="bg-black">
+                    <Hero />
+                    <About />
+                    <Features />
+                    <Footer />
+                </main>
+            );
+        };
 
-  // PHASE 2: Lid closes (0.30—0.55)
-  const closeP = Math.max(0, Math.min((p - 0.30) / 0.25, 1));
-  const closedEased = easeInOutCubic(closeP);
-  const lidAngle = -90 * closedEased;
-  macbookLid.style.transform = `rotateX(${lidAngle}deg)`;
-  macbookNotch.style.opacity = 1 - closedEased * 0.4;
-
-  // PHASE 3: Laptop lays flat (0.55—0.80)
-  const flatP = Math.max(0, Math.min((p - 0.55) / 0.25, 1));
-  const flatEased = easeInOutCubic(flatP);
-  const rotX = -90 + (flatEased * 45);
-  const translateY = flatEased * 80;
-  
-  if (flatP > 0) {
-    laptopContainer.style.transform = `rotateX(${rotX}deg) translateY(${translateY}px)`;
-  }
-
-  // PHASE 4: Opens & zooms (0.80—1.00)
-  const zoomP = Math.max(0, Math.min((p - 0.80) / 0.20, 1));
-  const zoomEased = easeInOutCubic(zoomP);
-  
-  if (zoomP > 0) {
-    const openAngle = -90 + (zoomEased * 90);
-    macbookLid.style.transform = `rotateX(${openAngle}deg)`;
-    
-    const zoomScale = 1 + (zoomEased * 1.5);
-    stickySection.style.transform = `scale(${zoomScale})`;
-    stickySection.style.opacity = 1 - zoomEased * 0.3;
-  }
-
-  // Hardware visibility
-  const hardwareVis = Math.max(0, 1 - Math.max(0, (p - 0.65) / 0.15));
-  macbookNotch.style.opacity = Math.min(1, hardwareVis);
-  macbookBase.style.opacity = Math.min(1, hardwareVis);
-  laptopShadow.style.opacity = Math.min(1, hardwareVis);
-}
-
-function easeInOutCubic(t) {
-  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-}
-
-// Section reveals
-const sectionObs = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) e.target.classList.add('visible');
-  });
-}, { threshold: 0.15 });
-
-document.querySelectorAll('.section').forEach(el => sectionObs.observe(el));
-
-const footerObs = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) e.target.classList.add('visible');
-  });
-}, { threshold: 0.1 });
-
-footerObs.observe(document.querySelector('footer'));
-
-// Smooth navigation links
-document.querySelectorAll('nav a').forEach(link => {
-  link.addEventListener('click', (e) => {
-    e.preventDefault();
-    const target = document.querySelector(link.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
-  });
-});
-</script>
-
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>
