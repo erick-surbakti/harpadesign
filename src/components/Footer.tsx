@@ -58,11 +58,13 @@ export function Footer() {
             </p>
             <form className="group relative">
               <input
+                suppressHydrationWarning
                 type="email"
                 placeholder="terminal@brief.com"
                 className="bg-transparent border-b border-white/10 w-full py-5 text-foreground/90 outline-none focus:border-primary transition-colors pr-24 italic"
               />
               <button
+                suppressHydrationWarning
                 type="submit"
                 className="absolute right-0 bottom-5 text-primary text-xs uppercase tracking-[0.3em] font-bold hover:translate-x-2 transition-transform"
               >
