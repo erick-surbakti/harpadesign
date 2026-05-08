@@ -21,7 +21,7 @@ interface ChatInterfaceProps {
 export function ChatInterface({ className, isEmbedded = false }: ChatInterfaceProps) {
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: 'Protocol initiated. This is the Harpa Neural Node. Brief me on your creative narrative or request studio-grade analysis.' }
+    { role: 'assistant', content: 'Protocol initiated. Harpa Neural Node active. Brief me on your creative narrative.' }
   ]);
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -45,7 +45,7 @@ export function ChatInterface({ className, isEmbedded = false }: ChatInterfacePr
       const response = await aiCreativeAssistantChatbot({ query: userMsg });
       setMessages(prev => [...prev, { role: 'assistant', content: response.response }]);
     } catch (error) {
-      setMessages(prev => [...prev, { role: 'assistant', content: "Connection unstable. Neural interference detected. Please re-transmit." }]);
+      setMessages(prev => [...prev, { role: 'assistant', content: "Transmission failure. Please re-brief." }]);
     } finally {
       setIsLoading(false);
     }
@@ -53,30 +53,29 @@ export function ChatInterface({ className, isEmbedded = false }: ChatInterfacePr
 
   return (
     <div className={cn("flex flex-col h-full", className)}>
-      {/* Neural Data Stream */}
-      <ScrollArea className="flex-1 px-6 py-6 md:px-8 md:py-8 hide-scrollbar">
-        <div className="space-y-6">
+      <ScrollArea className="flex-1 px-5 py-5 hide-scrollbar">
+        <div className="space-y-4">
           {messages.map((msg, i) => (
             <div
               key={i}
               className={cn(
-                "flex flex-col animate-in fade-in slide-in-from-bottom-2 duration-700",
+                "flex flex-col animate-in fade-in slide-in-from-bottom-1 duration-500",
                 msg.role === 'user' ? "items-end" : "items-start"
               )}
             >
-              <div className="max-w-[92%] md:max-w-[85%]">
+              <div className="max-w-[95%]">
                 {msg.role === 'assistant' && (
-                  <div className="flex items-center gap-2 mb-2">
-                    <Terminal className="w-2.5 h-2.5 text-primary/40" />
-                    <span className="text-[7px] uppercase tracking-[0.4em] font-bold text-primary/30">Harpa Intel</span>
+                  <div className="flex items-center gap-1.5 mb-1">
+                    <Terminal className="w-2 h-2 text-primary/40" />
+                    <span className="text-[6px] uppercase tracking-[0.4em] font-bold text-primary/30">Harpa Intel</span>
                   </div>
                 )}
                 <div
                   className={cn(
-                    "text-sm leading-relaxed tracking-tight font-light",
+                    "text-[13px] leading-relaxed tracking-tight font-light",
                     msg.role === 'user'
-                      ? "bg-primary/10 border border-white/5 text-primary px-4 py-3 rounded-2xl rounded-tr-none italic"
-                      : "text-foreground/70"
+                      ? "bg-primary/10 border border-white/5 text-primary px-3 py-2 rounded-xl rounded-tr-none italic"
+                      : "text-foreground/70 px-1"
                   )}
                 >
                   {msg.content}
@@ -85,44 +84,43 @@ export function ChatInterface({ className, isEmbedded = false }: ChatInterfacePr
             </div>
           ))}
           {isLoading && (
-            <div className="flex flex-col gap-2 animate-pulse">
-              <div className="flex items-center gap-2">
-                <Sparkles className="w-3 h-3 text-accent" />
-                <span className="text-[7px] uppercase tracking-[0.5em] font-bold text-accent">Synthesizing...</span>
+            <div className="flex flex-col gap-1.5 animate-pulse pl-1">
+              <div className="flex items-center gap-1.5">
+                <Sparkles className="w-2.5 h-2.5 text-accent" />
+                <span className="text-[6px] uppercase tracking-[0.5em] font-bold text-accent">Synthesizing...</span>
               </div>
-              <div className="w-16 h-[1px] bg-accent/20" />
             </div>
           )}
           <div ref={scrollRef} />
         </div>
       </ScrollArea>
 
-      {/* Transmission Input Area */}
-      <div className={cn("p-6 md:p-8 border-t border-white/5", isEmbedded ? "bg-white/[0.01]" : "bg-black/30")}>
+      <div className={cn("px-5 py-4 border-t border-white/5", isEmbedded ? "bg-white/[0.01]" : "bg-black/20")}>
         <form onSubmit={handleSubmit} className="relative flex items-center">
           <Input
             suppressHydrationWarning
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Transmit briefing..."
-            className="bg-transparent border-0 border-b border-white/10 rounded-none h-10 pl-0 pr-10 focus-visible:ring-0 focus:border-primary transition-all text-base font-headline italic placeholder:text-foreground/10"
+            className="bg-transparent border-0 border-b border-white/10 rounded-none h-8 pl-0 pr-8 focus-visible:ring-0 focus:border-primary transition-all text-xs font-headline italic placeholder:text-foreground/10"
           />
           <Button
             suppressHydrationWarning
             type="submit"
             variant="ghost"
+            size="icon"
             disabled={!input.trim() || isLoading}
             className={cn(
-              "absolute right-0 w-8 h-8 rounded-full transition-all duration-700",
+              "absolute right-0 w-6 h-6 rounded-full transition-all duration-500",
               input.trim() ? "text-primary opacity-100 scale-100" : "opacity-0 scale-50"
             )}
           >
-            <Send className="w-4 h-4" />
+            <Send className="w-3 h-3" />
           </Button>
         </form>
-        <div className="flex justify-between items-center mt-6 opacity-20">
-          <p className="text-[7px] uppercase tracking-[0.4em] font-bold">Neural Protocol</p>
-          <p className="text-[7px] uppercase tracking-[0.4em] font-bold italic">Depok Node // v2.6</p>
+        <div className="flex justify-between items-center mt-4 opacity-10">
+          <p className="text-[6px] uppercase tracking-[0.4em] font-bold">Depok Node</p>
+          <p className="text-[6px] uppercase tracking-[0.4em] font-bold italic">v2.6</p>
         </div>
       </div>
     </div>
