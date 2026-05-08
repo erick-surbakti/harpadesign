@@ -3,18 +3,20 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Harpa — Editorial Design Studio</title>
+<title>Harpa Design Studio - Harry Prambudy</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Lora:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#f5f3f0;
-  --text:#1a1815;
-  --accent:#a23e3e;
-  --line:#ddd8d0;
-  --mute:#8a8580;
+  --bg:#f9f7f4;
+  --text:#0f0e0c;
+  --accent:#c73e3e;
+  --accent-light:#d85555;
+  --line:#e5ddd3;
+  --mute:#6b6560;
+  --dark-bg:#1a1816;
 }
 
 html,body{
@@ -29,7 +31,7 @@ html,body{
 html{scroll-behavior:smooth}
 a{color:inherit;text-decoration:none}
 
-/* NAV */
+/* ===== NAVIGATION ===== */
 nav{
   position:fixed;
   top:0;left:0;right:0;
@@ -37,9 +39,9 @@ nav{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:24px 40px;
+  padding:24px 48px;
   background:transparent;
-  transition:all 0.3s;
+  transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
   opacity:0;
   pointer-events:none;
 }
@@ -47,16 +49,17 @@ nav{
 nav.visible{
   opacity:1;
   pointer-events:auto;
-  background:rgba(245,243,240,0.96);
-  backdrop-filter:blur(8px);
+  background:rgba(249,247,244,0.92);
+  backdrop-filter:blur(12px);
   border-bottom:1px solid var(--line);
+  box-shadow:0 2px 16px rgba(0,0,0,0.06);
 }
 
 .nav-brand{
   font-family:'Playfair Display',serif;
-  font-size:18px;
+  font-size:20px;
   font-weight:700;
-  letter-spacing:0.5px;
+  letter-spacing:0.8px;
 }
 
 .nav-brand .accent{
@@ -65,19 +68,40 @@ nav.visible{
 
 nav ul{
   display:flex;
-  gap:36px;
+  gap:48px;
   list-style:none;
-  font-size:11px;
-  font-family:'IBM Plex Mono',monospace;
-  letter-spacing:1px;
+  font-size:12px;
+  font-family:'Inter',sans-serif;
+  letter-spacing:1.5px;
   text-transform:uppercase;
+  font-weight:500;
+}
+
+nav ul a{
+  position:relative;
+  transition:color 0.3s;
+}
+
+nav ul a::after{
+  content:'';
+  position:absolute;
+  bottom:-4px;
+  left:0;
+  width:0;
+  height:2px;
+  background:var(--accent);
+  transition:width 0.3s;
 }
 
 nav ul a:hover{
   color:var(--accent);
 }
 
-/* PHASE 1: BLACK FRAME */
+nav ul a:hover::after{
+  width:100%;
+}
+
+/* ===== HERO FRAME ===== */
 .hero-frame{
   position:fixed;
   top:0;left:0;right:0;bottom:0;
@@ -86,7 +110,7 @@ nav ul a:hover{
   display:flex;
   align-items:center;
   justify-content:center;
-  transition:opacity 0.3s;
+  transition:opacity 0.4s;
   will-change:opacity;
 }
 
@@ -96,37 +120,50 @@ nav ul a:hover{
 }
 
 .hero-content{
-  width:85vw;
-  height:85vh;
+  width:90vw;
+  height:90vh;
   border:4px solid #fff;
   display:flex;
+  flex-direction:column;
   align-items:center;
   justify-content:center;
   will-change:transform;
+  position:relative;
 }
 
 .hero-text{
   text-align:center;
   color:#fff;
   font-family:'Playfair Display',serif;
-  font-size:clamp(3rem,15vw,9rem);
+  font-size:clamp(3.5rem,16vw,10rem);
   font-weight:800;
   letter-spacing:-2px;
   line-height:1.05;
+  margin-bottom:20px;
 }
 
 .hero-text .subtitle{
   display:block;
-  font-size:0.2em;
-  font-family:'IBM Plex Mono',monospace;
-  letter-spacing:4px;
-  margin-top:1em;
-  font-weight:400;
+  font-size:0.18em;
+  font-family:'Inter',sans-serif;
+  letter-spacing:6px;
+  margin-top:1.5em;
+  font-weight:500;
   text-transform:uppercase;
-  opacity:0.6;
+  opacity:0.7;
 }
 
-/* PHASE 2-4: LAPTOP CONTAINER */
+.hero-text .designer-name{
+  display:block;
+  font-size:0.12em;
+  font-family:'IBM Plex Mono',monospace;
+  letter-spacing:2px;
+  margin-top:0.8em;
+  font-weight:400;
+  opacity:0.5;
+}
+
+/* ===== SCROLL STAGE ===== */
 .scroll-stage{
   position:relative;
   height:600vh;
@@ -147,23 +184,23 @@ nav ul a:hover{
 
 .laptop-container{
   position:relative;
-  width:min(1100px,90vw);
+  width:min(1200px,92vw);
   aspect-ratio:16/10;
   transform-style:preserve-3d;
   will-change:transform;
 }
 
-/* MACBOOK DESIGN */
+/* ===== MACBOOK DESIGN ===== */
 .macbook-lid{
   position:absolute;
   top:0;
   left:0;
   right:0;
   bottom:0;
-  background:linear-gradient(180deg,#2a2a28 0%,#1a1a18 100%);
-  border-radius:24px 24px 8px 8px;
+  background:linear-gradient(180deg,#2d2d2a 0%,#1a1a16 100%);
+  border-radius:28px 28px 10px 10px;
   overflow:hidden;
-  box-shadow:0 100px 250px rgba(0,0,0,0.7),0 0 0 1px rgba(255,255,255,0.1);
+  box-shadow:0 120px 280px rgba(0,0,0,0.75),0 0 0 1px rgba(255,255,255,0.08);
   transform-style:preserve-3d;
   transform-origin:bottom center;
   will-change:transform;
@@ -171,13 +208,13 @@ nav ul a:hover{
 
 .macbook-notch{
   position:absolute;
-  top:18px;
+  top:22px;
   left:50%;
   transform:translateX(-50%);
-  width:160px;
-  height:24px;
-  background:#0d0d0b;
-  border-radius:0 0 16px 16px;
+  width:200px;
+  height:28px;
+  background:#0a0a08;
+  border-radius:0 0 18px 18px;
   z-index:20;
   will-change:opacity;
 }
@@ -185,22 +222,22 @@ nav ul a:hover{
 .macbook-notch::after{
   content:'';
   position:absolute;
-  top:8px;
+  top:10px;
   left:50%;
   transform:translateX(-50%);
-  width:10px;
-  height:10px;
-  background:#1a1a18;
+  width:12px;
+  height:12px;
+  background:#1a1a16;
   border-radius:50%;
 }
 
 .macbook-bezel{
   position:absolute;
-  inset:20px;
+  inset:24px;
   background:var(--bg);
-  border-radius:14px;
+  border-radius:16px;
   overflow:hidden;
-  box-shadow:inset 0 0 0 1px rgba(0,0,0,0.1);
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,0.08);
 }
 
 .screen{
@@ -208,24 +245,25 @@ nav ul a:hover{
   inset:0;
   display:flex;
   flex-direction:column;
-  padding:36px 48px;
+  padding:40px 56px;
   background:var(--bg);
+  overflow:hidden;
 }
 
 .screen-header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding-bottom:28px;
+  padding-bottom:32px;
   border-bottom:2px solid var(--line);
-  margin-bottom:40px;
+  margin-bottom:48px;
 }
 
 .screen-logo{
   font-family:'Playfair Display',serif;
-  font-size:16px;
+  font-size:18px;
   font-weight:700;
-  letter-spacing:0.5px;
+  letter-spacing:0.6px;
 }
 
 .screen-logo .accent{
@@ -234,29 +272,30 @@ nav ul a:hover{
 
 .screen-nav{
   display:flex;
-  gap:40px;
-  font-size:10px;
-  font-family:'IBM Plex Mono',monospace;
-  letter-spacing:1.5px;
+  gap:48px;
+  font-size:11px;
+  font-family:'Inter',sans-serif;
+  letter-spacing:1.8px;
   text-transform:uppercase;
   color:var(--mute);
+  font-weight:500;
 }
 
 .screen-hero{
   flex:1;
   display:grid;
-  grid-template-columns:1.3fr 0.7fr;
-  gap:60px;
+  grid-template-columns:1.4fr 0.6fr;
+  gap:72px;
   align-items:center;
 }
 
 .hero-left h1{
   font-family:'Playfair Display',serif;
-  font-size:clamp(2rem,5vw,3.2rem);
+  font-size:clamp(2.2rem,5.5vw,3.6rem);
   font-weight:800;
   line-height:1.2;
-  letter-spacing:-1px;
-  margin-bottom:20px;
+  letter-spacing:-0.8px;
+  margin-bottom:24px;
 }
 
 .hero-left h1 .accent{
@@ -264,102 +303,110 @@ nav ul a:hover{
 }
 
 .hero-left p{
-  font-size:11px;
+  font-size:12px;
   color:var(--mute);
-  line-height:1.7;
-  font-family:'IBM Plex Mono',monospace;
-  letter-spacing:0.5px;
-  max-width:320px;
+  line-height:1.8;
+  font-family:'Inter',sans-serif;
+  letter-spacing:0.4px;
+  max-width:340px;
+  font-weight:400;
 }
 
 .hero-right{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:12px;
+  gap:14px;
   height:100%;
   grid-auto-rows:1fr;
 }
 
 .work-box{
-  background:linear-gradient(135deg,#a23e3e,#6b2a2a);
-  border-radius:2px;
+  background:linear-gradient(135deg,#c73e3e,#7a2424);
+  border-radius:3px;
   overflow:hidden;
   display:flex;
   align-items:flex-end;
-  padding:14px;
-  font-size:9px;
+  padding:16px;
+  font-size:10px;
   color:#fff;
-  font-family:'IBM Plex Mono',monospace;
-  font-weight:500;
-  box-shadow:0 8px 20px rgba(0,0,0,0.15);
+  font-family:'Inter',sans-serif;
+  font-weight:600;
+  box-shadow:0 12px 28px rgba(199,62,62,0.2);
   text-transform:uppercase;
-  letter-spacing:0.5px;
+  letter-spacing:0.6px;
+  transition:transform 0.3s,box-shadow 0.3s;
+}
+
+.work-box:hover{
+  transform:translateY(-3px);
+  box-shadow:0 16px 36px rgba(199,62,62,0.28);
 }
 
 .work-box:nth-child(1){
   grid-row:span 2;
-  background:linear-gradient(135deg,#a23e3e,#5b1a1a);
+  background:linear-gradient(135deg,#c73e3e,#6b1f1f);
 }
 
 .work-box:nth-child(2){
-  background:linear-gradient(135deg,#d4af37,#8b7500);
+  background:linear-gradient(135deg,#e5a854,#a67c2e);
 }
 
 .work-box:nth-child(3){
-  background:linear-gradient(135deg,#2a2a28,#0d0d0b);
+  background:linear-gradient(135deg,#3a3a36,#1a1a16);
 }
 
 .screen-footer{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding-top:24px;
+  padding-top:28px;
   border-top:2px solid var(--line);
-  font-size:8px;
-  font-family:'IBM Plex Mono',monospace;
-  letter-spacing:1px;
+  font-size:9px;
+  font-family:'Inter',sans-serif;
+  letter-spacing:1.2px;
   text-transform:uppercase;
   color:var(--mute);
+  font-weight:500;
 }
 
-/* LAPTOP BASE */
+/* ===== LAPTOP BASE ===== */
 .macbook-base{
   position:absolute;
-  bottom:-24px;
+  bottom:-28px;
   left:0;
   right:0;
-  height:28px;
-  background:linear-gradient(180deg,#2a2a28,#0d0d0b);
-  border-radius:0 0 28px 28px;
-  box-shadow:0 40px 120px rgba(0,0,0,0.5);
+  height:32px;
+  background:linear-gradient(180deg,#2d2d2a,#0a0a08);
+  border-radius:0 0 32px 32px;
+  box-shadow:0 50px 140px rgba(0,0,0,0.6);
   will-change:opacity;
 }
 
 .laptop-shadow{
   position:absolute;
-  bottom:-70px;
-  left:5%;
-  right:5%;
-  height:60px;
-  background:radial-gradient(50% 100% at 50% 0%,rgba(0,0,0,0.6),transparent);
-  filter:blur(16px);
+  bottom:-80px;
+  left:3%;
+  right:3%;
+  height:70px;
+  background:radial-gradient(60% 100% at 50% 0%,rgba(0,0,0,0.65),transparent);
+  filter:blur(20px);
   will-change:opacity;
 }
 
-/* MAIN CONTENT */
+/* ===== MAIN CONTENT ===== */
 .main-content{
   position:relative;
   z-index:10;
   background:var(--bg);
-  padding-top:200px;
+  padding-top:240px;
 }
 
 .section{
-  padding:120px 60px;
+  padding:140px 64px;
   border-top:1px solid var(--line);
   opacity:0;
-  transform:translateY(60px);
-  transition:opacity 0.8s ease, transform 0.8s ease;
+  transform:translateY(80px);
+  transition:opacity 0.9s ease, transform 0.9s ease;
 }
 
 .section.visible{
@@ -368,88 +415,281 @@ nav ul a:hover{
 }
 
 .section-label{
-  font-family:'IBM Plex Mono',monospace;
-  font-size:10px;
-  letter-spacing:2px;
+  font-family:'Inter',sans-serif;
+  font-size:11px;
+  letter-spacing:2.4px;
   text-transform:uppercase;
   color:var(--accent);
-  margin-bottom:16px;
-  font-weight:600;
+  margin-bottom:20px;
+  font-weight:700;
 }
 
 .section h2{
   font-family:'Playfair Display',serif;
-  font-size:clamp(2.5rem,8vw,4.5rem);
+  font-size:clamp(2.8rem,8.5vw,5rem);
   font-weight:800;
   line-height:1.15;
-  letter-spacing:-1px;
-  margin-bottom:48px;
-  max-width:900px;
+  letter-spacing:-0.8px;
+  margin-bottom:56px;
+  max-width:920px;
 }
 
 .section h2 .accent{
   color:var(--accent);
 }
 
+/* ===== ABOUT SECTION ===== */
+#about{
+  background:var(--dark-bg);
+  color:#f9f7f4;
+}
+
+#about .section-label{
+  color:var(--accent-light);
+}
+
+#about .section h2{
+  color:#f9f7f4;
+}
+
+#about .section h2 .accent{
+  color:var(--accent-light);
+}
+
+.about-grid{
+  display:grid;
+  grid-template-columns:1.2fr 0.8fr;
+  gap:80px;
+  align-items:start;
+  margin-top:60px;
+}
+
+.about-text{
+  font-size:16px;
+  color:#c9c0b6;
+  line-height:1.9;
+  max-width:680px;
+}
+
+.about-text p{
+  margin-bottom:28px;
+}
+
+.about-text strong{
+  color:#f9f7f4;
+  font-weight:600;
+}
+
+.designer-card{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:8px;
+  padding:40px;
+  backdrop-filter:blur(10px);
+  transition:all 0.4s;
+}
+
+.designer-card:hover{
+  background:rgba(255,255,255,0.08);
+  border-color:rgba(255,255,255,0.15);
+}
+
+.designer-photo{
+  width:100%;
+  aspect-ratio:3/4;
+  background:linear-gradient(135deg,rgba(199,62,62,0.2),rgba(100,100,100,0.2));
+  border-radius:6px;
+  margin-bottom:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#8a7f77;
+  font-family:'Inter',sans-serif;
+  font-size:13px;
+  border:1px dashed rgba(255,255,255,0.15);
+}
+
+.designer-photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:6px;
+}
+
+.designer-name{
+  font-family:'Playfair Display',serif;
+  font-size:24px;
+  font-weight:700;
+  margin-bottom:8px;
+  color:#f9f7f4;
+}
+
+.designer-title{
+  font-family:'Inter',sans-serif;
+  font-size:12px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:var(--accent-light);
+  margin-bottom:16px;
+  font-weight:600;
+}
+
+.designer-bio{
+  font-size:13px;
+  color:#a89b8f;
+  line-height:1.7;
+  margin-bottom:20px;
+}
+
+.designer-stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  padding-top:20px;
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+
+.stat{
+  font-size:11px;
+}
+
+.stat-value{
+  font-size:18px;
+  font-weight:700;
+  color:var(--accent-light);
+  margin-bottom:4px;
+  font-family:'Playfair Display',serif;
+}
+
+.stat-label{
+  font-family:'Inter',sans-serif;
+  text-transform:uppercase;
+  letter-spacing:0.8px;
+  font-size:9px;
+  color:#8a7f77;
+  font-weight:600;
+}
+
+/* ===== PORTFOLIO SECTION ===== */
+#portfolio{
+  background:var(--bg);
+}
+
 .projects-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:60px;
+  gap:72px;
   margin-top:80px;
 }
 
-@media(max-width:980px){
+@media(max-width:1024px){
   .projects-grid{grid-template-columns:1fr}
 }
 
 .project{
   border-top:2px solid var(--line);
-  padding-top:40px;
+  padding-top:48px;
+  transition:transform 0.3s;
+}
+
+.project:hover{
+  transform:translateY(-4px);
 }
 
 .project h3{
   font-family:'Playfair Display',serif;
-  font-size:26px;
+  font-size:28px;
   font-weight:700;
-  margin-bottom:12px;
-  letter-spacing:-0.5px;
+  margin-bottom:14px;
+  letter-spacing:-0.4px;
+  color:var(--text);
 }
 
 .project-meta{
   display:flex;
-  gap:20px;
-  font-size:9px;
-  font-family:'IBM Plex Mono',monospace;
-  letter-spacing:1px;
+  gap:24px;
+  font-size:10px;
+  font-family:'Inter',sans-serif;
+  letter-spacing:1.2px;
   text-transform:uppercase;
   color:var(--mute);
-  margin-bottom:20px;
+  margin-bottom:24px;
+  font-weight:600;
+}
+
+.project-meta span{
+  position:relative;
+  padding-bottom:4px;
+}
+
+.project-meta span:first-child::after{
+  content:'';
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:2px;
+  background:var(--accent);
+  transform:scaleX(0);
+  transition:transform 0.3s;
+}
+
+.project:hover .project-meta span:first-child::after{
+  transform:scaleX(1);
 }
 
 .project p{
-  font-size:14px;
+  font-size:15px;
   color:var(--mute);
-  line-height:1.8;
-  margin-bottom:28px;
-  max-width:520px;
+  line-height:1.85;
+  margin-bottom:32px;
+  max-width:560px;
+}
+
+.project-image{
+  width:100%;
+  aspect-ratio:4/3;
+  background:linear-gradient(135deg,#f0ede8,#e5ddd3);
+  border-radius:4px;
+  margin-bottom:32px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#8a8580;
+  font-family:'Inter',sans-serif;
+  font-size:13px;
+  border:1px solid var(--line);
+  transition:all 0.3s;
+}
+
+.project-image:hover{
+  background:linear-gradient(135deg,#ebe6e0,#ddd3c9);
+  border-color:var(--accent);
+}
+
+.project-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:4px;
 }
 
 .project-specs{
   display:grid;
   grid-template-columns:auto 1fr;
-  gap:12px 32px;
-  font-family:'IBM Plex Mono',monospace;
-  font-size:8px;
-  margin-top:24px;
-  padding-top:24px;
+  gap:14px 36px;
+  font-family:'Inter',sans-serif;
+  font-size:11px;
+  margin-top:28px;
+  padding-top:28px;
   border-top:1px solid var(--line);
 }
 
 .spec-label{
   color:var(--mute);
   text-transform:uppercase;
-  letter-spacing:0.5px;
-  font-weight:600;
+  letter-spacing:0.6px;
+  font-weight:700;
   opacity:0.7;
 }
 
@@ -458,14 +698,15 @@ nav ul a:hover{
   font-weight:500;
 }
 
+/* ===== FOOTER ===== */
 footer{
-  padding:140px 60px 60px;
+  padding:160px 64px 80px;
   border-top:2px solid var(--line);
   text-align:center;
   background:var(--bg);
   opacity:0;
-  transform:translateY(60px);
-  transition:opacity 0.8s ease, transform 0.8s ease;
+  transform:translateY(80px);
+  transition:opacity 0.9s ease, transform 0.9s ease;
 }
 
 footer.visible{
@@ -475,84 +716,180 @@ footer.visible{
 
 footer h2{
   font-family:'Playfair Display',serif;
-  font-size:clamp(3rem,10vw,5rem);
+  font-size:clamp(3.2rem,11vw,5.5rem);
   font-weight:800;
   line-height:1.1;
-  margin-bottom:32px;
-  letter-spacing:-1px;
+  margin-bottom:40px;
+  letter-spacing:-0.8px;
 }
 
 footer h2 .accent{
   color:var(--accent);
 }
 
-.contact-info{
-  font-size:13px;
-  color:var(--mute);
-  margin-bottom:40px;
-  line-height:1.8;
+.contact-methods{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:40px;
+  margin:60px 0;
+  max-width:920px;
+  margin-left:auto;
+  margin-right:auto;
 }
 
-.contact-info a{
+.contact-method{
+  padding:32px;
+  background:rgba(199,62,62,0.04);
+  border:1px solid var(--line);
+  border-radius:6px;
+  transition:all 0.3s;
+}
+
+.contact-method:hover{
+  background:rgba(199,62,62,0.08);
+  border-color:var(--accent);
+  transform:translateY(-6px);
+}
+
+.contact-method-label{
+  font-family:'Inter',sans-serif;
+  font-size:10px;
+  letter-spacing:1.8px;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:12px;
+  font-weight:700;
+}
+
+.contact-method-value{
+  font-size:15px;
   color:var(--text);
-  border-bottom:2px solid var(--accent);
-  transition:opacity 0.3s;
+  margin-bottom:12px;
 }
 
-.contact-info a:hover{
-  opacity:0.6;
+.contact-method-value a{
+  color:var(--accent);
+  font-weight:600;
+  transition:opacity 0.3s;
+  border-bottom:2px solid var(--accent);
+}
+
+.contact-method-value a:hover{
+  opacity:0.7;
+}
+
+.footer-divider{
+  width:60px;
+  height:2px;
+  background:var(--accent);
+  margin:60px auto;
 }
 
 .footer-links{
   display:flex;
   justify-content:center;
-  gap:40px;
-  font-size:10px;
-  font-family:'IBM Plex Mono',monospace;
-  letter-spacing:1px;
+  gap:48px;
+  font-size:11px;
+  font-family:'Inter',sans-serif;
+  letter-spacing:1.2px;
   text-transform:uppercase;
   color:var(--mute);
   margin-top:60px;
+  flex-wrap:wrap;
+  font-weight:600;
 }
 
-@media(max-width:980px){
-  nav ul{gap:20px}
+.footer-links a{
+  transition:color 0.3s;
+  position:relative;
+}
+
+.footer-links a::after{
+  content:'';
+  position:absolute;
+  bottom:-3px;
+  left:0;
+  width:0;
+  height:1px;
+  background:var(--accent);
+  transition:width 0.3s;
+}
+
+.footer-links a:hover{
+  color:var(--accent);
+}
+
+.footer-links a:hover::after{
+  width:100%;
+}
+
+.footer-credit{
+  margin-top:40px;
+  padding-top:40px;
+  border-top:1px solid var(--line);
+  font-size:10px;
+  color:var(--mute);
+  font-family:'IBM Plex Mono',monospace;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1024px){
+  nav ul{gap:32px}
   .screen-hero{grid-template-columns:1fr}
-  .hero-right{grid-template-columns:1fr 1fr;height:auto;min-height:200px}
+  .hero-right{grid-template-columns:1fr 1fr;height:auto;min-height:240px}
   .work-box:nth-child(1){grid-row:span 1}
+  .about-grid{grid-template-columns:1fr;gap:60px}
+  .contact-methods{grid-template-columns:1fr;gap:24px}
 }
 
-@media(max-width:780px){
+@media(max-width:768px){
   nav ul{display:none}
-  .section{padding:80px 24px}
-  .projects-grid{gap:40px}
-  .screen{padding:24px 28px}
-  .screen-header{padding-bottom:16px;margin-bottom:24px;flex-direction:column;align-items:flex-start;gap:12px}
-  .screen-nav{gap:16px}
-  .footer-links{flex-direction:column;gap:16px}
+  nav{padding:18px 24px}
+  .section{padding:100px 28px}
+  .projects-grid{gap:48px}
+  .screen{padding:28px 32px}
+  .screen-header{padding-bottom:20px;margin-bottom:32px;flex-direction:column;align-items:flex-start;gap:14px}
+  .screen-nav{gap:20px}
+  .footer-links{flex-direction:column;gap:20px}
+  footer{padding:120px 28px 60px}
+  footer h2{font-size:clamp(2.5rem,9vw,4rem)}
+  .project-meta{flex-wrap:wrap}
+  .designer-card{padding:28px}
+}
+
+@media(max-width:480px){
+  .section{padding:80px 16px}
+  .screen{padding:20px 20px}
+  nav ul{display:none}
+  .contact-methods{padding:0 16px}
+  .footer-credit{font-size:8px}
 }
 </style>
 </head>
 <body>
 
+<!-- ===== NAVIGATION ===== -->
 <nav id="nav">
   <div class="nav-brand"><span class="accent">H</span>arpa</div>
   <ul>
-    <li><a href="#work">Work</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
+<!-- ===== HERO FRAME ===== -->
 <div class="hero-frame" id="heroFrame">
   <div class="hero-content" id="heroContent">
     <div class="hero-text" id="heroText">
-      Editorial Design
-      <div class="subtitle">Harpa Studio</div>
+      Harpa Design Studio
+      <div class="subtitle">Strategic Design & Visual Direction</div>
+      <div class="designer-name">By Harry Prambudy</div>
     </div>
   </div>
 </div>
 
+<!-- ===== SCROLL STAGE (LAPTOP ANIMATION) ===== -->
 <div class="scroll-stage" id="scrollStage">
   <div class="sticky-section" id="stickySection">
     <div class="laptop-container" id="laptopContainer">
@@ -563,27 +900,27 @@ footer h2 .accent{
             <div class="screen-header">
               <div class="screen-logo"><span class="accent">H</span>arpa</div>
               <div class="screen-nav">
-                <span>Work</span>
-                <span>Journal</span>
+                <span>Portfolio</span>
+                <span>About</span>
                 <span>Contact</span>
               </div>
             </div>
             
             <div class="screen-hero">
               <div class="hero-left">
-                <h1>Form, Light<br/>&amp; <span class="accent">Motion</span></h1>
-                <p>Editorial design · Posters · Identity systems · Art direction for cultural institutions</p>
+                <h1>Creative Excellence<br/>&amp; <span class="accent">Visual Impact</span></h1>
+                <p>Branding · Digital Design · Art Direction · Strategic Communication</p>
               </div>
               <div class="hero-right">
-                <div class="work-box">Fundação Siza</div>
-                <div class="work-box">LUST Records</div>
-                <div class="work-box">Musée Cardin</div>
+                <div class="work-box">Global Brands</div>
+                <div class="work-box">Design Systems</div>
+                <div class="work-box">Innovation</div>
               </div>
             </div>
 
             <div class="screen-footer">
-              <span>● Selected 2023—2025</span>
-              <span class="accent">Lisbon · New York</span>
+              <span>● Active 2020—Present</span>
+              <span class="accent">Jakarta, Indonesia</span>
             </div>
           </div>
         </div>
@@ -594,82 +931,169 @@ footer h2 .accent{
   </div>
 </div>
 
+<!-- ===== MAIN CONTENT ===== -->
 <div class="main-content">
-  <section class="section" id="work">
-    <div class="section-label">Selected Work</div>
-    <h2>Typography, <span class="accent">constraint,</span> intention.</h2>
+
+  <!-- ===== PORTFOLIO SECTION ===== -->
+  <section class="section" id="portfolio">
+    <div class="section-label">Featured Projects</div>
+    <h2>Transforming brands into <span class="accent">memorable experiences.</span></h2>
     
     <div class="projects-grid">
+      <!-- Project 1 -->
       <div class="project">
-        <h3>Fundação Siza</h3>
-        <div class="project-meta"><span>Identity</span><span>Posters</span><span>2023</span></div>
-        <p>Complete visual identity for Portuguese architecture foundation. Monographic campaign exploring three custom reds across different paper stocks with letterpress details.</p>
+        <h3>BCA</h3>
+        <div class="project-meta"><span>Branding</span><span>Digital</span><span>2023</span></div>
+        <p>Comprehensive brand identity refresh for Indonesia's leading financial institution. Strategic redesign encompassing logo evolution, color palette modernization, and digital ecosystem standards.</p>
+        <div class="project-image">
+          <span>[BCA Project Image - Add Your Image Here]</span>
+        </div>
         <div class="project-specs">
-          <span class="spec-label">Format</span><span class="spec-value">420 × 594 mm + variations</span>
-          <span class="spec-label">Print</span><span class="spec-value">Offset on Munken Lynx + woodblock</span>
-          <span class="spec-label">Type</span><span class="spec-value">Bodoni Moda variable + custom mono</span>
-          <span class="spec-label">Award</span><span class="spec-value">Design Week Europe — Best Institutional</span>
+          <span class="spec-label">Scope</span><span class="spec-value">Brand Identity · Digital Guidelines · Applications</span>
+          <span class="spec-label">Type</span><span class="spec-value">Custom Typeface + Brand System</span>
+          <span class="spec-label">Award</span><span class="spec-value">Best Financial Brand Design 2024</span>
         </div>
       </div>
 
+      <!-- Project 2 -->
       <div class="project">
-        <h3>LUST Records</h3>
-        <div class="project-meta"><span>Art Direction</span><span>Catalog</span><span>2024</span></div>
-        <p>Annual catalog redesign for independent label. Grid-based system with intentional breaks. Each album cover demonstrates consistency through constraint.</p>
+        <h3>Danamon</h3>
+        <div class="project-meta"><span>Campaign</span><span>Strategy</span><span>2024</span></div>
+        <p>Strategic campaign development for insurance sector leader. Complete visual language system with emphasis on trust, innovation, and customer-centric solutions across all touchpoints.</p>
+        <div class="project-image">
+          <span>[Danamon Project Image - Add Your Image Here]</span>
+        </div>
         <div class="project-specs">
-          <span class="spec-label">Format</span><span class="spec-value">210 × 210 mm (CD) · 297 × 420 mm (Catalog)</span>
-          <span class="spec-label">Print</span><span class="spec-value">Digital CMYK on Reflex + metallic accent</span>
-          <span class="spec-label">Type</span><span class="spec-value">Core Sans (customized) + Courier Prime</span>
-          <span class="spec-label">Distribution</span><span class="spec-value">8,000 copies per year</span>
+          <span class="spec-label">Format</span><span class="spec-value">Campaign Identity · Print · Digital Assets</span>
+          <span class="spec-label">Type</span><span class="spec-value">Integrated Design System</span>
+          <span class="spec-label">Impact</span><span class="spec-value">+35% Brand Recognition Growth</span>
         </div>
       </div>
 
+      <!-- Project 3 -->
       <div class="project">
-        <h3>Musée Cardin</h3>
-        <div class="project-meta"><span>Wayfinding</span><span>Exhibition</span><span>2023</span></div>
-        <p>Complete wayfinding system for Paris exhibition space. Gallery identity defined through material choices—French paper stocks, specific ink values, 1mm hairline rules.</p>
+        <h3>Garuda Indonesia</h3>
+        <div class="project-meta"><span>Corporate Identity</span><span>Rebranding</span><span>2023</span></div>
+        <p>National carrier brand modernization project. Strategic visual direction balancing heritage with contemporary design standards, creating a cohesive experience across all customer touchpoints.</p>
+        <div class="project-image">
+          <span>[Garuda Indonesia Project Image - Add Your Image Here]</span>
+        </div>
         <div class="project-specs">
-          <span class="spec-label">Scope</span><span class="spec-value">Signage · Catalogs · Tickets · Invitations</span>
-          <span class="spec-label">Colors</span><span class="spec-value">Pantone 19-1664 · 18-1546 · Process</span>
-          <span class="spec-label">Type</span><span class="spec-value">GT Pressura (custom weights)</span>
-          <span class="spec-label">Budget</span><span class="spec-value">€180K production + design</span>
+          <span class="spec-label">Scope</span><span class="spec-label">Full Brand System · Signage · Digital</span>
+          <span class="spec-label">Type</span><span class="spec-value">Global Brand Identity</span>
+          <span class="spec-label">Scale</span><span class="spec-value">50+ Brand Applications</span>
         </div>
       </div>
 
+      <!-- Project 4 -->
       <div class="project">
-        <h3>Atelier Sølve</h3>
-        <div class="project-meta"><span>Fashion</span><span>Campaign</span><span>2024</span></div>
-        <p>Seasonal campaign for Copenhagen fashion collective. Raw photography paired with severe typography. Printed lookbook, newsletter, and Instagram-to-print strategy.</p>
+        <h3>Premium Project</h3>
+        <div class="project-meta"><span>Luxury Brand</span><span>Design</span><span>2024</span></div>
+        <p>High-end brand development with emphasis on exclusivity and sophisticated visual communication. Comprehensive design system reflecting luxury positioning and premium market positioning.</p>
+        <div class="project-image">
+          <span>[Your Project Image - Add Your Image Here]</span>
+        </div>
         <div class="project-specs">
-          <span class="spec-label">Format</span><span class="spec-value">210 × 297 mm + digital</span>
-          <span class="spec-label">Print</span><span class="spec-value">Risograph on Neenah Classic Crest</span>
-          <span class="spec-label">Type</span><span class="spec-value">Monotype Bodoni + custom kerning</span>
-          <span class="spec-label">Reach</span><span class="spec-value">4,200 prints · 28K subscribers</span>
+          <span class="spec-label">Format</span><span class="spec-value">Complete Brand Suite</span>
+          <span class="spec-label">Type</span><span class="spec-value">Luxury Design System</span>
+          <span class="spec-label">Delivery</span><span class="spec-value">Premium Package with Full Support</span>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- ===== ABOUT SECTION ===== -->
   <section class="section" id="about">
-    <div class="section-label">About</div>
-    <h2>Craft, collaboration,<br/><span class="accent">production detail.</span></h2>
-    <p style="font-size:15px;color:var(--mute);max-width:720px;line-height:1.9;margin-top:40px;">Harpa is a small editorial practice between Lisbon and New York. We work with cultural institutions, independent publishers, and forward-thinking brands—clients who believe design is a material practice. Each year we take 12–16 projects maximum. We believe in knowing your printer, understanding paper, respecting ink. These aren't afterthoughts—they're creative decisions.</p>
+    <div class="section-label">About The Studio</div>
+    <h2>Crafted with <span class="accent">precision</span> & purpose.</h2>
+    
+    <div class="about-grid">
+      <div class="about-text">
+        <p><strong>Harpa Design Studio</strong> is a creative practice dedicated to transforming brand visions into powerful visual experiences. We specialize in strategic branding, design systems, and comprehensive visual direction for ambitious organizations.</p>
+        
+        <p>Our approach combines <strong>strategic thinking with meticulous craft</strong>. We don't just create designs—we build comprehensive systems that evolve with your brand's growth. From initial concept to full-scale implementation, we ensure every detail serves your brand's purpose.</p>
+        
+        <p>Based in <strong>Jakarta, Indonesia</strong>, we work with leading financial institutions, corporate brands, and innovative startups across Southeast Asia and beyond. We believe in creating work that matters—designs that communicate clearly, inspire action, and build lasting connections.</p>
+        
+        <p>Every project reflects our commitment to excellence: thoughtful strategy, meticulous typography, purposeful color systems, and beautiful execution across all applications.</p>
+      </div>
+
+      <div class="designer-card">
+        <div class="designer-photo">
+          <!-- Image placeholder for Harry Prambudy -->
+          <span style="text-align:center;">Harry Prambudy<br/>Photo Coming Soon</span>
+        </div>
+        <div class="designer-name">Harry Prambudy</div>
+        <div class="designer-title">Founder & Creative Director</div>
+        <div class="designer-bio">Strategic designer with 12+ years of experience building iconic brands. Passionate about typography, systems thinking, and creating meaningful visual communication.</div>
+        
+        <div class="designer-stats">
+          <div class="stat">
+            <div class="stat-value">12+</div>
+            <div class="stat-label">Years Experience</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">50+</div>
+            <div class="stat-label">Projects Completed</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">8</div>
+            <div class="stat-label">Awards Won</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">100%</div>
+            <div class="stat-label">Client Satisfaction</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
+  <!-- ===== CONTACT FOOTER ===== -->
   <footer id="contact">
-    <h2>Let's <span class="accent">talk.</span></h2>
-    <div class="contact-info">
-      Email: <a href="mailto:hello@harpa.studio">hello@harpa.studio</a><br/>
-      Available for new projects. Lead time: 8–12 weeks.
+    <h2>Let's create<br/><span class="accent">something extraordinary.</span></h2>
+    
+    <div class="contact-methods">
+      <div class="contact-method">
+        <div class="contact-method-label">Email</div>
+        <div class="contact-method-value">
+          <a href="mailto:hello@harpastudio.com">hello@harpastudio.com</a>
+        </div>
+        <div style="font-size:11px;color:var(--mute);margin-top:12px;">Direct inquiries & project briefs</div>
+      </div>
+
+      <div class="contact-method">
+        <div class="contact-method-label">Location</div>
+        <div class="contact-method-value">Jakarta, Indonesia</div>
+        <div style="font-size:11px;color:var(--mute);margin-top:12px;">Available for in-person & remote projects</div>
+      </div>
+
+      <div class="contact-method">
+        <div class="contact-method-label">Availability</div>
+        <div class="contact-method-value">8-12 Weeks Lead</div>
+        <div style="font-size:11px;color:var(--mute);margin-top:12px;">Limited capacity for new clients</div>
+      </div>
     </div>
+
+    <div class="footer-divider"></div>
+
     <div class="footer-links">
-      <div>© 2024–25 Harpa Design Studio</div>
-      <div>Lisbon · New York</div>
-      <div><a href="#">Instagram</a> · <a href="#">Are.na</a> · <a href="#">LinkedIn</a></div>
+      <div><a href="mailto:hello@harpastudio.com">Get in Touch</a></div>
+      <div>·</div>
+      <div><a href="#">Instagram</a></div>
+      <div>·</div>
+      <div><a href="#">LinkedIn</a></div>
+      <div>·</div>
+      <div><a href="#">Behance</a></div>
+    </div>
+
+    <div class="footer-credit">
+      © 2024–25 Harpa Design Studio. All rights reserved. | Harry Prambudy, Creative Director | Jakarta, Indonesia
     </div>
   </footer>
 </div>
 
+<!-- ===== JAVASCRIPT ===== -->
 <script>
 const heroFrame = document.getElementById('heroFrame');
 const heroContent = document.getElementById('heroContent');
@@ -762,7 +1186,7 @@ function easeInOutCubic(t) {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 }
 
-// Section reveals
+// Section reveals with intersection observer
 const sectionObs = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) e.target.classList.add('visible');
@@ -778,6 +1202,17 @@ const footerObs = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 
 footerObs.observe(document.querySelector('footer'));
+
+// Smooth scroll links
+document.querySelectorAll('nav a').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
 </script>
 </body>
 </html>
