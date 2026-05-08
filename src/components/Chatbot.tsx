@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import { MessageSquare, X, Send, Sparkles, Loader2 } from 'lucide-react';
+import { MessageSquare, X, Send, Sparkles, Loader2, Minimize2 } from 'lucide-react';
 import { aiCreativeAssistantChatbot } from '@/ai/flows/ai-creative-assistant-chatbot';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -18,7 +18,7 @@ export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: 'Hello! I am your AI Creative Assistant at Harpa Studio. How can I help you with your project today?' }
+    { role: 'assistant', content: 'Welcome to Harpa Studio. I am the Creative Assistant. How can I facilitate your vision today?' }
   ]);
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -28,6 +28,13 @@ export function Chatbot() {
       scrollRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages, isOpen]);
+
+  // Listen for custom events to open chat from other components
+  useEffect(() => {
+    const handleOpenChat = () => setIsOpen(true);
+    window.addEventListener('open-harpa-chat', handleOpenChat);
+    return () => window.removeEventListener('open-harpa-chat', handleOpenChat);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,98 +49,119 @@ export function Chatbot() {
       const response = await aiCreativeAssistantChatbot({ query: userMsg });
       setMessages(prev => [...prev, { role: 'assistant', content: response.response }]);
     } catch (error) {
-      setMessages(prev => [...prev, { role: 'assistant', content: "I'm sorry, I'm having trouble connecting right now. Please try again later." }]);
+      setMessages(prev => [...prev, { role: 'assistant', content: "Connection interrupted. Our studio systems are currently optimizing. Please try again in a moment." }]);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[200]">
-      {/* Trigger Button */}
+    <div className="fixed bottom-8 right-8 z-[300]">
+      {/* Trigger Button - More minimal and studio-like */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "w-16 h-16 rounded-full flex items-center justify-center transition-all duration-500 shadow-2xl group",
-          isOpen ? "bg-accent rotate-90" : "bg-primary"
+          "w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-700 shadow-[0_20px_50px_rgba(0,0,0,0.5)] group overflow-hidden border border-white/10",
+          isOpen ? "bg-accent border-accent/20 rotate-180" : "bg-card hover:bg-secondary"
         )}
       >
         {isOpen ? (
-          <X className="w-8 h-8 text-white" />
+          <Minimize2 className="w-6 h-6 text-white" />
         ) : (
-          <div className="relative">
-            <MessageSquare className="w-8 h-8 text-background group-hover:scale-110 transition-transform" />
-            <div className="absolute -top-1 -right-1 w-3 h-3 bg-accent rounded-full border-2 border-primary animate-pulse" />
+          <div className="relative flex items-center justify-center">
+            <Sparkles className="w-6 h-6 text-primary group-hover:text-accent transition-colors" />
+            <div className="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
           </div>
         )}
       </button>
 
-      {/* Chat Panel */}
+      {/* Chat Panel - Redesigned to be less "AI coded" and more "Harpa Studio" */}
       {isOpen && (
-        <div className="absolute bottom-20 right-0 w-[90vw] sm:w-[400px] h-[600px] max-h-[70vh] bg-card border border-white/10 rounded-[2.5rem] shadow-2xl flex flex-col overflow-hidden animate-in slide-in-from-bottom-4 fade-in duration-300">
+        <div className="absolute bottom-20 right-0 w-[calc(100vw-4rem)] sm:w-[420px] h-[650px] max-h-[80vh] bg-card border border-white/10 rounded-[2.5rem] shadow-[0_30px_100px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden animate-in slide-in-from-bottom-8 fade-in duration-500 backdrop-blur-3xl">
           {/* Header */}
-          <div className="bg-background/80 backdrop-blur-md p-6 border-b border-white/5 flex items-center gap-4">
-            <div className="w-12 h-12 bg-accent/20 rounded-2xl flex items-center justify-center">
-              <Sparkles className="w-6 h-6 text-accent" />
+          <div className="p-8 border-b border-white/5 flex items-center justify-between">
+            <div className="flex items-center gap-5">
+              <div className="relative">
+                <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center border border-primary/20">
+                  <span className="font-headline italic text-2xl text-primary">H*</span>
+                </div>
+                <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-accent rounded-full border-2 border-card" />
+              </div>
+              <div>
+                <h3 className="font-headline italic text-2xl tracking-tight text-foreground">Creative Assistant</h3>
+                <p className="text-[9px] text-primary uppercase tracking-[0.3em] font-bold opacity-50">Experimental AI Node</p>
+              </div>
             </div>
-            <div>
-              <h3 className="font-headline italic text-xl">Harpa Assistant</h3>
-              <p className="text-[10px] text-foreground/40 uppercase tracking-widest font-bold">Smart Critiques & Concepts</p>
-            </div>
+            <button onClick={() => setIsOpen(false)} className="text-foreground/20 hover:text-primary transition-colors">
+              <X className="w-5 h-5" />
+            </button>
           </div>
 
           {/* Messages */}
-          <ScrollArea className="flex-1 p-6">
-            <div className="space-y-6">
+          <ScrollArea className="flex-1 px-8 py-6 hide-scrollbar">
+            <div className="space-y-8">
               {messages.map((msg, i) => (
                 <div
                   key={i}
                   className={cn(
-                    "flex flex-col max-w-[85%] animate-in fade-in duration-500",
+                    "flex flex-col max-w-[90%] animate-in fade-in slide-in-from-bottom-2 duration-700",
                     msg.role === 'user' ? "ml-auto items-end" : "items-start"
                   )}
                 >
                   <div
                     className={cn(
-                      "px-5 py-3 rounded-2xl text-sm leading-relaxed",
+                      "text-sm leading-relaxed tracking-tight",
                       msg.role === 'user'
-                        ? "bg-primary text-background font-medium rounded-tr-none"
-                        : "bg-background border border-white/5 rounded-tl-none text-foreground/80"
+                        ? "bg-primary text-background px-5 py-3 rounded-2xl rounded-tr-none font-medium"
+                        : "text-foreground/70 pl-0 pr-6"
                     )}
                   >
+                    {msg.role === 'assistant' && (
+                      <span className="text-[10px] uppercase tracking-widest font-bold text-accent mb-2 block">Harpa System</span>
+                    )}
                     {msg.content}
                   </div>
                 </div>
               ))}
               {isLoading && (
-                <div className="flex items-center gap-2 text-foreground/40 animate-pulse">
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  <span className="text-xs uppercase tracking-widest font-bold">Analyzing concepts...</span>
+                <div className="flex items-center gap-3 text-accent/60">
+                  <div className="flex gap-1">
+                    <div className="w-1 h-1 bg-accent rounded-full animate-bounce [animation-delay:-0.3s]" />
+                    <div className="w-1 h-1 bg-accent rounded-full animate-bounce [animation-delay:-0.15s]" />
+                    <div className="w-1 h-1 bg-accent rounded-full animate-bounce" />
+                  </div>
+                  <span className="text-[10px] uppercase tracking-[0.3em] font-bold">Synthesizing vision...</span>
                 </div>
               )}
               <div ref={scrollRef} />
             </div>
           </ScrollArea>
 
-          {/* Input */}
-          <form onSubmit={handleSubmit} className="p-6 bg-background/50 border-t border-white/5">
-            <div className="relative flex items-center gap-3">
+          {/* Input Area */}
+          <div className="p-8 bg-background/40 backdrop-blur-md border-t border-white/5">
+            <form onSubmit={handleSubmit} className="relative flex items-center group">
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask about project concepts..."
-                className="bg-card border-white/10 rounded-2xl h-12 pr-12 focus:ring-accent"
+                placeholder="Describe your project vision..."
+                className="bg-secondary/50 border-white/5 rounded-2xl h-14 pl-6 pr-14 focus:ring-accent focus:border-accent/50 transition-all text-sm placeholder:text-foreground/20"
               />
               <Button
                 type="submit"
                 size="icon"
                 disabled={!input.trim() || isLoading}
-                className="absolute right-1.5 top-1.5 w-9 h-9 bg-accent hover:bg-accent/90 rounded-xl transition-all"
+                className={cn(
+                  "absolute right-2 w-10 h-10 rounded-xl transition-all duration-500",
+                  input.trim() ? "bg-accent hover:bg-accent/80 scale-100" : "bg-white/5 scale-90 opacity-20"
+                )}
               >
                 <Send className="w-4 h-4 text-white" />
               </Button>
-            </div>
-          </form>
+            </form>
+            <p className="text-[8px] text-center mt-4 uppercase tracking-[0.2em] text-foreground/20">
+              Harpa Studio AI Collective — Optimized for High-End Visual Narrative
+            </p>
+          </div>
         </div>
       )}
     </div>

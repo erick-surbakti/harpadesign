@@ -2,6 +2,7 @@
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
+import { Chatbot } from '@/components/Chatbot';
 
 export const metadata: Metadata = {
   title: 'Harpa | Harpa Creative Studio',
@@ -23,6 +24,7 @@ export default function RootLayout({
       <body className="font-body antialiased min-h-screen relative overflow-x-hidden">
         <div className="noise-overlay" />
         {children}
+        <Chatbot />
         <Toaster />
       </body>
     </html>
