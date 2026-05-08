@@ -31,42 +31,39 @@ body::before{
 }
 
 /* nav */
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:20px 32px;background:var(--bg);border-bottom:1px solid transparent;transition:border-color .3s}
-.nav.scrolled{border-color:var(--line);background:rgba(250,250,248,.98);backdrop-filter:blur(10px)}
-.brand{font-family:'Bodoni Moda',serif;font-size:20px;letter-spacing:.3px;font-weight:700;display:flex;align-items:center;gap:12px}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:20px 32px;background:transparent;border-bottom:none;transition:all .3s}
+.nav.scrolled{background:rgba(250,250,248,.98);border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}
+.brand{font-family:'Bodoni Moda',serif;font-size:20px;letter-spacing:.3px;font-weight:700;display:flex;align-items:center;gap:12px;color:rgba(26,25,24,.8);transition:color .3s}
+.nav.scrolled .brand{color:var(--text)}
 .brand .accent{color:var(--accent)}
-.nav ul{display:flex;gap:40px;list-style:none;font-size:12px;color:var(--mute);letter-spacing:.05em;text-transform:uppercase;font-weight:500}
+.nav ul{display:flex;gap:40px;list-style:none;font-size:12px;color:rgba(122,122,118,.6);letter-spacing:.05em;text-transform:uppercase;font-weight:500;transition:color .3s}
+.nav.scrolled ul{color:var(--mute)}
 .nav ul a{transition:color .25s;cursor:pointer}
 .nav ul a:hover{color:var(--text)}
-.cta{font-size:11px;letter-spacing:.1em;text-transform:uppercase;border:1.5px solid var(--text);padding:10px 18px;border-radius:0;transition:.3s;font-weight:600;cursor:pointer}
+.cta{font-size:11px;letter-spacing:.1em;text-transform:uppercase;border:1.5px solid rgba(26,25,24,.3);padding:10px 18px;border-radius:0;transition:.3s;font-weight:600;cursor:pointer;color:rgba(26,25,24,.6)}
+.nav.scrolled .cta{border-color:var(--text);color:var(--text)}
 .cta:hover{background:var(--text);color:var(--bg);border-color:var(--text)}
 @media(max-width:780px){.nav ul{display:none}.nav{padding:16px 20px}.brand{font-size:18px}}
 
 /* HERO / MACBOOK SCROLL STAGE */
-.stage{position:relative;height:380vh}
-.sticky{position:sticky;top:0;height:100vh;overflow:hidden;perspective:1400px;background:var(--bg)}
+.stage{position:relative;height:500vh}
+.sticky{position:sticky;top:0;height:100vh;overflow:hidden;perspective:1200px;background:var(--bg)}
 
-.headline{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;z-index:10;pointer-events:none;width:min(900px,92vw);opacity:1;transition:opacity .2s}
-.kicker{font-size:12px;letter-spacing:.2em;color:var(--accent);text-transform:uppercase;margin-bottom:18px;font-weight:600}
-.h1{font-family:'Bodoni Moda',serif;font-size:clamp(52px,10vw,110px);line-height:1.1;letter-spacing:-.02em}
-.h1 .accent{color:var(--accent)}
-.sub{margin-top:20px;color:var(--mute);font-size:14px;letter-spacing:.03em;max-width:580px;margin-left:auto;margin-right:auto;font-weight:400}
-
-.scrollHint{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);font-size:11px;letter-spacing:.2em;color:var(--mute);text-transform:uppercase;z-index:11}
-.scrollHint::after{content:"";display:block;width:1px;height:28px;background:linear-gradient(var(--mute),transparent);margin:12px auto 0;animation:scroll-down 2s infinite}
+.scrollHint{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);font-size:11px;letter-spacing:.2em;color:rgba(122,122,118,.5);text-transform:uppercase;z-index:11;pointer-events:none}
+.scrollHint::after{content:"";display:block;width:1px;height:28px;background:linear-gradient(rgba(122,122,118,.5),transparent);margin:12px auto 0;animation:scroll-down 2s infinite}
 @keyframes scroll-down{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
-/* MacBook */
-.macWrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:5;will-change:transform;perspective:1200px}
-.mac{position:relative;width:min(850px,84vw);transform-style:preserve-3d;will-change:transform}
+/* MacBook Container */
+.macWrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:5;will-change:transform,opacity;perspective:1200px;opacity:1;transition:opacity .4s}
+.mac{position:relative;width:min(900px,88vw);transform-style:preserve-3d;will-change:transform}
 .lid{position:relative;width:100%;aspect-ratio:16/10;transform-origin:50% 100%;transform-style:preserve-3d;will-change:transform;
-  border-radius:14px 14px 4px 4px;
+  border-radius:16px 16px 4px 4px;
   background:linear-gradient(180deg,#1f1f23,#0f0f13);
-  box-shadow:0 40px 100px rgba(0,0,0,.4),0 0 0 1px rgba(255,255,255,.06);
+  box-shadow:0 50px 120px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.06);
 }
-.bezel{position:absolute;inset:12px;border-radius:8px;background:#0a0a0d;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
-.notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:110px;height:16px;background:#0a0a0d;border-radius:0 0 8px 8px;z-index:5;opacity:1;transition:opacity .3s}
-.notch::after{content:"";position:absolute;top:4px;left:50%;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:#0f0f13}
+.bezel{position:absolute;inset:14px;border-radius:10px;background:#0a0a0d;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:120px;height:18px;background:#0a0a0d;border-radius:0 0 10px 10px;z-index:5;opacity:1;transition:opacity .3s}
+.notch::after{content:"";position:absolute;top:5px;left:50%;transform:translateX(-50%);width:6px;height:6px;border-radius:50%;background:#0f0f13}
 
 .screen{position:absolute;inset:0;background:#fafaf8;will-change:transform,opacity;overflow:hidden}
 
@@ -96,16 +93,19 @@ body::before{
 .ticker .accent{color:var(--accent)}
 
 /* base + keyboard */
-.base{position:relative;width:104%;left:-2%;height:18px;margin-top:-1px;
+.base{position:relative;width:104%;left:-2%;height:20px;margin-top:-1px;
   background:linear-gradient(180deg,#1f1f23,#0c0c10);
-  border-radius:0 0 16px 16px;
-  box-shadow:0 40px 80px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.04);
+  border-radius:0 0 18px 18px;
+  box-shadow:0 50px 100px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.04);
+  opacity:1;transition:opacity .3s;will-change:opacity;
 }
-.base::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:16%;height:5px;background:#0a0a0d;border-radius:0 0 6px 6px}
-.shadow{position:absolute;left:8%;right:8%;bottom:-25px;height:35px;background:radial-gradient(50% 100% at 50% 0%,rgba(0,0,0,.5),transparent);filter:blur(8px)}
+.base::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:18%;height:6px;background:#0a0a0d;border-radius:0 0 8px 8px}
+.shadow{position:absolute;left:8%;right:8%;bottom:-30px;height:40px;background:radial-gradient(50% 100% at 50% 0%,rgba(0,0,0,.6),transparent);filter:blur(8px);opacity:1;transition:opacity .3s;will-change:opacity}
 
 /* SECTIONS BELOW */
-section.block{position:relative;padding:140px 32px;border-top:1px solid var(--line);z-index:5}
+section.block{position:relative;padding:140px 32px;border-top:1px solid var(--line);z-index:5;background:var(--bg);opacity:0;transform:translateY(40px);transition:opacity .8s ease, transform .8s ease}
+section.block.visible{opacity:1;transform:translateY(0)}
+
 .sectionLabel{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;font-weight:600}
 .bigType{font-family:'Bodoni Moda',serif;font-size:clamp(48px,8vw,100px);line-height:1.1;letter-spacing:-.02em;max-width:1000px}
 .bigType .accent{color:var(--accent)}
@@ -147,7 +147,8 @@ section.block{position:relative;padding:140px 32px;border-top:1px solid var(--li
 .service p{color:var(--mute);font-size:13px;line-height:1.7;max-width:340px}
 
 /* footer */
-footer{padding:100px 32px 40px;border-top:1px solid var(--line);text-align:center}
+footer{padding:100px 32px 40px;border-top:1px solid var(--line);text-align:center;background:var(--bg);opacity:0;transform:translateY(40px);transition:opacity .8s ease, transform .8s ease}
+footer.visible{opacity:1;transform:translateY(0)}
 footer .big{font-family:'Bodoni Moda',serif;font-size:clamp(60px,12vw,140px);line-height:1.05;letter-spacing:-.02em;margin-bottom:32px}
 footer .big .accent{color:var(--accent)}
 footer .contact{font-size:13px;color:var(--mute);margin-bottom:28px}
@@ -175,13 +176,7 @@ body{scroll-behavior:smooth}
 
 <!-- MACBOOK SCROLL STAGE -->
 <div class="stage" id="stage">
-  <div class="sticky">
-    <div class="headline" id="headline">
-      <div class="kicker">Harpa Design Studio · Est. 2018</div>
-      <h1 class="h1">Editorial design for <span class="accent">culture</span> & craft.</h1>
-      <p class="sub">Posters, printed matter, and art direction for galleries, fashion houses, music labels and cultural institutions.</p>
-    </div>
-
+  <div class="sticky" id="sticky">
     <div class="macWrap" id="macWrap">
       <div class="mac" id="mac">
         <div class="lid" id="lid">
@@ -214,8 +209,8 @@ body{scroll-behavior:smooth}
             </div>
           </div>
         </div>
-        <div class="base"></div>
-        <div class="shadow"></div>
+        <div class="base" id="base"></div>
+        <div class="shadow" id="shadow"></div>
       </div>
     </div>
 
@@ -343,12 +338,14 @@ window.addEventListener('scroll', () => {
 
 // MacBook scroll choreography
 const stage = document.getElementById('stage');
+const sticky = document.getElementById('sticky');
 const lid = document.getElementById('lid');
 const mac = document.getElementById('mac');
 const macWrap = document.getElementById('macWrap');
 const site = document.getElementById('site');
-const headline = document.getElementById('headline');
 const notch = document.getElementById('notch');
+const base = document.getElementById('base');
+const shadow = document.getElementById('shadow');
 
 let mx = 0, my = 0, smx = 0, smy = 0;
 window.addEventListener('pointermove', (e) => {
@@ -359,7 +356,7 @@ window.addEventListener('pointermove', (e) => {
 function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
 function lerp(a, b, t) { return a + (b - a) * t; }
 function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
-function easeIn(t) { return t * t; }
+function easeInOut(t) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
 
 function tick() {
   smx += (mx - smx) * 0.08;
@@ -369,59 +366,69 @@ function tick() {
   const total = rect.height - innerHeight;
   const p = clamp(-rect.top / total, 0, 1);
 
-  // Phase 1: Lid opens (0.00 - 0.35)
-  const openP = clamp(p / 0.35, 0, 1);
-  const lidAngle = lerp(-90, 0, easeOut(openP));
+  // PHASE 1: Laptop starts OPEN (0.00 - 0.20) - slight parallax, stable
+  const stableP = clamp(p / 0.20, 0, 1);
+  let lidAngle = 0; // stays open
+  
+  // PHASE 2: Laptop CLOSES (0.20 - 0.50) - lid rotates from 0 to -90
+  const closeP = clamp((p - 0.20) / 0.30, 0, 1);
+  if (closeP > 0) {
+    lidAngle = lerp(0, -90, easeInOut(closeP));
+  }
+  
+  // PHASE 3: Laptop FLATTENS & shrinks (0.50 - 0.75) - goes flat, fades away
+  const flatP = clamp((p - 0.50) / 0.25, 0, 1);
+  const macScale = lerp(1, 0.3, easeInOut(flatP));
+  const macOpacity = 1 - clamp((p - 0.65) / 0.15, 0, 1);
+  const macY = lerp(0, 200, flatP);
 
-  // Phase 2: Mac scales & tilts (0.35 - 0.65)
-  const tiltP = clamp((p - 0.30) / 0.30, 0, 1);
-  const macScale = lerp(1, 1.22, tiltP);
-  const macTiltX = lerp(8, 0, tiltP);
-  const macRotY = lerp(-8, 0, tiltP) + smx * 6 * (1 - tiltP * 0.6);
-  const macRotXmouse = -smy * 4 * (1 - tiltP * 0.6);
+  // Mouse parallax on posters (reduce intensity as we close)
+  const parallaxFade = 1 - clamp(p / 0.50, 0, 1);
+  const rotY = smx * 6 * parallaxFade;
+  const rotXmouse = -smy * 4 * parallaxFade;
 
-  // Phase 3: Site expands (0.65 - 1.00)
-  const expP = clamp((p - 0.60) / 0.38, 0, 1);
-  const siteScale = lerp(1, 4.2, easeIn(expP));
-  site.style.transform = `scale(${siteScale})`;
-  site.style.transformOrigin = '50% 45%';
-
-  // Headline fade & move
-  headline.style.opacity = 1 - clamp(p / 0.18, 0, 1);
-  headline.style.transform = `translate(-50%,-50%) translateY(${-p * 100}px)`;
-
-  // Chrome fade
-  const chromeOpacity = 1 - clamp((p - 0.78) / 0.18, 0, 1);
-  lid.style.boxShadow = `0 ${40 * chromeOpacity}px ${100 * chromeOpacity}px rgba(0,0,0,${0.4 * chromeOpacity}),0 0 0 1px rgba(255,255,255,${0.06 * chromeOpacity})`;
-  document.querySelector('.base').style.opacity = chromeOpacity;
-  document.querySelector('.shadow').style.opacity = chromeOpacity;
-  notch.style.opacity = chromeOpacity;
-
+  // Update lid
   lid.style.transform = `rotateX(${lidAngle}deg)`;
-  mac.style.transform = `translateZ(0) scale(${macScale}) rotateX(${macTiltX + macRotXmouse}deg) rotateY(${macRotY}deg)`;
+  
+  // Update mac wrapper
+  mac.style.transform = `translateZ(0) scale(${macScale}) rotateY(${rotY}deg) rotateX(${rotXmouse}deg) translateY(${macY}px)`;
+  macWrap.style.opacity = macOpacity;
+  
+  // Fade out hardware (notch, base, shadow)
+  const hardwareOpacity = 1 - clamp((p - 0.60) / 0.15, 0, 1);
+  notch.style.opacity = hardwareOpacity;
+  base.style.opacity = hardwareOpacity;
+  shadow.style.opacity = hardwareOpacity;
 
   requestAnimationFrame(tick);
 }
 tick();
 
-// Reveal sections
-const io = new IntersectionObserver((entries) => {
+// Reveal sections as they come into view
+const sectionObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
-      entry.target.style.opacity = '1';
-      entry.target.style.transform = 'translateY(0)';
+      entry.target.classList.add('visible');
     }
   });
 }, { threshold: 0.1 });
 
-document.querySelectorAll('section.block, footer').forEach((el) => {
-  el.style.opacity = '0';
-  el.style.transform = 'translateY(40px)';
-  el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-  io.observe(el);
+document.querySelectorAll('section.block').forEach((el) => {
+  sectionObserver.observe(el);
 });
 
-// Poster parallax
+// Footer reveal
+const footer = document.getElementById('contact');
+const footerObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      footer.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+footerObserver.observe(footer);
+
+// Poster parallax inside mac
 const posters = document.querySelectorAll('.poster');
 function postLoop() {
   posters.forEach((p, i) => {
