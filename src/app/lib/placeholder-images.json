@@ -1,0 +1,53 @@
+
+{
+  "placeholderImages": [
+    {
+      "id": "hero-video",
+      "description": "Cinematic studio background video",
+      "imageUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_170732_8a9ccda6-5cff-4628-b164-059c500a2b41.mp4",
+      "imageHint": "cinematic filmmaking"
+    },
+    {
+      "id": "feature-video-1",
+      "description": "Creative canvas abstract video",
+      "imageUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260406_133058_0504132a-0cf3-4450-a370-8ea3b05c95d4.mp4",
+      "imageHint": "abstract motion"
+    },
+    {
+      "id": "feature-icon-1",
+      "description": "Storyboard planning icon",
+      "imageUrl": "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=800&q=80",
+      "imageHint": "storyboard planning"
+    },
+    {
+      "id": "feature-icon-2",
+      "description": "Smart critiques analysis icon",
+      "imageUrl": "https://images.unsplash.com/photo-1542744094-3a31f272c490?w=800&q=80",
+      "imageHint": "data analysis"
+    },
+    {
+      "id": "feature-icon-3",
+      "description": "Immersion capsule focus icon",
+      "imageUrl": "https://images.unsplash.com/photo-1516383274235-5f42d6c6426d?w=800&q=80",
+      "imageHint": "minimalist workspace"
+    },
+    {
+      "id": "portfolio-posters",
+      "description": "Experimental poster design",
+      "imageUrl": "https://picsum.photos/seed/harpa1/800/1200",
+      "imageHint": "poster design"
+    },
+    {
+      "id": "portfolio-album",
+      "description": "Minimalist album cover",
+      "imageUrl": "https://picsum.photos/seed/harpa2/800/800",
+      "imageHint": "album cover"
+    },
+    {
+      "id": "portfolio-motion",
+      "description": "Motion graphics study",
+      "imageUrl": "https://picsum.photos/seed/harpa3/1200/800",
+      "imageHint": "motion graphics"
+    }
+  ]
+}
