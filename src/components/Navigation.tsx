@@ -88,7 +88,7 @@ export function Navigation() {
               </SheetClose>
             </div>
             
-            <div className="flex-1 px-10 py-12 flex flex-col justify-center gap-10">
+            <div className="flex-1 overflow-y-auto px-10 py-12 flex flex-col gap-10">
               {NAV_ITEMS.map((item) => (
                 <SheetClose asChild key={item.name}>
                   <Link
