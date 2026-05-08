@@ -39,7 +39,10 @@ export function Hero() {
                 A worldwide network of visual artists, filmmakers and storytellers bound not by place, status or labels but by passion and hunger to unlock potential.
               </p>
               
-              <button className="group flex items-center justify-between bg-primary text-primary-foreground w-fit pr-1.5 pl-6 py-1.5 rounded-full gap-4 transition-all hover:gap-8 hover:bg-primary/90">
+              <button 
+                suppressHydrationWarning
+                className="group flex items-center justify-between bg-primary text-primary-foreground w-fit pr-1.5 pl-6 py-1.5 rounded-full gap-4 transition-all hover:gap-8 hover:bg-primary/90"
+              >
                 <span className="font-bold tracking-tight text-sm md:text-base">Join the lab</span>
                 <div className="bg-background rounded-full w-10 h-10 md:w-12 md:h-12 flex items-center justify-center transition-transform group-hover:scale-110">
                   <ArrowRight className="text-primary w-5 h-5" />
