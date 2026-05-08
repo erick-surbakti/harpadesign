@@ -2,7 +2,6 @@
 
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const LAB_EXPERIMENTS = [
   { title: "Visual Experiments", img: "https://picsum.photos/seed/lab1/800/800" },
@@ -42,7 +41,10 @@ export default function LabPage() {
           <p className="text-foreground/40 text-lg mb-12 max-w-2xl mx-auto">
             Glimpses into the future of Harpa's creative trajectory. Projects in development and raw ideas.
           </p>
-          <button className="bg-primary text-background px-10 py-4 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-primary/90 transition-all">
+          <button 
+            suppressHydrationWarning
+            className="bg-primary text-background px-10 py-4 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-primary/90 transition-all"
+          >
             Enter Playground
           </button>
         </section>

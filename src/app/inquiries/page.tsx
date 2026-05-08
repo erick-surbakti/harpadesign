@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Navigation } from '@/components/Navigation';
@@ -33,22 +32,22 @@ export default function InquiriesPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-[9px] uppercase tracking-[0.3em] font-bold text-foreground/40 ml-1">Identity</label>
-                    <Input placeholder="Full Name" className="bg-background/50 border-white/10 rounded-2xl h-16 px-6" />
+                    <Input suppressHydrationWarning placeholder="Full Name" className="bg-background/50 border-white/10 rounded-2xl h-16 px-6" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[9px] uppercase tracking-[0.3em] font-bold text-foreground/40 ml-1">Terminal</label>
-                    <Input placeholder="Email Address" className="bg-background/50 border-white/10 rounded-2xl h-16 px-6" />
+                    <Input suppressHydrationWarning placeholder="Email Address" className="bg-background/50 border-white/10 rounded-2xl h-16 px-6" />
                   </div>
                 </div>
                 <div className="space-y-2">
                   <label className="text-[9px] uppercase tracking-[0.3em] font-bold text-foreground/40 ml-1">Subject</label>
-                  <Input placeholder="Project Narrative Title" className="bg-background/50 border-white/10 rounded-2xl h-16 px-6" />
+                  <Input suppressHydrationWarning placeholder="Project Narrative Title" className="bg-background/50 border-white/10 rounded-2xl h-16 px-6" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-[9px] uppercase tracking-[0.3em] font-bold text-foreground/40 ml-1">Manifesto</label>
-                  <Textarea placeholder="Describe your vision, timeline, and the desired narrative impact..." className="bg-background/50 border-white/10 rounded-[2rem] min-h-[200px] p-8" />
+                  <Textarea suppressHydrationWarning placeholder="Describe your vision, timeline, and the desired narrative impact..." className="bg-background/50 border-white/10 rounded-[2rem] min-h-[200px] p-8" />
                 </div>
-                <Button className="w-full bg-primary text-background h-16 rounded-2xl font-bold uppercase tracking-[0.4em] text-[11px] hover:bg-accent transition-all duration-700 shadow-xl">
+                <Button suppressHydrationWarning className="w-full bg-primary text-background h-16 rounded-2xl font-bold uppercase tracking-[0.4em] text-[11px] hover:bg-accent transition-all duration-700 shadow-xl">
                   Transmit Proposal
                 </Button>
               </form>
@@ -84,6 +83,7 @@ export default function InquiriesPage() {
               </p>
               <Button 
                 variant="outline" 
+                suppressHydrationWarning
                 className="rounded-full px-12 border-white/10 hover:border-primary hover:text-primary uppercase tracking-[0.3em] text-[10px] font-bold h-14 transition-all"
               >
                 Access Neural Interface
