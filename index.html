@@ -3,20 +3,19 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Harpa Design Studio - Harry Prambudy</title>
+<title>Harpa Design Studio — Harry Prambudy</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Lora:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#f9f7f4;
-  --text:#0f0e0c;
-  --accent:#c73e3e;
-  --accent-light:#d85555;
-  --line:#e5ddd3;
-  --mute:#6b6560;
-  --dark-bg:#1a1816;
+  --bg:#faf8f5;
+  --text:#0d0c0a;
+  --accent:#b83a3a;
+  --accent-dark:#8b2a2a;
+  --line:#e8e3db;
+  --mute:#7a7570;
 }
 
 html,body{
@@ -31,7 +30,7 @@ html,body{
 html{scroll-behavior:smooth}
 a{color:inherit;text-decoration:none}
 
-/* ===== NAVIGATION ===== */
+/* ===== NAV ===== */
 nav{
   position:fixed;
   top:0;left:0;right:0;
@@ -39,9 +38,9 @@ nav{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:24px 48px;
+  padding:28px 48px;
   background:transparent;
-  transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+  transition:all 0.35s ease;
   opacity:0;
   pointer-events:none;
 }
@@ -49,17 +48,16 @@ nav{
 nav.visible{
   opacity:1;
   pointer-events:auto;
-  background:rgba(249,247,244,0.92);
-  backdrop-filter:blur(12px);
+  background:rgba(250,248,245,0.95);
+  backdrop-filter:blur(10px);
   border-bottom:1px solid var(--line);
-  box-shadow:0 2px 16px rgba(0,0,0,0.06);
 }
 
 .nav-brand{
   font-family:'Playfair Display',serif;
   font-size:20px;
   font-weight:700;
-  letter-spacing:0.8px;
+  letter-spacing:0.6px;
 }
 
 .nav-brand .accent{
@@ -70,27 +68,28 @@ nav ul{
   display:flex;
   gap:48px;
   list-style:none;
-  font-size:12px;
-  font-family:'Inter',sans-serif;
-  letter-spacing:1.5px;
+  font-size:10px;
+  font-family:'IBM Plex Mono',monospace;
+  letter-spacing:1.2px;
   text-transform:uppercase;
-  font-weight:500;
 }
 
 nav ul a{
   position:relative;
-  transition:color 0.3s;
+  transition:color 0.3s ease;
 }
 
 nav ul a::after{
   content:'';
   position:absolute;
-  bottom:-4px;
+  bottom:-6px;
   left:0;
-  width:0;
-  height:2px;
+  width:100%;
+  height:1px;
   background:var(--accent);
-  transition:width 0.3s;
+  transform:scaleX(0);
+  transform-origin:right;
+  transition:transform 0.3s ease;
 }
 
 nav ul a:hover{
@@ -98,7 +97,8 @@ nav ul a:hover{
 }
 
 nav ul a:hover::after{
-  width:100%;
+  transform:scaleX(1);
+  transform-origin:left;
 }
 
 /* ===== HERO FRAME ===== */
@@ -110,7 +110,7 @@ nav ul a:hover::after{
   display:flex;
   align-items:center;
   justify-content:center;
-  transition:opacity 0.4s;
+  transition:opacity 0.35s ease;
   will-change:opacity;
 }
 
@@ -120,45 +120,42 @@ nav ul a:hover::after{
 }
 
 .hero-content{
-  width:90vw;
-  height:90vh;
+  width:85vw;
+  height:85vh;
   border:4px solid #fff;
   display:flex;
-  flex-direction:column;
   align-items:center;
   justify-content:center;
   will-change:transform;
-  position:relative;
 }
 
 .hero-text{
   text-align:center;
   color:#fff;
   font-family:'Playfair Display',serif;
-  font-size:clamp(3.5rem,16vw,10rem);
+  font-size:clamp(3rem,15vw,9rem);
   font-weight:800;
   letter-spacing:-2px;
   line-height:1.05;
-  margin-bottom:20px;
 }
 
 .hero-text .subtitle{
   display:block;
-  font-size:0.18em;
-  font-family:'Inter',sans-serif;
-  letter-spacing:6px;
-  margin-top:1.5em;
-  font-weight:500;
+  font-size:0.2em;
+  font-family:'IBM Plex Mono',monospace;
+  letter-spacing:4px;
+  margin-top:1em;
+  font-weight:400;
   text-transform:uppercase;
-  opacity:0.7;
+  opacity:0.65;
 }
 
-.hero-text .designer-name{
+.hero-text .designer{
   display:block;
-  font-size:0.12em;
-  font-family:'IBM Plex Mono',monospace;
-  letter-spacing:2px;
-  margin-top:0.8em;
+  font-size:0.14em;
+  font-family:'Lora',serif;
+  letter-spacing:1px;
+  margin-top:0.6em;
   font-weight:400;
   opacity:0.5;
 }
@@ -184,7 +181,7 @@ nav ul a:hover::after{
 
 .laptop-container{
   position:relative;
-  width:min(1200px,92vw);
+  width:min(1100px,90vw);
   aspect-ratio:16/10;
   transform-style:preserve-3d;
   will-change:transform;
@@ -197,10 +194,10 @@ nav ul a:hover::after{
   left:0;
   right:0;
   bottom:0;
-  background:linear-gradient(180deg,#2d2d2a 0%,#1a1a16 100%);
-  border-radius:28px 28px 10px 10px;
+  background:linear-gradient(180deg,#2a2a28 0%,#1a1a18 100%);
+  border-radius:24px 24px 8px 8px;
   overflow:hidden;
-  box-shadow:0 120px 280px rgba(0,0,0,0.75),0 0 0 1px rgba(255,255,255,0.08);
+  box-shadow:0 100px 250px rgba(0,0,0,0.7),0 0 0 1px rgba(255,255,255,0.1);
   transform-style:preserve-3d;
   transform-origin:bottom center;
   will-change:transform;
@@ -208,13 +205,13 @@ nav ul a:hover::after{
 
 .macbook-notch{
   position:absolute;
-  top:22px;
+  top:18px;
   left:50%;
   transform:translateX(-50%);
-  width:200px;
-  height:28px;
-  background:#0a0a08;
-  border-radius:0 0 18px 18px;
+  width:160px;
+  height:24px;
+  background:#0d0d0b;
+  border-radius:0 0 16px 16px;
   z-index:20;
   will-change:opacity;
 }
@@ -222,22 +219,22 @@ nav ul a:hover::after{
 .macbook-notch::after{
   content:'';
   position:absolute;
-  top:10px;
+  top:8px;
   left:50%;
   transform:translateX(-50%);
-  width:12px;
-  height:12px;
-  background:#1a1a16;
+  width:10px;
+  height:10px;
+  background:#1a1a18;
   border-radius:50%;
 }
 
 .macbook-bezel{
   position:absolute;
-  inset:24px;
+  inset:20px;
   background:var(--bg);
-  border-radius:16px;
+  border-radius:14px;
   overflow:hidden;
-  box-shadow:inset 0 0 0 1px rgba(0,0,0,0.08);
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,0.1);
 }
 
 .screen{
@@ -245,25 +242,24 @@ nav ul a:hover::after{
   inset:0;
   display:flex;
   flex-direction:column;
-  padding:40px 56px;
+  padding:36px 48px;
   background:var(--bg);
-  overflow:hidden;
 }
 
 .screen-header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding-bottom:32px;
+  padding-bottom:28px;
   border-bottom:2px solid var(--line);
-  margin-bottom:48px;
+  margin-bottom:40px;
 }
 
 .screen-logo{
   font-family:'Playfair Display',serif;
-  font-size:18px;
+  font-size:16px;
   font-weight:700;
-  letter-spacing:0.6px;
+  letter-spacing:0.5px;
 }
 
 .screen-logo .accent{
@@ -272,30 +268,29 @@ nav ul a:hover::after{
 
 .screen-nav{
   display:flex;
-  gap:48px;
-  font-size:11px;
-  font-family:'Inter',sans-serif;
-  letter-spacing:1.8px;
+  gap:40px;
+  font-size:10px;
+  font-family:'IBM Plex Mono',monospace;
+  letter-spacing:1.5px;
   text-transform:uppercase;
   color:var(--mute);
-  font-weight:500;
 }
 
 .screen-hero{
   flex:1;
   display:grid;
-  grid-template-columns:1.4fr 0.6fr;
-  gap:72px;
+  grid-template-columns:1.3fr 0.7fr;
+  gap:60px;
   align-items:center;
 }
 
 .hero-left h1{
   font-family:'Playfair Display',serif;
-  font-size:clamp(2.2rem,5.5vw,3.6rem);
+  font-size:clamp(2rem,5vw,3.2rem);
   font-weight:800;
   line-height:1.2;
-  letter-spacing:-0.8px;
-  margin-bottom:24px;
+  letter-spacing:-1px;
+  margin-bottom:20px;
 }
 
 .hero-left h1 .accent{
@@ -303,93 +298,90 @@ nav ul a:hover::after{
 }
 
 .hero-left p{
-  font-size:12px;
+  font-size:11px;
   color:var(--mute);
-  line-height:1.8;
-  font-family:'Inter',sans-serif;
-  letter-spacing:0.4px;
-  max-width:340px;
-  font-weight:400;
+  line-height:1.7;
+  font-family:'IBM Plex Mono',monospace;
+  letter-spacing:0.5px;
+  max-width:320px;
 }
 
 .hero-right{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:14px;
+  gap:12px;
   height:100%;
   grid-auto-rows:1fr;
 }
 
 .work-box{
-  background:linear-gradient(135deg,#c73e3e,#7a2424);
-  border-radius:3px;
+  background:linear-gradient(135deg,#b83a3a,#6b2020);
+  border-radius:2px;
   overflow:hidden;
   display:flex;
   align-items:flex-end;
-  padding:16px;
-  font-size:10px;
+  padding:14px;
+  font-size:9px;
   color:#fff;
-  font-family:'Inter',sans-serif;
-  font-weight:600;
-  box-shadow:0 12px 28px rgba(199,62,62,0.2);
+  font-family:'IBM Plex Mono',monospace;
+  font-weight:500;
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
   text-transform:uppercase;
-  letter-spacing:0.6px;
-  transition:transform 0.3s,box-shadow 0.3s;
+  letter-spacing:0.5px;
+  transition:transform 0.3s ease;
 }
 
 .work-box:hover{
-  transform:translateY(-3px);
-  box-shadow:0 16px 36px rgba(199,62,62,0.28);
+  transform:translateY(-2px);
 }
 
 .work-box:nth-child(1){
   grid-row:span 2;
-  background:linear-gradient(135deg,#c73e3e,#6b1f1f);
+  background:linear-gradient(135deg,#b83a3a,#5b1515);
 }
 
 .work-box:nth-child(2){
-  background:linear-gradient(135deg,#e5a854,#a67c2e);
+  background:linear-gradient(135deg,#d4a574,#8b6b3a);
 }
 
 .work-box:nth-child(3){
-  background:linear-gradient(135deg,#3a3a36,#1a1a16);
+  background:linear-gradient(135deg,#2a2a28,#0d0d0b);
 }
 
 .screen-footer{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding-top:28px;
+  padding-top:24px;
   border-top:2px solid var(--line);
-  font-size:9px;
-  font-family:'Inter',sans-serif;
-  letter-spacing:1.2px;
+  font-size:8px;
+  font-family:'IBM Plex Mono',monospace;
+  letter-spacing:1px;
   text-transform:uppercase;
   color:var(--mute);
-  font-weight:500;
 }
 
 /* ===== LAPTOP BASE ===== */
 .macbook-base{
   position:absolute;
-  bottom:-28px;
+  bottom:-24px;
   left:0;
   right:0;
-  height:32px;
-  background:linear-gradient(180deg,#2d2d2a,#0a0a08);
-  border-radius:0 0 32px 32px;
-  box-shadow:0 50px 140px rgba(0,0,0,0.6);
+  height:28px;
+  background:linear-gradient(180deg,#2a2a28,#0d0d0b);
+  border-radius:0 0 28px 28px;
+  box-shadow:0 40px 120px rgba(0,0,0,0.5);
   will-change:opacity;
 }
 
 .laptop-shadow{
   position:absolute;
-  bottom:-80px;
-  left:3%;
-  right:3%;
-  height:70px;
-  background:radial-gradient(60% 100% at 50% 0%,rgba(0,0,0,0.65),transparent);
-  filter:blur(20px);
+  bottom:-70px;
+  left:5%;
+  right:5%;
+  height:60px;
+  background:radial-gradient(50% 100% at 50% 0%,rgba(0,0,0,0.6),transparent);
+  filter:blur(16px);
   will-change:opacity;
 }
 
@@ -398,15 +390,15 @@ nav ul a:hover::after{
   position:relative;
   z-index:10;
   background:var(--bg);
-  padding-top:240px;
+  padding-top:200px;
 }
 
 .section{
-  padding:140px 64px;
+  padding:120px 60px;
   border-top:1px solid var(--line);
   opacity:0;
-  transform:translateY(80px);
-  transition:opacity 0.9s ease, transform 0.9s ease;
+  transform:translateY(60px);
+  transition:opacity 0.8s ease, transform 0.8s ease;
 }
 
 .section.visible{
@@ -415,128 +407,204 @@ nav ul a:hover::after{
 }
 
 .section-label{
-  font-family:'Inter',sans-serif;
-  font-size:11px;
-  letter-spacing:2.4px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;
+  letter-spacing:2px;
   text-transform:uppercase;
   color:var(--accent);
-  margin-bottom:20px;
-  font-weight:700;
+  margin-bottom:16px;
+  font-weight:600;
 }
 
 .section h2{
   font-family:'Playfair Display',serif;
-  font-size:clamp(2.8rem,8.5vw,5rem);
+  font-size:clamp(2.5rem,8vw,4.5rem);
   font-weight:800;
   line-height:1.15;
-  letter-spacing:-0.8px;
-  margin-bottom:56px;
-  max-width:920px;
+  letter-spacing:-1px;
+  margin-bottom:48px;
+  max-width:900px;
 }
 
 .section h2 .accent{
   color:var(--accent);
 }
 
-/* ===== ABOUT SECTION ===== */
-#about{
-  background:var(--dark-bg);
-  color:#f9f7f4;
-}
-
-#about .section-label{
-  color:var(--accent-light);
-}
-
-#about .section h2{
-  color:#f9f7f4;
-}
-
-#about .section h2 .accent{
-  color:var(--accent-light);
-}
-
-.about-grid{
+/* ===== PORTFOLIO ===== */
+.projects-grid{
   display:grid;
-  grid-template-columns:1.2fr 0.8fr;
+  grid-template-columns:repeat(2,1fr);
+  gap:60px;
+  margin-top:80px;
+}
+
+@media(max-width:980px){
+  .projects-grid{grid-template-columns:1fr}
+}
+
+.project{
+  border-top:2px solid var(--line);
+  padding-top:40px;
+  transition:transform 0.3s ease;
+}
+
+.project:hover{
+  transform:translateY(-4px);
+}
+
+.project h3{
+  font-family:'Playfair Display',serif;
+  font-size:26px;
+  font-weight:700;
+  margin-bottom:12px;
+  letter-spacing:-0.5px;
+}
+
+.project-meta{
+  display:flex;
+  gap:20px;
+  font-size:9px;
+  font-family:'IBM Plex Mono',monospace;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--mute);
+  margin-bottom:20px;
+}
+
+.project p{
+  font-size:14px;
+  color:var(--mute);
+  line-height:1.8;
+  margin-bottom:28px;
+  max-width:520px;
+}
+
+.project-image{
+  width:100%;
+  aspect-ratio:4/3;
+  background:linear-gradient(135deg,#ebe8e2,#ddd6cd);
+  border-radius:2px;
+  margin-bottom:32px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--mute);
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  border:1px solid var(--line);
+  transition:all 0.3s ease;
+  overflow:hidden;
+}
+
+.project-image:hover{
+  background:linear-gradient(135deg,#ddd6cd,#ccc2b8);
+  border-color:var(--accent);
+}
+
+.project-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.project-specs{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:12px 32px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:8px;
+  margin-top:24px;
+  padding-top:24px;
+  border-top:1px solid var(--line);
+}
+
+.spec-label{
+  color:var(--mute);
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+  font-weight:600;
+  opacity:0.7;
+}
+
+.spec-value{
+  color:var(--text);
+  font-weight:500;
+}
+
+/* ===== ABOUT SECTION ===== */
+.about-container{
+  display:grid;
+  grid-template-columns:1.4fr 0.6fr;
   gap:80px;
   align-items:start;
   margin-top:60px;
 }
 
 .about-text{
-  font-size:16px;
-  color:#c9c0b6;
+  font-size:15px;
+  color:var(--mute);
   line-height:1.9;
-  max-width:680px;
+  max-width:700px;
 }
 
 .about-text p{
-  margin-bottom:28px;
-}
-
-.about-text strong{
-  color:#f9f7f4;
-  font-weight:600;
+  margin-bottom:24px;
 }
 
 .designer-card{
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:8px;
-  padding:40px;
-  backdrop-filter:blur(10px);
-  transition:all 0.4s;
+  background:rgba(184,58,58,0.05);
+  border:1px solid var(--line);
+  border-radius:3px;
+  padding:36px;
+  transition:all 0.3s ease;
 }
 
 .designer-card:hover{
-  background:rgba(255,255,255,0.08);
-  border-color:rgba(255,255,255,0.15);
+  background:rgba(184,58,58,0.08);
+  border-color:var(--accent);
 }
 
 .designer-photo{
   width:100%;
   aspect-ratio:3/4;
-  background:linear-gradient(135deg,rgba(199,62,62,0.2),rgba(100,100,100,0.2));
-  border-radius:6px;
+  background:linear-gradient(135deg,#e8e3db,#ddd6cd);
+  border-radius:2px;
   margin-bottom:24px;
   display:flex;
   align-items:center;
   justify-content:center;
-  color:#8a7f77;
-  font-family:'Inter',sans-serif;
-  font-size:13px;
-  border:1px dashed rgba(255,255,255,0.15);
+  color:var(--mute);
+  font-size:12px;
+  border:1px solid var(--line);
+  overflow:hidden;
 }
 
 .designer-photo img{
   width:100%;
   height:100%;
   object-fit:cover;
-  border-radius:6px;
 }
 
 .designer-name{
   font-family:'Playfair Display',serif;
-  font-size:24px;
+  font-size:22px;
   font-weight:700;
-  margin-bottom:8px;
-  color:#f9f7f4;
+  margin-bottom:6px;
 }
 
 .designer-title{
-  font-family:'Inter',sans-serif;
-  font-size:12px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9px;
   letter-spacing:1.5px;
   text-transform:uppercase;
-  color:var(--accent-light);
+  color:var(--accent);
   margin-bottom:16px;
   font-weight:600;
 }
 
 .designer-bio{
   font-size:13px;
-  color:#a89b8f;
+  color:var(--mute);
   line-height:1.7;
   margin-bottom:20px;
 }
@@ -546,167 +614,39 @@ nav ul a:hover::after{
   grid-template-columns:1fr 1fr;
   gap:16px;
   padding-top:20px;
-  border-top:1px solid rgba(255,255,255,0.08);
-}
-
-.stat{
-  font-size:11px;
-}
-
-.stat-value{
-  font-size:18px;
-  font-weight:700;
-  color:var(--accent-light);
-  margin-bottom:4px;
-  font-family:'Playfair Display',serif;
-}
-
-.stat-label{
-  font-family:'Inter',sans-serif;
-  text-transform:uppercase;
-  letter-spacing:0.8px;
-  font-size:9px;
-  color:#8a7f77;
-  font-weight:600;
-}
-
-/* ===== PORTFOLIO SECTION ===== */
-#portfolio{
-  background:var(--bg);
-}
-
-.projects-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:72px;
-  margin-top:80px;
-}
-
-@media(max-width:1024px){
-  .projects-grid{grid-template-columns:1fr}
-}
-
-.project{
-  border-top:2px solid var(--line);
-  padding-top:48px;
-  transition:transform 0.3s;
-}
-
-.project:hover{
-  transform:translateY(-4px);
-}
-
-.project h3{
-  font-family:'Playfair Display',serif;
-  font-size:28px;
-  font-weight:700;
-  margin-bottom:14px;
-  letter-spacing:-0.4px;
-  color:var(--text);
-}
-
-.project-meta{
-  display:flex;
-  gap:24px;
-  font-size:10px;
-  font-family:'Inter',sans-serif;
-  letter-spacing:1.2px;
-  text-transform:uppercase;
-  color:var(--mute);
-  margin-bottom:24px;
-  font-weight:600;
-}
-
-.project-meta span{
-  position:relative;
-  padding-bottom:4px;
-}
-
-.project-meta span:first-child::after{
-  content:'';
-  position:absolute;
-  bottom:0;
-  left:0;
-  width:100%;
-  height:2px;
-  background:var(--accent);
-  transform:scaleX(0);
-  transition:transform 0.3s;
-}
-
-.project:hover .project-meta span:first-child::after{
-  transform:scaleX(1);
-}
-
-.project p{
-  font-size:15px;
-  color:var(--mute);
-  line-height:1.85;
-  margin-bottom:32px;
-  max-width:560px;
-}
-
-.project-image{
-  width:100%;
-  aspect-ratio:4/3;
-  background:linear-gradient(135deg,#f0ede8,#e5ddd3);
-  border-radius:4px;
-  margin-bottom:32px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#8a8580;
-  font-family:'Inter',sans-serif;
-  font-size:13px;
-  border:1px solid var(--line);
-  transition:all 0.3s;
-}
-
-.project-image:hover{
-  background:linear-gradient(135deg,#ebe6e0,#ddd3c9);
-  border-color:var(--accent);
-}
-
-.project-image img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  border-radius:4px;
-}
-
-.project-specs{
-  display:grid;
-  grid-template-columns:auto 1fr;
-  gap:14px 36px;
-  font-family:'Inter',sans-serif;
-  font-size:11px;
-  margin-top:28px;
-  padding-top:28px;
   border-top:1px solid var(--line);
 }
 
-.spec-label{
-  color:var(--mute);
-  text-transform:uppercase;
-  letter-spacing:0.6px;
-  font-weight:700;
-  opacity:0.7;
+.stat{
+  text-align:center;
 }
 
-.spec-value{
-  color:var(--text);
-  font-weight:500;
+.stat-value{
+  font-family:'Playfair Display',serif;
+  font-size:20px;
+  font-weight:700;
+  color:var(--accent);
+  margin-bottom:4px;
+}
+
+.stat-label{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:8px;
+  text-transform:uppercase;
+  letter-spacing:0.8px;
+  color:var(--mute);
+  font-weight:600;
 }
 
 /* ===== FOOTER ===== */
 footer{
-  padding:160px 64px 80px;
+  padding:140px 60px 60px;
   border-top:2px solid var(--line);
   text-align:center;
   background:var(--bg);
   opacity:0;
-  transform:translateY(80px);
-  transition:opacity 0.9s ease, transform 0.9s ease;
+  transform:translateY(60px);
+  transition:opacity 0.8s ease, transform 0.8s ease;
 }
 
 footer.visible{
@@ -716,163 +656,86 @@ footer.visible{
 
 footer h2{
   font-family:'Playfair Display',serif;
-  font-size:clamp(3.2rem,11vw,5.5rem);
+  font-size:clamp(3rem,10vw,5rem);
   font-weight:800;
   line-height:1.1;
-  margin-bottom:40px;
-  letter-spacing:-0.8px;
+  margin-bottom:32px;
+  letter-spacing:-1px;
 }
 
 footer h2 .accent{
   color:var(--accent);
 }
 
-.contact-methods{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:40px;
-  margin:60px 0;
-  max-width:920px;
-  margin-left:auto;
-  margin-right:auto;
+.contact-info{
+  font-size:13px;
+  color:var(--mute);
+  margin-bottom:40px;
+  line-height:1.8;
 }
 
-.contact-method{
-  padding:32px;
-  background:rgba(199,62,62,0.04);
-  border:1px solid var(--line);
-  border-radius:6px;
-  transition:all 0.3s;
-}
-
-.contact-method:hover{
-  background:rgba(199,62,62,0.08);
-  border-color:var(--accent);
-  transform:translateY(-6px);
-}
-
-.contact-method-label{
-  font-family:'Inter',sans-serif;
-  font-size:10px;
-  letter-spacing:1.8px;
-  text-transform:uppercase;
-  color:var(--accent);
-  margin-bottom:12px;
-  font-weight:700;
-}
-
-.contact-method-value{
-  font-size:15px;
+.contact-info a{
   color:var(--text);
-  margin-bottom:12px;
-}
-
-.contact-method-value a{
-  color:var(--accent);
-  font-weight:600;
-  transition:opacity 0.3s;
   border-bottom:2px solid var(--accent);
+  transition:opacity 0.3s;
+  font-weight:600;
 }
 
-.contact-method-value a:hover{
-  opacity:0.7;
-}
-
-.footer-divider{
-  width:60px;
-  height:2px;
-  background:var(--accent);
-  margin:60px auto;
+.contact-info a:hover{
+  opacity:0.6;
 }
 
 .footer-links{
   display:flex;
   justify-content:center;
-  gap:48px;
-  font-size:11px;
-  font-family:'Inter',sans-serif;
-  letter-spacing:1.2px;
+  gap:40px;
+  font-size:10px;
+  font-family:'IBM Plex Mono',monospace;
+  letter-spacing:1px;
   text-transform:uppercase;
   color:var(--mute);
   margin-top:60px;
   flex-wrap:wrap;
-  font-weight:600;
 }
 
 .footer-links a{
   transition:color 0.3s;
-  position:relative;
-}
-
-.footer-links a::after{
-  content:'';
-  position:absolute;
-  bottom:-3px;
-  left:0;
-  width:0;
-  height:1px;
-  background:var(--accent);
-  transition:width 0.3s;
 }
 
 .footer-links a:hover{
   color:var(--accent);
 }
 
-.footer-links a:hover::after{
-  width:100%;
-}
-
-.footer-credit{
-  margin-top:40px;
-  padding-top:40px;
-  border-top:1px solid var(--line);
-  font-size:10px;
-  color:var(--mute);
-  font-family:'IBM Plex Mono',monospace;
-}
-
 /* ===== RESPONSIVE ===== */
-@media(max-width:1024px){
-  nav ul{gap:32px}
+@media(max-width:980px){
+  nav ul{gap:28px}
   .screen-hero{grid-template-columns:1fr}
-  .hero-right{grid-template-columns:1fr 1fr;height:auto;min-height:240px}
+  .hero-right{grid-template-columns:1fr 1fr;height:auto;min-height:200px}
   .work-box:nth-child(1){grid-row:span 1}
-  .about-grid{grid-template-columns:1fr;gap:60px}
-  .contact-methods{grid-template-columns:1fr;gap:24px}
+  .about-container{grid-template-columns:1fr;gap:60px}
 }
 
-@media(max-width:768px){
+@media(max-width:780px){
   nav ul{display:none}
-  nav{padding:18px 24px}
-  .section{padding:100px 28px}
-  .projects-grid{gap:48px}
-  .screen{padding:28px 32px}
-  .screen-header{padding-bottom:20px;margin-bottom:32px;flex-direction:column;align-items:flex-start;gap:14px}
-  .screen-nav{gap:20px}
+  nav{padding:20px 28px}
+  .section{padding:80px 24px}
+  .projects-grid{gap:40px}
+  .screen{padding:24px 28px}
+  .screen-header{padding-bottom:16px;margin-bottom:24px;flex-direction:column;align-items:flex-start;gap:12px}
+  .screen-nav{gap:16px;font-size:9px}
   .footer-links{flex-direction:column;gap:20px}
-  footer{padding:120px 28px 60px}
-  footer h2{font-size:clamp(2.5rem,9vw,4rem)}
-  .project-meta{flex-wrap:wrap}
-  .designer-card{padding:28px}
-}
-
-@media(max-width:480px){
-  .section{padding:80px 16px}
-  .screen{padding:20px 20px}
-  nav ul{display:none}
-  .contact-methods{padding:0 16px}
-  .footer-credit{font-size:8px}
+  footer{padding:100px 24px 50px}
+  .designer-card{padding:24px}
 }
 </style>
 </head>
 <body>
 
-<!-- ===== NAVIGATION ===== -->
+<!-- ===== NAV ===== -->
 <nav id="nav">
   <div class="nav-brand"><span class="accent">H</span>arpa</div>
   <ul>
-    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#work">Work</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -883,13 +746,13 @@ footer h2 .accent{
   <div class="hero-content" id="heroContent">
     <div class="hero-text" id="heroText">
       Harpa Design Studio
-      <div class="subtitle">Strategic Design & Visual Direction</div>
-      <div class="designer-name">By Harry Prambudy</div>
+      <div class="subtitle">Creative Direction</div>
+      <div class="designer">By Harry Prambudy</div>
     </div>
   </div>
 </div>
 
-<!-- ===== SCROLL STAGE (LAPTOP ANIMATION) ===== -->
+<!-- ===== SCROLL STAGE ===== -->
 <div class="scroll-stage" id="scrollStage">
   <div class="sticky-section" id="stickySection">
     <div class="laptop-container" id="laptopContainer">
@@ -900,16 +763,16 @@ footer h2 .accent{
             <div class="screen-header">
               <div class="screen-logo"><span class="accent">H</span>arpa</div>
               <div class="screen-nav">
-                <span>Portfolio</span>
-                <span>About</span>
+                <span>Work</span>
+                <span>Studio</span>
                 <span>Contact</span>
               </div>
             </div>
             
             <div class="screen-hero">
               <div class="hero-left">
-                <h1>Creative Excellence<br/>&amp; <span class="accent">Visual Impact</span></h1>
-                <p>Branding · Digital Design · Art Direction · Strategic Communication</p>
+                <h1>Visual Strategy<br/>&amp; <span class="accent">Brand Design</span></h1>
+                <p>Strategic branding · Identity systems · Art direction · Design for impact</p>
               </div>
               <div class="hero-right">
                 <div class="work-box">Global Brands</div>
@@ -919,7 +782,7 @@ footer h2 .accent{
             </div>
 
             <div class="screen-footer">
-              <span>● Active 2020—Present</span>
+              <span>● Since 2020</span>
               <span class="accent">Jakarta, Indonesia</span>
             </div>
           </div>
@@ -934,163 +797,139 @@ footer h2 .accent{
 <!-- ===== MAIN CONTENT ===== -->
 <div class="main-content">
 
-  <!-- ===== PORTFOLIO SECTION ===== -->
-  <section class="section" id="portfolio">
-    <div class="section-label">Featured Projects</div>
-    <h2>Transforming brands into <span class="accent">memorable experiences.</span></h2>
+  <!-- ===== PORTFOLIO ===== -->
+  <section class="section" id="work">
+    <div class="section-label">Featured Work</div>
+    <h2>Strategic design that <span class="accent">creates impact.</span></h2>
     
     <div class="projects-grid">
-      <!-- Project 1 -->
+      
+      <!-- PROJECT 1 -->
       <div class="project">
         <h3>BCA</h3>
-        <div class="project-meta"><span>Branding</span><span>Digital</span><span>2023</span></div>
-        <p>Comprehensive brand identity refresh for Indonesia's leading financial institution. Strategic redesign encompassing logo evolution, color palette modernization, and digital ecosystem standards.</p>
+        <div class="project-meta"><span>Branding</span><span>Identity</span><span>2023</span></div>
+        <p>Comprehensive brand identity and visual system for Indonesia's leading financial institution. Strategic direction across digital and print applications.</p>
         <div class="project-image">
-          <span>[BCA Project Image - Add Your Image Here]</span>
+          <span>Project Image Placeholder</span>
         </div>
         <div class="project-specs">
-          <span class="spec-label">Scope</span><span class="spec-value">Brand Identity · Digital Guidelines · Applications</span>
-          <span class="spec-label">Type</span><span class="spec-value">Custom Typeface + Brand System</span>
-          <span class="spec-label">Award</span><span class="spec-value">Best Financial Brand Design 2024</span>
+          <span class="spec-label">Scope</span><span class="spec-value">Complete Brand System</span>
+          <span class="spec-label">Type</span><span class="spec-value">Corporate Identity</span>
+          <span class="spec-label">Delivery</span><span class="spec-value">Full Brand Guidelines + Applications</span>
         </div>
       </div>
 
-      <!-- Project 2 -->
+      <!-- PROJECT 2 -->
       <div class="project">
         <h3>Danamon</h3>
         <div class="project-meta"><span>Campaign</span><span>Strategy</span><span>2024</span></div>
-        <p>Strategic campaign development for insurance sector leader. Complete visual language system with emphasis on trust, innovation, and customer-centric solutions across all touchpoints.</p>
+        <p>Strategic visual campaign and brand communication system for insurance leader. Cohesive design language across all customer touchpoints and communications.</p>
         <div class="project-image">
-          <span>[Danamon Project Image - Add Your Image Here]</span>
+          <span>Project Image Placeholder</span>
         </div>
         <div class="project-specs">
-          <span class="spec-label">Format</span><span class="spec-value">Campaign Identity · Print · Digital Assets</span>
-          <span class="spec-label">Type</span><span class="spec-value">Integrated Design System</span>
-          <span class="spec-label">Impact</span><span class="spec-value">+35% Brand Recognition Growth</span>
+          <span class="spec-label">Scope</span><span class="spec-value">Campaign Identity + Design System</span>
+          <span class="spec-label">Type</span><span class="spec-value">Integrated Campaign</span>
+          <span class="spec-label">Impact</span><span class="spec-value">Multi-channel Brand Communication</span>
         </div>
       </div>
 
-      <!-- Project 3 -->
+      <!-- PROJECT 3 -->
       <div class="project">
         <h3>Garuda Indonesia</h3>
-        <div class="project-meta"><span>Corporate Identity</span><span>Rebranding</span><span>2023</span></div>
-        <p>National carrier brand modernization project. Strategic visual direction balancing heritage with contemporary design standards, creating a cohesive experience across all customer touchpoints.</p>
+        <div class="project-meta"><span>Rebranding</span><span>Corporate</span><span>2023</span></div>
+        <p>National carrier visual identity modernization. Strategic design direction balancing heritage with contemporary standards across all operational touchpoints.</p>
         <div class="project-image">
-          <span>[Garuda Indonesia Project Image - Add Your Image Here]</span>
+          <span>Project Image Placeholder</span>
         </div>
         <div class="project-specs">
-          <span class="spec-label">Scope</span><span class="spec-label">Full Brand System · Signage · Digital</span>
-          <span class="spec-label">Type</span><span class="spec-value">Global Brand Identity</span>
-          <span class="spec-label">Scale</span><span class="spec-value">50+ Brand Applications</span>
+          <span class="spec-label">Scope</span><span class="spec-value">Full Brand Transformation</span>
+          <span class="spec-label">Type</span><span class="spec-value">Corporate Rebranding</span>
+          <span class="spec-label">Scale</span><span class="spec-value">Global Implementation</span>
         </div>
       </div>
 
-      <!-- Project 4 -->
+      <!-- PROJECT 4 (READY FOR YOUR PROJECT) -->
       <div class="project">
-        <h3>Premium Project</h3>
-        <div class="project-meta"><span>Luxury Brand</span><span>Design</span><span>2024</span></div>
-        <p>High-end brand development with emphasis on exclusivity and sophisticated visual communication. Comprehensive design system reflecting luxury positioning and premium market positioning.</p>
+        <h3>Your Project Here</h3>
+        <div class="project-meta"><span>Category</span><span>Type</span><span>Year</span></div>
+        <p>Add your project description here. Keep it focused and impactful. Highlight the strategic approach and key outcomes of your work.</p>
         <div class="project-image">
-          <span>[Your Project Image - Add Your Image Here]</span>
+          <span>Project Image Placeholder</span>
         </div>
         <div class="project-specs">
-          <span class="spec-label">Format</span><span class="spec-value">Complete Brand Suite</span>
-          <span class="spec-label">Type</span><span class="spec-value">Luxury Design System</span>
-          <span class="spec-label">Delivery</span><span class="spec-value">Premium Package with Full Support</span>
+          <span class="spec-label">Scope</span><span class="spec-value">Your Scope Here</span>
+          <span class="spec-label">Type</span><span class="spec-value">Project Type</span>
+          <span class="spec-label">Result</span><span class="spec-value">Key Achievement</span>
         </div>
       </div>
+
     </div>
   </section>
 
-  <!-- ===== ABOUT SECTION ===== -->
+  <!-- ===== ABOUT ===== -->
   <section class="section" id="about">
-    <div class="section-label">About The Studio</div>
-    <h2>Crafted with <span class="accent">precision</span> & purpose.</h2>
+    <div class="section-label">About</div>
+    <h2>Craft & <span class="accent">intention.</span></h2>
     
-    <div class="about-grid">
+    <div class="about-container">
       <div class="about-text">
-        <p><strong>Harpa Design Studio</strong> is a creative practice dedicated to transforming brand visions into powerful visual experiences. We specialize in strategic branding, design systems, and comprehensive visual direction for ambitious organizations.</p>
+        <p>Harpa Design Studio is a creative practice focused on strategic branding and visual direction. We work with ambitious brands and institutions to create meaningful visual communication that drives impact.</p>
         
-        <p>Our approach combines <strong>strategic thinking with meticulous craft</strong>. We don't just create designs—we build comprehensive systems that evolve with your brand's growth. From initial concept to full-scale implementation, we ensure every detail serves your brand's purpose.</p>
+        <p>Our approach combines strategic thinking with meticulous craft. We specialize in brand identity systems, digital design, and comprehensive visual solutions that evolve with your growth.</p>
         
-        <p>Based in <strong>Jakarta, Indonesia</strong>, we work with leading financial institutions, corporate brands, and innovative startups across Southeast Asia and beyond. We believe in creating work that matters—designs that communicate clearly, inspire action, and build lasting connections.</p>
-        
-        <p>Every project reflects our commitment to excellence: thoughtful strategy, meticulous typography, purposeful color systems, and beautiful execution across all applications.</p>
+        <p>Based in Jakarta, we collaborate with leading companies across Southeast Asia and beyond. We believe in creating work that matters—designs that communicate clearly, inspire action, and build lasting connections.</p>
       </div>
 
       <div class="designer-card">
         <div class="designer-photo">
           <!-- Image placeholder for Harry Prambudy -->
-          <span style="text-align:center;">Harry Prambudy<br/>Photo Coming Soon</span>
+          <span>Add Photo Here</span>
         </div>
         <div class="designer-name">Harry Prambudy</div>
-        <div class="designer-title">Founder & Creative Director</div>
-        <div class="designer-bio">Strategic designer with 12+ years of experience building iconic brands. Passionate about typography, systems thinking, and creating meaningful visual communication.</div>
+        <div class="designer-title">Creative Director</div>
+        <div class="designer-bio">Strategic designer passionate about brand identity, visual systems, and creating meaningful design solutions.</div>
         
         <div class="designer-stats">
           <div class="stat">
             <div class="stat-value">12+</div>
-            <div class="stat-label">Years Experience</div>
+            <div class="stat-label">Years</div>
           </div>
           <div class="stat">
             <div class="stat-value">50+</div>
-            <div class="stat-label">Projects Completed</div>
+            <div class="stat-label">Projects</div>
           </div>
           <div class="stat">
             <div class="stat-value">8</div>
-            <div class="stat-label">Awards Won</div>
+            <div class="stat-label">Awards</div>
           </div>
           <div class="stat">
             <div class="stat-value">100%</div>
-            <div class="stat-label">Client Satisfaction</div>
+            <div class="stat-label">Satisfied</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== CONTACT FOOTER ===== -->
+  <!-- ===== FOOTER ===== -->
   <footer id="contact">
-    <h2>Let's create<br/><span class="accent">something extraordinary.</span></h2>
-    
-    <div class="contact-methods">
-      <div class="contact-method">
-        <div class="contact-method-label">Email</div>
-        <div class="contact-method-value">
-          <a href="mailto:hello@harpastudio.com">hello@harpastudio.com</a>
-        </div>
-        <div style="font-size:11px;color:var(--mute);margin-top:12px;">Direct inquiries & project briefs</div>
-      </div>
-
-      <div class="contact-method">
-        <div class="contact-method-label">Location</div>
-        <div class="contact-method-value">Jakarta, Indonesia</div>
-        <div style="font-size:11px;color:var(--mute);margin-top:12px;">Available for in-person & remote projects</div>
-      </div>
-
-      <div class="contact-method">
-        <div class="contact-method-label">Availability</div>
-        <div class="contact-method-value">8-12 Weeks Lead</div>
-        <div style="font-size:11px;color:var(--mute);margin-top:12px;">Limited capacity for new clients</div>
-      </div>
+    <h2>Let's <span class="accent">work together.</span></h2>
+    <div class="contact-info">
+      Email: <a href="mailto:hello@harpastudio.com">hello@harpastudio.com</a><br/>
+      Based in Jakarta, Indonesia. Available for new projects.
     </div>
-
-    <div class="footer-divider"></div>
-
     <div class="footer-links">
-      <div><a href="mailto:hello@harpastudio.com">Get in Touch</a></div>
-      <div>·</div>
       <div><a href="#">Instagram</a></div>
       <div>·</div>
       <div><a href="#">LinkedIn</a></div>
       <div>·</div>
       <div><a href="#">Behance</a></div>
-    </div>
-
-    <div class="footer-credit">
-      © 2024–25 Harpa Design Studio. All rights reserved. | Harry Prambudy, Creative Director | Jakarta, Indonesia
+      <div>·</div>
+      <div>© 2024–25 Harpa</div>
     </div>
   </footer>
+
 </div>
 
 <!-- ===== JAVASCRIPT ===== -->
@@ -1123,7 +962,7 @@ window.addEventListener('scroll', () => {
 function updateAnimations() {
   const p = scrollProgress;
 
-  // === PHASE 1: Frame shrinks (0.00—0.30) ===
+  // PHASE 1: Frame shrinks (0.00—0.30)
   if (p <= 0.30) {
     const phase1 = p / 0.30;
     const eased = easeInOutCubic(phase1);
@@ -1131,26 +970,24 @@ function updateAnimations() {
     heroFrame.classList.remove('hidden');
     nav.classList.remove('visible');
     
-    // Shrink frame
     const scale = 1 - (eased * 0.55);
     heroContent.style.transform = `scale(${scale})`;
     heroContent.style.borderWidth = `${4 - eased * 2.5}px`;
     
-    // Fade text
     heroText.style.opacity = Math.max(0.2, 1 - eased * 0.8);
   } else {
     heroFrame.classList.add('hidden');
     if (p > 0.35) nav.classList.add('visible');
   }
 
-  // === PHASE 2: Lid closes (0.30—0.55) ===
+  // PHASE 2: Lid closes (0.30—0.55)
   const closeP = Math.max(0, Math.min((p - 0.30) / 0.25, 1));
   const closedEased = easeInOutCubic(closeP);
   const lidAngle = -90 * closedEased;
   macbookLid.style.transform = `rotateX(${lidAngle}deg)`;
   macbookNotch.style.opacity = 1 - closedEased * 0.4;
 
-  // === PHASE 3: Laptop lays flat (0.55—0.80) ===
+  // PHASE 3: Laptop lays flat (0.55—0.80)
   const flatP = Math.max(0, Math.min((p - 0.55) / 0.25, 1));
   const flatEased = easeInOutCubic(flatP);
   const rotX = -90 + (flatEased * 45);
@@ -1160,16 +997,14 @@ function updateAnimations() {
     laptopContainer.style.transform = `rotateX(${rotX}deg) translateY(${translateY}px)`;
   }
 
-  // === PHASE 4: Opens & zooms (0.80—1.00) ===
+  // PHASE 4: Opens & zooms (0.80—1.00)
   const zoomP = Math.max(0, Math.min((p - 0.80) / 0.20, 1));
   const zoomEased = easeInOutCubic(zoomP);
   
   if (zoomP > 0) {
-    // Open lid
     const openAngle = -90 + (zoomEased * 90);
     macbookLid.style.transform = `rotateX(${openAngle}deg)`;
     
-    // Zoom in
     const zoomScale = 1 + (zoomEased * 1.5);
     stickySection.style.transform = `scale(${zoomScale})`;
     stickySection.style.opacity = 1 - zoomEased * 0.3;
@@ -1186,7 +1021,7 @@ function easeInOutCubic(t) {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 }
 
-// Section reveals with intersection observer
+// Section reveals
 const sectionObs = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) e.target.classList.add('visible');
@@ -1203,7 +1038,7 @@ const footerObs = new IntersectionObserver((entries) => {
 
 footerObs.observe(document.querySelector('footer'));
 
-// Smooth scroll links
+// Smooth navigation links
 document.querySelectorAll('nav a').forEach(link => {
   link.addEventListener('click', (e) => {
     e.preventDefault();
@@ -1214,5 +1049,6 @@ document.querySelectorAll('nav a').forEach(link => {
   });
 });
 </script>
+
 </body>
 </html>
